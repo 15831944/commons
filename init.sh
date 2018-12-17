@@ -21,3 +21,7 @@ unzip nomad_0.8.6_linux_amd64-lxc.zip
 chmod +x nomad
 mv nomad /usr/bin/nomad
 rm -f nomad_0.8.6_linux_amd64-lxc.zip
+wget https://github.com/fabiolb/fabio/releases/download/v1.5.10/fabio-1.5.10-go1.11.1-linux_amd64
+chmod +x fabio-1.5.10-go1.11.1-linux_amd64
+mv fabio-1.5.10-go1.11.1-linux_amd64 /usr/bin/fabio
+rm -f fabio-1.5.10-go1.11.1-linux_amd64
