@@ -71,6 +71,7 @@
     <Compile Include="ADO\DbHelperSQLite.cs" />
     <Compile Include="ADO\DbHelperSQLP.cs" />
     <Compile Include="Chloe\MsSqlConnectionFactory.cs" />
+    <Compile Include="Chloe\NpgsqlConnectionFactory.cs" />
     <Compile Include="DBInfo.cs" />
     <Compile Include="Chloe\MySqlConnectionFactory.cs" />
     <Compile Include="Chloe\OracleConnectionFactory.cs" />
