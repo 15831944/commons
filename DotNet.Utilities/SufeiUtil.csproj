@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -33,6 +33,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\DotNet.Utilities.XML</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\API.cs" />
@@ -109,14 +111,6 @@
     <Compile Include="String\StringHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="Serialize\SerializeHelper.cs" />
-    <Compile Include="DataBase\DbHelperMySQL.cs" />
-    <Compile Include="DataBase\DbHelperOleDb.cs" />
-    <Compile Include="DataBase\DbHelperOra.cs" />
-    <Compile Include="DataBase\DbHelperSQL.cs" />
-    <Compile Include="DataBase\DbHelperSQLite.cs" />
-    <Compile Include="DataBase\DbHelperSQLP.cs" />
-    <Compile Include="DataBase\OracleHelper.cs" />
-    <Compile Include="DataBase\SQLHelper.cs" />
     <Compile Include="Date\CNDate.cs" />
     <Compile Include="FormatDate\TimeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
@@ -195,10 +189,6 @@
     </Reference>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="Microsoft.Vsa" />
-    <Reference Include="MySql.Data, Version=6.4.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="OWC10Chart, Version=1.0.2074.16784, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\OWC10Chart.dll</HintPath>
@@ -206,11 +196,6 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.OracleClient" />
-    <Reference Include="System.Data.SQLite, Version=1.0.62.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dll\System.Data.SQLite.DLL</HintPath>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
