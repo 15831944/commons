@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySql.Data.MySqlClient;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 
 namespace Utils.Tests
@@ -16,7 +18,9 @@ namespace Utils.Tests
             var reader = conn.ExecuteReader("SELECT * FROM `sys_filecontent`");
             while (reader.Read())
             {
-                var v = new MemoryStream((byte[])reader.GetValue(1));
+                var ms = new MemoryStream((byte[])reader.GetValue(1));
+                var bm = new Bitmap(ms);
+                bm.Save(@"D:/foo/" + reader.GetString(0) + ".png", ImageFormat.Png);
             }
             reader.Close();
             conn.Close();
