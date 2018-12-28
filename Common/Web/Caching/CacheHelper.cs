@@ -5,18 +5,82 @@
     /// </summary>
     public static class CacheHelper
     {
-        #region Methods
+        #region 设置缓存
+
+        /// <summary>
+        /// 设置当前应用程序指定CacheKey的Cache值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public static void SetCache(string key, object value)
+        {
+            var objCache = HttpRuntime.Cache;
+            objCache.Insert(key, value);
+        }
+
+        /// <summary>
+        /// 设置数据缓存
+        /// </summary>
+        public static void SetCache(string key, object value, TimeSpan timeOut)
+        {
+            var objCache = HttpRuntime.Cache;
+            objCache.Insert(key, value, null, DateTime.MaxValue, timeOut, CacheItemPriority.NotRemovable, null);
+        }
+
+        /// <summary>
+        /// 设置数据缓存
+        /// </summary>
+        public static void SetCache(string key, object value, double minutes)
+        {
+            SetCache(key, value, null, DateTime.Now.AddMinutes(minutes), TimeSpan.Zero);
+        }
+
+        /// <summary>
+        /// 设置当前应用程序指定CacheKey的Cache值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public static void SetCache(string key, object value, CacheDependency dependencies, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        {
+            var objCache = HttpRuntime.Cache;
+            objCache.Insert(key, value, dependencies, absoluteExpiration, slidingExpiration);
+        }
+
+        #endregion 设置缓存
+
+        #region 获取缓存
 
         /// <summary>
         /// 获取当前应用程序指定CacheKey的Cache值
         /// </summary>
-        /// <param name="CacheKey"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        public static object GetCache(string CacheKey)
+        public static object GetCache(string key)
         {
             var objCache = HttpRuntime.Cache;
-            return objCache[CacheKey];
+            return objCache[key];
         }
+
+        /// <summary>
+        /// 得到缓存中缓存的对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key">缓存键</param>
+        /// <returns></returns>
+        public static T GetCache<T>(string key)
+        {
+            var objCache = HttpRuntime.Cache;
+            var obj = objCache.Get(key);
+            if (obj != null)
+            {
+                return (T)obj;
+            }
+            return default(T);
+        }
+
+        #endregion 获取缓存
+
+        #region 移除缓存
 
         /// <summary>
         /// 移除全部缓存
@@ -34,43 +98,12 @@
         /// <summary>
         /// 移除指定数据缓存
         /// </summary>
-        public static void RemoveCache(string CacheKey)
+        public static void RemoveCache(string key)
         {
             var _cache = HttpRuntime.Cache;
-            _cache.Remove(CacheKey);
+            _cache.Remove(key);
         }
 
-        /// <summary>
-        /// 设置当前应用程序指定CacheKey的Cache值
-        /// </summary>
-        /// <param name="CacheKey"></param>
-        /// <param name="objObject"></param>
-        public static void SetCache(string CacheKey, object objObject)
-        {
-            var objCache = HttpRuntime.Cache;
-            objCache.Insert(CacheKey, objObject);
-        }
-
-        /// <summary>
-        /// 设置当前应用程序指定CacheKey的Cache值
-        /// </summary>
-        /// <param name="CacheKey"></param>
-        /// <param name="objObject"></param>
-        public static void SetCache(string CacheKey, object objObject, DateTime absoluteExpiration, TimeSpan slidingExpiration)
-        {
-            var objCache = HttpRuntime.Cache;
-            objCache.Insert(CacheKey, objObject, null, absoluteExpiration, slidingExpiration);
-        }
-
-        /// <summary>
-        /// 设置数据缓存
-        /// </summary>
-        public static void SetCache(string CacheKey, object objObject, TimeSpan Timeout)
-        {
-            var objCache = HttpRuntime.Cache;
-            objCache.Insert(CacheKey, objObject, null, DateTime.MaxValue, Timeout, System.Web.Caching.CacheItemPriority.NotRemovable, null);
-        }
-
-        #endregion Methods
+        #endregion 移除缓存
     }
 }

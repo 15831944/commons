@@ -56,13 +56,10 @@
     <Compile Include="CacheHelper\StaticPage\CacheEnabledPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CacheHelper\StaticPage\HashHelper.cs" />
-    <Compile Include="CacheHelper\HttpRuntime\CacheHttpRuntimeHelper.cs" />
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Control\BindDataControl.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
     <Compile Include="Convert\ConvertHelper.cs" />
-    <Compile Include="Cookie_Session_Cache\CacheHelper.cs" />
     <Compile Include="Cookie_Session_Cache\CookieHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper2.cs" />

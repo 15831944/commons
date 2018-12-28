@@ -1,7 +1,7 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace System
 {
@@ -847,6 +847,26 @@ namespace System
             {
                 return s;
             }
+        }
+        public static string GetHashID(this string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return "default";
+            }
+            s = s.ToLower();
+
+            int hash;
+            int i;
+            for (hash = 0, i = 0; i < s.Length; ++i)
+            {
+                hash += s[i];
+                hash += (hash << 10);
+                hash ^= (hash >> 6);
+            }
+            hash += (hash << 3);
+            hash ^= (hash >> 11);
+            return (Math.Abs(hash) % 10000).ToString();
         }
     }
 }
