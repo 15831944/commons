@@ -118,7 +118,6 @@
     <Compile Include="StringExtension.cs" />
     <Compile Include="Text\SafeEncoding.cs" />
     <Compile Include="TypeExtension.cs" />
-    <Compile Include="Web\Caching\CacheHelper.cs" />
     <Compile Include="Xml\Linq\XmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

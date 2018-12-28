@@ -1,4 +1,6 @@
-﻿namespace System.Web.Caching
+﻿using System.Web.Caching;
+
+namespace System.Web
 {
     /// <summary>
     /// Defines the <see cref="CacheHelper" />
