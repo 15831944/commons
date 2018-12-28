@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Data", "Common.Data\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Excel", "Common.Excel\Common.Excel.csproj", "{9BAE7CA2-CA1C-4467-BAD5-AB7BE97089DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Extension", "Common.Extension\Common.Extension.csproj", "{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Library", "Common.Library\Common.Library.csproj", "{89523E46-FF39-40AF-8613-BE2EA6588170}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Web", "Common.Web\Common.Web.csproj", "{797168FA-DA8D-4D3F-8639-1FF4B2C90B4C}"
@@ -56,12 +54,6 @@ Global
 		{9BAE7CA2-CA1C-4467-BAD5-AB7BE97089DA}.Publish|Any CPU.Build.0 = Release|Any CPU
 		{9BAE7CA2-CA1C-4467-BAD5-AB7BE97089DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BAE7CA2-CA1C-4467-BAD5-AB7BE97089DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Publish|Any CPU.ActiveCfg = Publish|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Publish|Any CPU.Build.0 = Publish|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FC827C5-0C06-4E82-BAF5-F29A060C1B55}.Release|Any CPU.Build.0 = Release|Any CPU
 		{89523E46-FF39-40AF-8613-BE2EA6588170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{89523E46-FF39-40AF-8613-BE2EA6588170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89523E46-FF39-40AF-8613-BE2EA6588170}.Publish|Any CPU.ActiveCfg = Release|Any CPU

@@ -49,6 +49,11 @@ namespace System.Data.Chloe
                     dbContext = CreateMsSqlContext(connString);
                     break;
 
+                case "sqlserver2018":
+                case "mssql2018":
+                    dbContext = CreateSqlServerContext(connString);
+                    break;
+
                 case "mysql":
                     dbContext = CreateMySqlContext(connString);
                     break;
