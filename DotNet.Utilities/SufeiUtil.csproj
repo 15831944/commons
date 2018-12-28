@@ -59,7 +59,6 @@
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Control\BindDataControl.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="Convert\ConvertHelper.cs" />
     <Compile Include="Cookie_Session_Cache\CookieHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper2.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="Video\VideoConvert.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Config\ConfigHelper-sufei.cs" />
     <Compile Include="Random\RandomHelper.cs" />
     <Compile Include="Page\HTMLHelper.cs" />
     <Compile Include="Page\JavaScriptPlus.cs" />
@@ -134,8 +132,6 @@
     <Compile Include="Page\BasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Config\ConfigHelper.cs" />
-    <Compile Include="Cookie_Session_Cache\DataCache.cs" />
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="DEncrypt\DEncrypt.cs" />
     <Compile Include="DEncrypt\DESEncrypt.cs" />

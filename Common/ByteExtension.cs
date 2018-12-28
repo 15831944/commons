@@ -20,6 +20,34 @@ namespace System
             return encoding.GetString(b);
         }
 
+        public static int ToInt32(this byte[] b)
+        {
+            //如果传入的字节数组长度小于4,则返回0
+            if (b.Length < 4)
+            {
+                return 0;
+            }
+
+            //定义要返回的整数
+            int num = 0;
+
+            //如果传入的字节数组长度大于4,需要进行处理
+            if (b.Length >= 4)
+            {
+                //创建一个临时缓冲区
+                byte[] tempBuffer = new byte[4];
+
+                //将传入的字节数组的前4个字节复制到临时缓冲区
+                Buffer.BlockCopy(b, 0, tempBuffer, 0, 4);
+
+                //将临时缓冲区的值转换成整数，并赋给num
+                num = BitConverter.ToInt32(tempBuffer, 0);
+            }
+
+            //返回整数
+            return num;
+        }
+
         public static string ToBase64String(this byte[] b)
         {
             return Convert.ToBase64String(b);
@@ -69,13 +97,13 @@ namespace System
 
         public static string ToBase32String(this byte[] data, string Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567", char Special = '=')
         {
-            int dataLength = data.Length;
-            StringBuilder result = new StringBuilder((dataLength + 4) / 5 * 8);
+            var dataLength = data.Length;
+            var result = new StringBuilder((dataLength + 4) / 5 * 8);
 
             byte x1, x2;
             int i;
 
-            int length5 = (dataLength / 5) * 5;
+            var length5 = (dataLength / 5) * 5;
             for (i = 0; i < length5; i += 5)
             {
                 x1 = data[i];
@@ -177,7 +205,7 @@ namespace System
 
         public static byte[] ToMD5(this byte[] s)
         {
-            using (MD5Cng md5 = new MD5Cng())
+            using (var md5 = new MD5Cng())
             {
                 return md5.ComputeHash(s);
             }
@@ -185,7 +213,7 @@ namespace System
 
         public static byte[] ToRIPEMD160(this byte[] s)
         {
-            using (RIPEMD160Managed ripemd160 = new RIPEMD160Managed())
+            using (var ripemd160 = new RIPEMD160Managed())
             {
                 return ripemd160.ComputeHash(s);
             }
@@ -193,7 +221,7 @@ namespace System
 
         public static byte[] ToSHA1(this byte[] s)
         {
-            using (SHA1Cng sha1 = new SHA1Cng())
+            using (var sha1 = new SHA1Cng())
             {
                 return sha1.ComputeHash(s);
             }
@@ -201,7 +229,7 @@ namespace System
 
         public static byte[] ToSHA256(this byte[] s)
         {
-            using (SHA256Cng sha256 = new SHA256Cng())
+            using (var sha256 = new SHA256Cng())
             {
                 return sha256.ComputeHash(s);
             }
@@ -209,7 +237,7 @@ namespace System
 
         public static byte[] ToSHA384(this byte[] s)
         {
-            using (SHA384Cng sha384 = new SHA384Cng())
+            using (var sha384 = new SHA384Cng())
             {
                 return sha384.ComputeHash(s);
             }
@@ -217,7 +245,7 @@ namespace System
 
         public static byte[] ToSHA512(this byte[] s)
         {
-            using (SHA512Cng sha512 = new SHA512Cng())
+            using (var sha512 = new SHA512Cng())
             {
                 return sha512.ComputeHash(s);
             }
@@ -229,7 +257,7 @@ namespace System
 
         public static byte[] ToHmacMD5(this byte[] s, byte[] key)
         {
-            using (HMACMD5 hmac = new HMACMD5(key))
+            using (var hmac = new HMACMD5(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -237,7 +265,7 @@ namespace System
 
         public static byte[] ToHmacRIPEMD160(this byte[] s, byte[] key)
         {
-            using (HMACRIPEMD160 hmac = new HMACRIPEMD160(key))
+            using (var hmac = new HMACRIPEMD160(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -245,7 +273,7 @@ namespace System
 
         public static byte[] ToHmacSHA1(this byte[] s, byte[] key)
         {
-            using (HMACSHA1 hmac = new HMACSHA1(key))
+            using (var hmac = new HMACSHA1(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -253,7 +281,7 @@ namespace System
 
         public static byte[] ToHmacSHA256(this byte[] s, byte[] key)
         {
-            using (HMACSHA256 hmac = new HMACSHA256(key))
+            using (var hmac = new HMACSHA256(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -261,7 +289,7 @@ namespace System
 
         public static byte[] ToHmacSHA384(this byte[] s, byte[] key)
         {
-            using (HMACSHA384 hmac = new HMACSHA384(key))
+            using (var hmac = new HMACSHA384(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -269,7 +297,7 @@ namespace System
 
         public static byte[] ToHmacSHA512(this byte[] s, byte[] key)
         {
-            using (HMACSHA512 hmac = new HMACSHA512(key))
+            using (var hmac = new HMACSHA512(key))
             {
                 return hmac.ComputeHash(s);
             }
@@ -277,7 +305,7 @@ namespace System
 
         public static byte[] ToMACTripleDES(this byte[] s, byte[] key)
         {
-            using (MACTripleDES mac = new MACTripleDES(key))
+            using (var mac = new MACTripleDES(key))
             {
                 return mac.ComputeHash(s);
             }

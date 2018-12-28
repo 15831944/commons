@@ -1,25 +1,50 @@
-﻿namespace System.Configuration
-{
-    using System.Linq;
-    using System.Runtime.Caching;
+﻿using System.Linq;
+using System.Runtime.Caching;
 
+namespace System.Configuration
+{
     /// <summary>
     /// Defines the <see cref="ConfigHelper" />
     /// </summary>
     public static class ConfigHelper
     {
-        #region Methods
+        #region 添加
 
         /// <summary>
         /// 添加新的Key ，Value键值对
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="value">Value</param>
-        public static void Add(string key, string value)
+        public static void Add(string key, string value, bool cache = false)
         {
             ConfigurationManager.AppSettings.Add(key, value);
-            CacheHelper.SetCache("AppSettings-" + key, value);
+            if (cache)
+            {
+                CacheHelper.SetCache("AppSettings-" + key, value);
+            }
         }
+
+        #endregion 添加
+
+        #region 设置
+
+        /// <summary>
+        /// 根据Key修改Value
+        /// </summary>
+        /// <param name="key">要修改的Key</param>
+        /// <param name="value">要修改为的值</param>
+        public static void SetValue(string key, string value, bool cache = false)
+        {
+            ConfigurationManager.AppSettings.Set(key, value);
+            if (cache)
+            {
+                CacheHelper.SetCache("AppSettings-" + key, value);
+            }
+        }
+
+        #endregion 设置
+
+        #region 读取
 
         /// <summary>
         /// The GetConnectString
@@ -74,6 +99,10 @@
             return value.ToString();
         }
 
+        #endregion 读取
+
+        #region 删除
+
         /// <summary>
         /// 根据Key删除项
         /// </summary>
@@ -84,17 +113,6 @@
             CacheHelper.Remove("AppSettings-" + key);
         }
 
-        /// <summary>
-        /// 根据Key修改Value
-        /// </summary>
-        /// <param name="key">要修改的Key</param>
-        /// <param name="value">要修改为的值</param>
-        public static void SetValue(string key, string value)
-        {
-            ConfigurationManager.AppSettings.Set(key, value);
-            CacheHelper.SetCache("AppSettings-" + key, value);
-        }
-
-        #endregion Methods
+        #endregion 删除
     }
 }

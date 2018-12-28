@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -670,10 +671,12 @@ namespace System
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(s);
         }
+
         public static string ToTitleCase(this string s, string info)
         {
             return new CultureInfo(info, true).TextInfo.ToTitleCase(s);
         }
+
         public static byte[] FromBase64String(this string s)
         {
             return Convert.FromBase64String(s);
@@ -795,6 +798,39 @@ namespace System
         }
 
         /// <summary>
+        /// 长度不足补零
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="length"></param>
+        /// <param name="head"></param>
+        /// <returns></returns>
+        public static string RepairZero(this string s, int length, bool head = false)
+        {
+            if (s.Length < length)
+            {
+                if (head)
+                {
+                    var sb = new StringBuilder();
+                    for (var i = 0; i < length - s.Length; i++)
+                    {
+                        sb.Append("0");
+                    }
+                    return sb.Append(s).ToString();
+                }
+                else
+                {
+                    var sb = new StringBuilder(s);
+                    for (var i = 0; i < length - s.Length; i++)
+                    {
+                        sb.Append("0");
+                    }
+                    return sb.ToString();
+                }
+            }
+            return s;
+        }
+
+        /// <summary>
         /// 截取或补全字符串到指定长度
         /// </summary>
         /// <param name="s">ASCII字符串</param>
@@ -812,11 +848,7 @@ namespace System
             }
             else if (s.Length < l)
             {
-                for (var i = 0; i < l - s.Length; i++)
-                {
-                    s += "0";
-                }
-                return s;
+                return s.RepairZero(l);
             }
             else
             {
@@ -826,7 +858,6 @@ namespace System
 
         public static string TruncateDesc(this string s, int l)
         {
-            var t = "";
             if (s.Length == l)
             {
                 return s;
@@ -837,17 +868,14 @@ namespace System
             }
             else if (s.Length < l)
             {
-                for (var i = 0; i < l - s.Length; i++)
-                {
-                    t += "0";
-                }
-                return t + s;
+                return s.RepairZero(l, true);
             }
             else
             {
                 return s;
             }
         }
+
         public static string GetHashID(this string s)
         {
             if (string.IsNullOrWhiteSpace(s))
@@ -855,7 +883,6 @@ namespace System
                 return "default";
             }
             s = s.ToLower();
-
             int hash;
             int i;
             for (hash = 0, i = 0; i < s.Length; ++i)
@@ -867,6 +894,40 @@ namespace System
             hash += (hash << 3);
             hash ^= (hash >> 11);
             return (Math.Abs(hash) % 10000).ToString();
+        }
+
+        public static string ConvertBase(this string s, int from, int to)
+        {
+            var num = Convert.ToInt32(s, from);
+            var result = Convert.ToString(num, to);
+            switch (to)
+            {
+                case 2:
+                    return result.RepairZero(8, true);
+
+                default:
+                    break;
+            }
+            return result;
+        }
+
+        public static List<string> SplitToList(this string s, char separator, bool lower = false)
+        {
+            var list = new List<string>();
+            var ss = s.Split(separator);
+            foreach (var item in ss)
+            {
+                if (item.IsNotNullOrWhiteSpace())
+                {
+                    var tmp = item;
+                    if (lower)
+                    {
+                        tmp = item.ToLower();
+                    }
+                    list.Add(tmp);
+                }
+            }
+            return list;
         }
     }
 }
