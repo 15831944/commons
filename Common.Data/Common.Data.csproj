@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="ADO\CommandInfo.cs" />
     <Compile Include="ADO\DbHelperSQLDataPithy.cs" />
+    <Compile Include="AutoMapper\Demo.cs" />
     <Compile Include="Chloe\DBBase.cs" />
     <Compile Include="Chloe\DBBase`.cs" />
     <Compile Include="Chloe\DbCommandInterceptor.cs" />
@@ -72,11 +73,13 @@
     <Compile Include="ADO\DbHelperSQLP.cs" />
     <Compile Include="Chloe\MsSqlConnectionFactory.cs" />
     <Compile Include="Chloe\NpgsqlConnectionFactory.cs" />
+    <Compile Include="Dapper\Demo.cs" />
     <Compile Include="DBInfo.cs" />
     <Compile Include="Chloe\MySqlConnectionFactory.cs" />
     <Compile Include="Chloe\OracleConnectionFactory.cs" />
     <Compile Include="ADO\OracleHelper.cs" />
     <Compile Include="DBLog.cs" />
+    <Compile Include="PetaPoco\Demo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ADO\SQLHelper.cs" />
     <Compile Include="Chloe\SQLiteConnectionFactory.cs" />
@@ -164,10 +167,6 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Dapper\" />
-    <Folder Include="PetaPoco\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

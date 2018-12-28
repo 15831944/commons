@@ -59,7 +59,6 @@
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Control\BindDataControl.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="Cookie_Session_Cache\CookieHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper.cs" />
     <Compile Include="Cookie_Session_Cache\SessionHelper2.cs" />
     <Compile Include="CSV\CsvHelper.cs" />
@@ -197,7 +196,16 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.XML" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Web\Common.Web.csproj">
+      <Project>{797168fa-da8d-4d3f-8639-1ff4b2c90b4c}</Project>
+      <Name>Common.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{d164891a-aeb0-4a28-9bc3-b2de2b6705c0}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
