@@ -59,8 +59,6 @@
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
     <Compile Include="Encoding\FileEncoding.cs" />
-    <Compile Include="HttpHelper\HttpCookieHelper.cs" />
-    <Compile Include="HttpHelper\HttpHelper.cs" />
     <Compile Include="Web\FilterHelper.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
     <Compile Include="IP\IPHelper.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="JS\JsHelper.cs" />
     <Compile Include="Sound\MediaHandler.cs" />
     <Compile Include="Image\PicDeal.cs" />
-    <Compile Include="String\QueryString.cs" />
     <Compile Include="System\SysHelper.cs" />
     <Compile Include="Validate_Tool\ValidateImg.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -90,7 +87,6 @@
     <Compile Include="Image\ImageClass.cs" />
     <Compile Include="Image\ImageDown.cs" />
     <Compile Include="Image\ImageUpload.cs" />
-    <Compile Include="String\StringHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="Serialize\SerializeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />

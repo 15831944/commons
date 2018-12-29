@@ -45,6 +45,7 @@
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryString.cs" />
     <Compile Include="SessionHelper.cs" />
     <Compile Include="WebControls\BindDataControl.cs" />
     <Compile Include="WebControls\GridViewHelper.cs" />
