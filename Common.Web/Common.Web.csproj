@@ -47,6 +47,7 @@
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CookieHelper.cs" />
     <Compile Include="FilterHelper.cs" />
+    <Compile Include="ImageUpload.cs" />
     <Compile Include="JavaScriptPlus.cs" />
     <Compile Include="JsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

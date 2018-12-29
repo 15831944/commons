@@ -59,19 +59,9 @@
     <Compile Include="Chart\OWCChart11.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
-    <Compile Include="Image\PicDeal.cs" />
-    <Compile Include="Image\ImageClass.cs" />
-    <Compile Include="Image\ImageDown.cs" />
-    <Compile Include="Image\ImageUpload.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
-    <Compile Include="PinYin\EcanConvertToCh.cs" />
-    <Compile Include="PinYin\PinYin.cs" />
     <Compile Include="Internet_Url\NetHelper.cs" />
-    <Compile Include="ResourceManager\AppMessage.cs" />
-    <Compile Include="ResourceManager\ResourceManager.cs" />
-    <Compile Include="ResourceManager\ResourceManagerWrapper.cs" />
-    <Compile Include="ResourceManager\Resources.cs" />
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
     <Compile Include="Excel\GridViewExport.cs" />
@@ -86,7 +76,6 @@
     <Content Include="dll\MySql.Data.dll" />
     <Content Include="dll\OWC10Chart.dll" />
     <Content Include="dll\System.Data.SQLite.DLL" />
-    <Content Include="ResourceManager\Sample.xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Excel, Version=1.5.0.0, Culture=neutral">
