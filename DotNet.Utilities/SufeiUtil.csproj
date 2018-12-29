@@ -61,13 +61,9 @@
     <Compile Include="Encoding\FileEncoding.cs" />
     <Compile Include="Web\FilterHelper.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
-    <Compile Include="IP\IPHelper.cs" />
     <Compile Include="JS\ExeJsHelper.cs" />
     <Compile Include="seo\SeoHelper.cs" />
     <Compile Include="Validate_Tool\FormulaExpress.cs" />
-    <Compile Include="FTP\FTPClient.cs" />
-    <Compile Include="FTP\FTPHelper.cs" />
-    <Compile Include="FTP\FTPOperater.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
     <Compile Include="JS\JsHelper.cs" />
     <Compile Include="Sound\MediaHandler.cs" />

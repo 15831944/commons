@@ -63,9 +63,13 @@
     <Compile Include="DEncrypt\MD5Helper.cs" />
     <Compile Include="DEncrypt\MySecurity.cs" />
     <Compile Include="DEncrypt\RSACryption.cs" />
+    <Compile Include="FTP\FTPClient.cs" />
+    <Compile Include="FTP\FTPHelper.cs" />
+    <Compile Include="FTP\FTPOperater.cs" />
     <Compile Include="HttpCookieHelper.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="InputHelper.cs" />
+    <Compile Include="IPHelper.cs" />
     <Compile Include="Json\ConvertJson.cs" />
     <Compile Include="Json\JsonHelper.cs" />
     <Compile Include="Json\SerializerJsonHelper.cs" />
