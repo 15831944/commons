@@ -76,7 +76,6 @@
     <Compile Include="Image\PicDeal.cs" />
     <Compile Include="String\QueryString.cs" />
     <Compile Include="System\SysHelper.cs" />
-    <Compile Include="Validate_Tool\Tools.cs" />
     <Compile Include="Validate_Tool\ValidateImg.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -95,7 +94,6 @@
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="Serialize\SerializeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
-    <Compile Include="Regex\RegexHelper.cs" />
     <Compile Include="PinYin\EcanConvertToCh.cs" />
     <Compile Include="PinYin\PinYin.cs" />
     <Compile Include="Internet_Url\NetHelper.cs" />

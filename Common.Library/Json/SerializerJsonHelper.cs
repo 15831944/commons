@@ -1,14 +1,13 @@
-﻿/// <summary>
+﻿using System.IO;
+using System.Runtime.Serialization.Json;
+
+/// <summary>
 /// 类说明：SerializerJsonHelper
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
-using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Runtime.Serialization.Json;
-using System.IO;
 
 namespace SufeiUtil.Json
 {
@@ -24,6 +23,7 @@ namespace SufeiUtil.Json
                 return Encoding.UTF8.GetString(stream.ToArray());
             }
         }
+
         // 从一个Json串生成对象信息
         public static object JsonToObject(string jsonString, object obj)
         {
@@ -32,7 +32,6 @@ namespace SufeiUtil.Json
             {
                 return serializer.ReadObject(mStream);
             }
-
         }
     }
 }

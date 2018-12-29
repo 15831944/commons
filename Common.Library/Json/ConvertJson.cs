@@ -1,16 +1,16 @@
 ﻿/// <summary>
 /// 类说明：Assistant
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using System.Reflection;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.Reflection;
+using System.Text;
 
 namespace SufeiUtil
 {
@@ -18,6 +18,7 @@ namespace SufeiUtil
     public class ConvertJson
     {
         #region 私有方法
+
         /// <summary>
         /// 过滤特殊字符
         /// </summary>
@@ -76,9 +77,11 @@ namespace SufeiUtil
             }
             return str;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region List转换成Json
+
         /// <summary>
         /// List转换成Json
         /// </summary>
@@ -89,7 +92,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// List转换成Json 
+        /// List转换成Json
         /// </summary>
         public static string ListToJson<T>(IList<T> list, string jsonName)
         {
@@ -123,14 +126,16 @@ namespace SufeiUtil
             Json.Append("]}");
             return Json.ToString();
         }
-        #endregion
+
+        #endregion List转换成Json
 
         #region 对象转换为Json
-        /// <summary> 
-        /// 对象转换为Json 
-        /// </summary> 
-        /// <param name="jsonObject">对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 对象转换为Json
+        /// </summary>
+        /// <param name="jsonObject">对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(object jsonObject)
         {
             string jsonString = "{";
@@ -160,14 +165,16 @@ namespace SufeiUtil
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "}";
         }
-        #endregion
+
+        #endregion 对象转换为Json
 
         #region 对象集合转换Json
-        /// <summary> 
-        /// 对象集合转换Json 
-        /// </summary> 
-        /// <param name="array">集合对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 对象集合转换Json
+        /// </summary>
+        /// <param name="array">集合对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(IEnumerable array)
         {
             string jsonString = "[";
@@ -178,14 +185,16 @@ namespace SufeiUtil
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "]";
         }
-        #endregion
+
+        #endregion 对象集合转换Json
 
         #region 普通集合转换Json
-        /// <summary> 
-        /// 普通集合转换Json 
-        /// </summary> 
-        /// <param name="array">集合对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// 普通集合转换Json
+        /// </summary>
+        /// <param name="array">集合对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToArrayString(IEnumerable array)
         {
             string jsonString = "[";
@@ -196,14 +205,16 @@ namespace SufeiUtil
             jsonString.Remove(jsonString.Length - 1, jsonString.Length);
             return jsonString + "]";
         }
-        #endregion
 
-        #region  DataSet转换为Json
-        /// <summary> 
-        /// DataSet转换为Json 
-        /// </summary> 
-        /// <param name="dataSet">DataSet对象</param> 
-        /// <returns>Json字符串</returns> 
+        #endregion 普通集合转换Json
+
+        #region DataSet转换为Json
+
+        /// <summary>
+        /// DataSet转换为Json
+        /// </summary>
+        /// <param name="dataSet">DataSet对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DataSet dataSet)
         {
             string jsonString = "{";
@@ -214,14 +225,16 @@ namespace SufeiUtil
             jsonString = jsonString.TrimEnd(',');
             return jsonString + "}";
         }
-        #endregion
+
+        #endregion DataSet转换为Json
 
         #region Datatable转换为Json
-        /// <summary> 
-        /// Datatable转换为Json 
-        /// </summary> 
-        /// <param name="table">Datatable对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// Datatable转换为Json
+        /// </summary>
+        /// <param name="table">Datatable对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DataTable dt)
         {
             StringBuilder jsonString = new StringBuilder();
@@ -254,7 +267,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// DataTable转换为Json 
+        /// DataTable转换为Json
         /// </summary>
         public static string ToJson(DataTable dt, string jsonName)
         {
@@ -285,14 +298,16 @@ namespace SufeiUtil
             Json.Append("]}");
             return Json.ToString();
         }
-        #endregion
+
+        #endregion Datatable转换为Json
 
         #region DataReader转换为Json
-        /// <summary> 
-        /// DataReader转换为Json 
-        /// </summary> 
-        /// <param name="dataReader">DataReader对象</param> 
-        /// <returns>Json字符串</returns> 
+
+        /// <summary>
+        /// DataReader转换为Json
+        /// </summary>
+        /// <param name="dataReader">DataReader对象</param>
+        /// <returns>Json字符串</returns>
         public static string ToJson(DbDataReader dataReader)
         {
             StringBuilder jsonString = new StringBuilder();
@@ -323,6 +338,7 @@ namespace SufeiUtil
             jsonString.Append("]");
             return jsonString.ToString();
         }
-        #endregion
+
+        #endregion DataReader转换为Json
     }
 }
