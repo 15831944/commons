@@ -60,7 +60,6 @@
     <Compile Include="Internet_Url\AdslHelper.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
-    <Compile Include="BarCode\BarCodeToHTML.cs" />
     <Compile Include="Internet_Url\NetHelper.cs" />
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />

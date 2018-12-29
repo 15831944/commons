@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaiduMapHelper.cs" />
+    <Compile Include="BarCodeToHTML.cs" />
     <Compile Include="BaseRandom.cs" />
     <Compile Include="CNDate.cs" />
     <Compile Include="CsvHelper.cs" />
