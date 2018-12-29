@@ -58,8 +58,6 @@
     </Compile>
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="DEncrypt\MD5Helper.cs" />
-    <Compile Include="DEncrypt\MySecurity.cs" />
     <Compile Include="Encoding\FileEncoding.cs" />
     <Compile Include="HttpHelper\HttpCookieHelper.cs" />
     <Compile Include="HttpHelper\HttpHelper.cs" />
@@ -127,10 +125,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Excel\DataToExcel.cs" />
-    <Compile Include="DEncrypt\DEncrypt.cs" />
-    <Compile Include="DEncrypt\DESEncrypt.cs" />
-    <Compile Include="DEncrypt\HashEncode.cs" />
-    <Compile Include="DEncrypt\RSACryption.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
     <Compile Include="File\FileOperateHelper.cs" />
     <Compile Include="Random\BaseRandom.cs" />
@@ -138,7 +132,6 @@
     <Compile Include="File\INIFileHelper.cs" />
     <Compile Include="Rmb\RMB.cs" />
     <Compile Include="Serialize\Serialize.cs" />
-    <Compile Include="DEncrypt\Encrypt.cs" />
     <Compile Include="Excel\GridViewExport.cs" />
     <Compile Include="Validate_Tool\PageValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
