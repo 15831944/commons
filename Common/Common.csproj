@@ -116,6 +116,7 @@
     <Compile Include="ResultStatus.cs" />
     <Compile Include="Runtime\Caching\CacheHelper.cs" />
     <Compile Include="StringExtension.cs" />
+    <Compile Include="StringHashExtension.cs" />
     <Compile Include="Text\SafeEncoding.cs" />
     <Compile Include="TypeExtension.cs" />
     <Compile Include="Xml\Linq\XmlExtensions.cs" />
