@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -51,8 +52,12 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\PageHelper.cs" />
+    <Compile Include="UI\Utility.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="UI\WebControls\BindDataControl.cs" />
     <Compile Include="UI\WebControls\GridViewHelper.cs" />
+    <Compile Include="WebSitePathHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

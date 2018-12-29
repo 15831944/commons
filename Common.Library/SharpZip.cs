@@ -1,16 +1,16 @@
-﻿/// <summary>
+﻿using ICSharpCode.SharpZipLib.Checksum;
+using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Win32;
+
+/// <summary>
 /// 类说明：SharpZip
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
 using System;
-using System.IO;
 using System.Diagnostics;
-using Microsoft.Win32;
-
-using ICSharpCode.SharpZipLib.Checksums;
-using ICSharpCode.SharpZipLib.Zip;
+using System.IO;
 
 ///压缩、解压缩类
 namespace SufeiUtil
@@ -22,7 +22,7 @@ namespace SufeiUtil
 
         /// <summary>
         /// 压缩
-        /// </summary> 
+        /// </summary>
         /// <param name="filename"> 压缩后的文件名(包含物理路径)</param>
         /// <param name="directory">待压缩的文件夹(包含物理路径)</param>
         public static void PackFiles(string filename, string directory)
@@ -96,6 +96,7 @@ namespace SufeiUtil
     public class ClassZip
     {
         #region 私有方法
+
         /// <summary>
         /// 递归压缩文件夹方法
         /// </summary>
@@ -232,7 +233,8 @@ namespace SufeiUtil
             }
             return res;
         }
-        #endregion
+
+        #endregion 私有方法
 
         /// <summary>
         /// 压缩
@@ -331,13 +333,15 @@ namespace SufeiUtil
     public class ZipHelper
     {
         #region 私有变量
-        String the_rar;
-        RegistryKey the_Reg;
-        Object the_Obj;
-        String the_Info;
-        ProcessStartInfo the_StartInfo;
-        Process the_Process;
-        #endregion
+
+        private String the_rar;
+        private RegistryKey the_Reg;
+        private Object the_Obj;
+        private String the_Info;
+        private ProcessStartInfo the_StartInfo;
+        private Process the_Process;
+
+        #endregion 私有变量
 
         /// <summary>
         /// 压缩
