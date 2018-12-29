@@ -57,9 +57,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Chart\Assistant.cs" />
-    <Compile Include="Control\BindDataControl.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="CSV\CsvHelper.cs" />
     <Compile Include="DEncrypt\MD5Helper.cs" />
     <Compile Include="DEncrypt\MySecurity.cs" />
     <Compile Include="Encoding\FileEncoding.cs" />
@@ -104,7 +102,6 @@
     <Compile Include="String\StringHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="Serialize\SerializeHelper.cs" />
-    <Compile Include="Date\CNDate.cs" />
     <Compile Include="FormatDate\TimeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
     <Compile Include="Regex\RegexHelper.cs" />

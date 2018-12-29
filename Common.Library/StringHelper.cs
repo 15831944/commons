@@ -14,7 +14,7 @@ namespace System
         /// <returns></returns>
         public static string GetCleanStyle(string StrList, string SplitString)
         {
-            string RetrunValue = "";
+            var RetrunValue = "";
             //如果为空，返回空值
             if (StrList == null)
             {
@@ -23,7 +23,7 @@ namespace System
             else
             {
                 //返回去掉分隔符
-                string NewString = "";
+                var NewString = "";
                 NewString = StrList.Replace(SplitString, "");
                 RetrunValue = NewString;
             }
@@ -44,7 +44,7 @@ namespace System
         /// <returns></returns>
         public static string GetNewStyle(string StrList, string NewStyle, string SplitString, out string Error)
         {
-            string ReturnValue = "";
+            var ReturnValue = "";
             //如果输入空值，返回空，并给出错误提示
             if (StrList == null)
             {
@@ -54,8 +54,8 @@ namespace System
             else
             {
                 //检查传入的字符串长度和样式是否匹配,如果不匹配，则说明使用错误。给出错误信息并返回空值
-                int strListLength = StrList.Length;
-                int NewStyleLength = GetCleanStyle(NewStyle, SplitString).Length;
+                var strListLength = StrList.Length;
+                var NewStyleLength = GetCleanStyle(NewStyle, SplitString).Length;
                 if (strListLength != NewStyleLength)
                 {
                     ReturnValue = "";
@@ -64,8 +64,8 @@ namespace System
                 else
                 {
                     //检查新样式中分隔符的位置
-                    string Lengstr = "";
-                    for (int i = 0; i < NewStyle.Length; i++)
+                    var Lengstr = "";
+                    for (var i = 0; i < NewStyle.Length; i++)
                     {
                         if (NewStyle.Substring(i, 1) == SplitString)
                         {
@@ -77,8 +77,8 @@ namespace System
                         Lengstr = Lengstr.Substring(1);
                     }
                     //将分隔符放在新样式中的位置
-                    string[] str = Lengstr.Split(',');
-                    foreach (string bb in str)
+                    var str = Lengstr.Split(',');
+                    foreach (var bb in str)
                     {
                         StrList = StrList.Insert(int.Parse(bb), SplitString);
                     }

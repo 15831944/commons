@@ -1,12 +1,11 @@
 /// <summary>
 /// 类说明：Assistant
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
-using System;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 农历属性
@@ -17,38 +16,47 @@ namespace SufeiUtil
         /// 农历年(整型)
         /// </summary>
         public int cnIntYear = 0;
+
         /// <summary>
         /// 农历月份(整型)
         /// </summary>
         public int cnIntMonth = 0;
+
         /// <summary>
         /// 农历天(整型)
         /// </summary>
         public int cnIntDay = 0;
+
         /// <summary>
         /// 农历年(支干)
         /// </summary>
         public string cnStrYear = "";
+
         /// <summary>
         /// 农历月份(字符)
         /// </summary>
         public string cnStrMonth = "";
+
         /// <summary>
         /// 农历天(字符)
         /// </summary>
         public string cnStrDay = "";
+
         /// <summary>
         /// 农历属象
         /// </summary>
         public string cnAnm = "";
+
         /// <summary>
         /// 二十四节气
         /// </summary>
         public string cnSolarTerm = "";
+
         /// <summary>
         /// 阴历节日
         /// </summary>
         public string cnFtvl = "";
+
         /// <summary>
         /// 阳历节日
         /// </summary>
@@ -61,19 +69,20 @@ namespace SufeiUtil
     public class ChinaDate
     {
         #region 私有方法
+
         private static long[] lunarInfo = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554,
-															   0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0,
-															   0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566,
-															   0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550,
-															   0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0,
-															   0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263,
-															   0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0,
-															   0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5,
-															   0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0,
-															   0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9,
-															   0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0,
-															   0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520,
-															   0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0 };
+                                                               0x056a0, 0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0,
+                                                               0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566,
+                                                               0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550,
+                                                               0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0,
+                                                               0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263,
+                                                               0x0d950, 0x05b57, 0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0,
+                                                               0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5,
+                                                               0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960, 0x0d954, 0x0d4a0,
+                                                               0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9,
+                                                               0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0,
+                                                               0x0d260, 0x0ea65, 0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520,
+                                                               0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0 };
 
         private static int[] year20 = new int[] { 1, 4, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1 };
         private static int[] year19 = new int[] { 0, 3, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0 };
@@ -85,103 +94,103 @@ namespace SufeiUtil
         private static String[] solarTerm = new String[] { "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至" };
         private static int[] sTermInfo = { 0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758 };
         private static String[] lFtv = new String[] { "0101农历春节", "0202 龙抬头节", "0115 元宵节", "0505 端午节", "0707 七夕情人节", "0815 中秋节", "0909 重阳节", "1208 腊八节", "1114 李君先生生日", "1224 小年", "0100除夕" };
-        private static String[] sFtv = new String[] { "0101 新年元旦",
-														 "0202 世界湿地日",
-														 "0207 国际声援南非日",
-														 "0210 国际气象节",
-														 "0214 情人节",
-														 "0301 国际海豹日",
-														 "0303 全国爱耳日",
-														 "0308 国际妇女节",
-														 "0312 植树节 孙中山逝世纪念日",
-														 "0314 国际警察日",
-														 "0315 国际消费者权益日",
-														 "0317 中国国医节 国际航海日",
-														 "0321 世界森林日 消除种族歧视国际日",
-														 "0321 世界儿歌日",
-														 "0322 世界水日",
-														 "0323 世界气象日",
-														 "0324 世界防治结核病日",
-														 "0325 全国中小学生安全教育日",
-														 "0330 巴勒斯坦国土日",
-														 "0401 愚人节 全国爱国卫生运动月(四月) 税收宣传月(四月)",
-														 "0407 世界卫生日",
-														 "0422 世界地球日",
-														 "0423 世界图书和版权日",
-														 "0424 亚非新闻工作者日",
-														 "0501 国际劳动节",
-														 "0504 中国五四青年节",
-														 "0505 碘缺乏病防治日",
-														 "0508 世界红十字日",
-														 "0512 国际护士节",
-														 "0515 国际家庭日",
-														 "0517 世界电信日",
-														 "0518 国际博物馆日",
-														 "0520 全国学生营养日",
-														 "0523 国际牛奶日",
-														 "0531 世界无烟日",
-														 "0601 国际儿童节",
-														 "0605 世界环境日",
-														 "0606 全国爱眼日",
-														 "0617 防治荒漠化和干旱日",
-														 "0623 国际奥林匹克日",
-														 "0625 全国土地日",
-														 "0626 国际反毒品日",
-														 "0701 中国共产党建党日 世界建筑日",
-														 "0702 国际体育记者日",
-														 "0707 中国人民抗日战争纪念日",
-														 "0711 世界人口日",
-														 "0730 非洲妇女日",
-														 "0801 中国建军节",
-														 "0808 中国男子节(爸爸节)",
-														 "0815 日本正式宣布无条件投降日",
-														 "0908 国际扫盲日 国际新闻工作者日",
-														 "0910 教师节",
-														 "0914 世界清洁地球日",
-														 "0916 国际臭氧层保护日",
-														 "0918 九·一八事变纪念日",
-														 "0920 全国爱牙日",
-														 "0927 世界旅游日",
-														 "1001 国庆节 世界音乐日 国际老人节",
-														 "1001 国际音乐日",
-														 "1002 国际和平与民主自由斗争日",
-														 "1004 世界动物日",
-														 "1008 全国高血压日",
-														 "1008 世界视觉日",
-														 "1009 世界邮政日 万国邮联日",
-														 "1010 辛亥革命纪念日 世界精神卫生日",
-														 "1013 世界保健日 国际教师节",
-														 "1014 世界标准日",
-														 "1015 国际盲人节(白手杖节)",
-														 "1016 世界粮食日",
-														 "1017 世界消除贫困日",
-														 "1022 世界传统医药日",
-														 "1024 联合国日 世界发展信息日",
-														 "1031 世界勤俭日",
-														 "1107 十月社会主义革命纪念日",
-														 "1108 中国记者日",
-														 "1109 全国消防安全宣传教育日",
-														 "1110 世界青年节",
-														 "1111 国际科学与和平周(本日所属的一周)",
-														 "1112 孙中山诞辰纪念日",
-														 "1114 世界糖尿病日",
-														 "1117 国际大学生节 世界学生节",
-														 "1121 世界问候日 世界电视日",
-														 "1129 国际声援巴勒斯坦人民国际日",
-														 "1201 世界艾滋病日",
-														 "1203 世界残疾人日",
-														 "1205 国际经济和社会发展志愿人员日",
-														 "1208 国际儿童电视日",
-														 "1209 世界足球日",
-														 "1210 世界人权日",
-														 "1212 西安事变纪念日",
-														 "1213 南京大屠杀(1937年)纪念日！紧记血泪史！",
-														 "1221 国际篮球日",
-														 "1224 平安夜",
-														 "1225 圣诞节",
-														 "1226 毛主席诞辰",
-														 "1229 国际生物多样性日" };
 
+        private static String[] sFtv = new String[] { "0101 新年元旦",
+                                                         "0202 世界湿地日",
+                                                         "0207 国际声援南非日",
+                                                         "0210 国际气象节",
+                                                         "0214 情人节",
+                                                         "0301 国际海豹日",
+                                                         "0303 全国爱耳日",
+                                                         "0308 国际妇女节",
+                                                         "0312 植树节 孙中山逝世纪念日",
+                                                         "0314 国际警察日",
+                                                         "0315 国际消费者权益日",
+                                                         "0317 中国国医节 国际航海日",
+                                                         "0321 世界森林日 消除种族歧视国际日",
+                                                         "0321 世界儿歌日",
+                                                         "0322 世界水日",
+                                                         "0323 世界气象日",
+                                                         "0324 世界防治结核病日",
+                                                         "0325 全国中小学生安全教育日",
+                                                         "0330 巴勒斯坦国土日",
+                                                         "0401 愚人节 全国爱国卫生运动月(四月) 税收宣传月(四月)",
+                                                         "0407 世界卫生日",
+                                                         "0422 世界地球日",
+                                                         "0423 世界图书和版权日",
+                                                         "0424 亚非新闻工作者日",
+                                                         "0501 国际劳动节",
+                                                         "0504 中国五四青年节",
+                                                         "0505 碘缺乏病防治日",
+                                                         "0508 世界红十字日",
+                                                         "0512 国际护士节",
+                                                         "0515 国际家庭日",
+                                                         "0517 世界电信日",
+                                                         "0518 国际博物馆日",
+                                                         "0520 全国学生营养日",
+                                                         "0523 国际牛奶日",
+                                                         "0531 世界无烟日",
+                                                         "0601 国际儿童节",
+                                                         "0605 世界环境日",
+                                                         "0606 全国爱眼日",
+                                                         "0617 防治荒漠化和干旱日",
+                                                         "0623 国际奥林匹克日",
+                                                         "0625 全国土地日",
+                                                         "0626 国际反毒品日",
+                                                         "0701 中国共产党建党日 世界建筑日",
+                                                         "0702 国际体育记者日",
+                                                         "0707 中国人民抗日战争纪念日",
+                                                         "0711 世界人口日",
+                                                         "0730 非洲妇女日",
+                                                         "0801 中国建军节",
+                                                         "0808 中国男子节(爸爸节)",
+                                                         "0815 日本正式宣布无条件投降日",
+                                                         "0908 国际扫盲日 国际新闻工作者日",
+                                                         "0910 教师节",
+                                                         "0914 世界清洁地球日",
+                                                         "0916 国际臭氧层保护日",
+                                                         "0918 九·一八事变纪念日",
+                                                         "0920 全国爱牙日",
+                                                         "0927 世界旅游日",
+                                                         "1001 国庆节 世界音乐日 国际老人节",
+                                                         "1001 国际音乐日",
+                                                         "1002 国际和平与民主自由斗争日",
+                                                         "1004 世界动物日",
+                                                         "1008 全国高血压日",
+                                                         "1008 世界视觉日",
+                                                         "1009 世界邮政日 万国邮联日",
+                                                         "1010 辛亥革命纪念日 世界精神卫生日",
+                                                         "1013 世界保健日 国际教师节",
+                                                         "1014 世界标准日",
+                                                         "1015 国际盲人节(白手杖节)",
+                                                         "1016 世界粮食日",
+                                                         "1017 世界消除贫困日",
+                                                         "1022 世界传统医药日",
+                                                         "1024 联合国日 世界发展信息日",
+                                                         "1031 世界勤俭日",
+                                                         "1107 十月社会主义革命纪念日",
+                                                         "1108 中国记者日",
+                                                         "1109 全国消防安全宣传教育日",
+                                                         "1110 世界青年节",
+                                                         "1111 国际科学与和平周(本日所属的一周)",
+                                                         "1112 孙中山诞辰纪念日",
+                                                         "1114 世界糖尿病日",
+                                                         "1117 国际大学生节 世界学生节",
+                                                         "1121 世界问候日 世界电视日",
+                                                         "1129 国际声援巴勒斯坦人民国际日",
+                                                         "1201 世界艾滋病日",
+                                                         "1203 世界残疾人日",
+                                                         "1205 国际经济和社会发展志愿人员日",
+                                                         "1208 国际儿童电视日",
+                                                         "1209 世界足球日",
+                                                         "1210 世界人权日",
+                                                         "1212 西安事变纪念日",
+                                                         "1213 南京大屠杀(1937年)纪念日！紧记血泪史！",
+                                                         "1221 国际篮球日",
+                                                         "1224 平安夜",
+                                                         "1225 圣诞节",
+                                                         "1226 毛主席诞辰",
+                                                         "1229 国际生物多样性日" };
 
         /// <summary>
         /// 传回农历y年的总天数
@@ -445,27 +454,35 @@ namespace SufeiUtil
                 case 1:
                     a += "一";
                     break;
+
                 case 2:
                     a += "二";
                     break;
+
                 case 3:
                     a += "三";
                     break;
+
                 case 4:
                     a += "四";
                     break;
+
                 case 5:
                     a += "五";
                     break;
+
                 case 6:
                     a += "六";
                     break;
+
                 case 7:
                     a += "七";
                     break;
+
                 case 8:
                     a += "八";
                     break;
+
                 case 9:
                     a += "九";
                     break;
@@ -483,13 +500,15 @@ namespace SufeiUtil
             return offDate;
         }
 
-        static string FormatDate(int m, int d)
+        private static string FormatDate(int m, int d)
         {
             return string.Format("{0:00}{1:00}", m, d);
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 公有方法
+
         /// <summary>
         /// 传回公历y年m月的总天数
         /// </summary>
@@ -576,7 +595,8 @@ namespace SufeiUtil
             if (lmd.Equals("0101")) cd.cnFtvl = "除夕";
             return cd;
         }
-        #endregion
+
+        #endregion 公有方法
     }
 
     /// <summary>
@@ -602,6 +622,7 @@ namespace SufeiUtil
     public class ChineseCalendar
     {
         #region 内部结构
+
         /// <summary>
         /// 阳历
         /// </summary>
@@ -611,6 +632,7 @@ namespace SufeiUtil
             public int Day;
             public int Recess; //假期长度
             public string HolidayName;
+
             public SolarHolidayStruct(int month, int day, int recess, string name)
             {
                 Month = month;
@@ -654,9 +676,11 @@ namespace SufeiUtil
                 HolidayName = name;
             }
         }
-        #endregion
+
+        #endregion 内部结构
 
         #region 内部变量
+
         private DateTime _date;
         private DateTime _datetime;
         private int _cYear;
@@ -664,10 +688,13 @@ namespace SufeiUtil
         private int _cDay;
         private bool _cIsLeapMonth; //当月是否闰月
         private bool _cIsLeapYear;  //当年是否有闰月
-        #endregion
+
+        #endregion 内部变量
 
         #region 基础数据
+
         #region 基本常量
+
         private const int MinYear = 1900;
         private const int MaxYear = 2050;
         private static DateTime MinDay = new DateTime(1900, 1, 30);
@@ -677,9 +704,11 @@ namespace SufeiUtil
         private const string HZNum = "零一二三四五六七八九";
         private const int AnimalStartYear = 1900; //1900年为鼠年
         private static DateTime ChineseConstellationReferDay = new DateTime(2007, 9, 13);//28星宿参考值,本日为角
-        #endregion
+
+        #endregion 基本常量
 
         #region 阴历数据
+
         /// <summary>
         /// 来源于网上的农历数据
         /// </summary>
@@ -705,62 +734,74 @@ namespace SufeiUtil
                 0x07954,0x06AA0,0x0AD50,0x05B52,0x04B60,0x0A6E6,0x0A4E0,0x0D260,0x0EA65,0x0D530,
                 0x05AA0,0x076A3,0x096D0,0x04BD7,0x04AD0,0x0A4D0,0x1D0B6,0x0D250,0x0D520,0x0DD45,
                 0x0B5A0,0x056D0,0x055B2,0x049B0,0x0A577,0x0A4B0,0x0AA50,0x1B255,0x06D20,0x0ADA0,
-                0x14B63        
+                0x14B63
                 };
 
-        #endregion
+        #endregion 阴历数据
 
         #region 星座名称
-        private static string[] _constellationName = 
-                { 
-                    "白羊座", "金牛座", "双子座", 
-                    "巨蟹座", "狮子座", "处女座", 
-                    "天秤座", "天蝎座", "射手座", 
+
+        private static string[] _constellationName =
+                {
+                    "白羊座", "金牛座", "双子座",
+                    "巨蟹座", "狮子座", "处女座",
+                    "天秤座", "天蝎座", "射手座",
                     "摩羯座", "水瓶座", "双鱼座"
                 };
-        #endregion
+
+        #endregion 星座名称
 
         #region 二十四节气
-        private static string[] _lunarHolidayName = 
-                    { 
-                    "小寒", "大寒", "立春", "雨水", 
-                    "惊蛰", "春分", "清明", "谷雨", 
-                    "立夏", "小满", "芒种", "夏至", 
-                    "小暑", "大暑", "立秋", "处暑", 
-                    "白露", "秋分", "寒露", "霜降", 
+
+        private static string[] _lunarHolidayName =
+                    {
+                    "小寒", "大寒", "立春", "雨水",
+                    "惊蛰", "春分", "清明", "谷雨",
+                    "立夏", "小满", "芒种", "夏至",
+                    "小暑", "大暑", "立秋", "处暑",
+                    "白露", "秋分", "寒露", "霜降",
                     "立冬", "小雪", "大雪", "冬至"
                     };
-        #endregion
+
+        #endregion 二十四节气
 
         #region 二十八星宿
+
         private static string[] _chineseConstellationName =
             {
-                  //四        五      六         日        一      二      三  
+                  //四        五      六         日        一      二      三
                 "角木蛟","亢金龙","女土蝠","房日兔","心月狐","尾火虎","箕水豹",
                 "斗木獬","牛金牛","氐土貉","虚日鼠","危月燕","室火猪","壁水獝",
                 "奎木狼","娄金狗","胃土彘","昴日鸡","毕月乌","觜火猴","参水猿",
-                "井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓" 
+                "井木犴","鬼金羊","柳土獐","星日马","张月鹿","翼火蛇","轸水蚓"
             };
-        #endregion
+
+        #endregion 二十八星宿
 
         #region 节气数据
+
         private static string[] SolarTerm = new string[] { "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至" };
         private static int[] sTermInfo = new int[] { 0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353350, 375494, 397447, 419210, 440795, 462224, 483532, 504758 };
-        #endregion
+
+        #endregion 节气数据
 
         #region 农历相关数据
+
         private static string ganStr = "甲乙丙丁戊己庚辛壬癸";
         private static string zhiStr = "子丑寅卯辰巳午未申酉戌亥";
         private static string animalStr = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
         private static string nStr1 = "日一二三四五六七八九";
         private static string nStr2 = "初十廿卅";
+
         private static string[] _monthString =
                 {
                     "出错","正月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","腊月"
                 };
-        #endregion
+
+        #endregion 农历相关数据
 
         #region 按公历计算的节日
+
         private static SolarHolidayStruct[] sHolidayInfo = new SolarHolidayStruct[]{
             new SolarHolidayStruct(1, 1, 1, "元旦"),
             new SolarHolidayStruct(2, 2, 0, "世界湿地日"),
@@ -768,8 +809,8 @@ namespace SufeiUtil
             new SolarHolidayStruct(2, 14, 0, "情人节"),
             new SolarHolidayStruct(3, 1, 0, "国际海豹日"),
             new SolarHolidayStruct(3, 5, 0, "学雷锋纪念日"),
-            new SolarHolidayStruct(3, 8, 0, "妇女节"), 
-            new SolarHolidayStruct(3, 12, 0, "植树节 孙中山逝世纪念日"), 
+            new SolarHolidayStruct(3, 8, 0, "妇女节"),
+            new SolarHolidayStruct(3, 12, 0, "植树节 孙中山逝世纪念日"),
             new SolarHolidayStruct(3, 14, 0, "国际警察日"),
             new SolarHolidayStruct(3, 15, 0, "消费者权益日"),
             new SolarHolidayStruct(3, 17, 0, "中国国医节 国际航海日"),
@@ -779,23 +820,23 @@ namespace SufeiUtil
             new SolarHolidayStruct(4, 1, 0, "愚人节"),
             new SolarHolidayStruct(4, 7, 0, "世界卫生日"),
             new SolarHolidayStruct(4, 22, 0, "世界地球日"),
-            new SolarHolidayStruct(5, 1, 1, "劳动节"), 
+            new SolarHolidayStruct(5, 1, 1, "劳动节"),
             new SolarHolidayStruct(5, 2, 1, "劳动节假日"),
             new SolarHolidayStruct(5, 3, 1, "劳动节假日"),
-            new SolarHolidayStruct(5, 4, 0, "青年节"), 
+            new SolarHolidayStruct(5, 4, 0, "青年节"),
             new SolarHolidayStruct(5, 8, 0, "世界红十字日"),
-            new SolarHolidayStruct(5, 12, 0, "国际护士节"), 
-            new SolarHolidayStruct(5, 31, 0, "世界无烟日"), 
-            new SolarHolidayStruct(6, 1, 0, "国际儿童节"), 
+            new SolarHolidayStruct(5, 12, 0, "国际护士节"),
+            new SolarHolidayStruct(5, 31, 0, "世界无烟日"),
+            new SolarHolidayStruct(6, 1, 0, "国际儿童节"),
             new SolarHolidayStruct(6, 5, 0, "世界环境保护日"),
             new SolarHolidayStruct(6, 26, 0, "国际禁毒日"),
             new SolarHolidayStruct(7, 1, 0, "建党节 香港回归纪念 世界建筑日"),
             new SolarHolidayStruct(7, 11, 0, "世界人口日"),
-            new SolarHolidayStruct(8, 1, 0, "建军节"), 
+            new SolarHolidayStruct(8, 1, 0, "建军节"),
             new SolarHolidayStruct(8, 8, 0, "中国男子节 父亲节"),
             new SolarHolidayStruct(8, 15, 0, "抗日战争胜利纪念"),
-            new SolarHolidayStruct(9, 9, 0, "毛主席逝世纪念"), 
-            new SolarHolidayStruct(9, 10, 0, "教师节"), 
+            new SolarHolidayStruct(9, 9, 0, "毛主席逝世纪念"),
+            new SolarHolidayStruct(9, 10, 0, "教师节"),
             new SolarHolidayStruct(9, 18, 0, "九·一八事变纪念日"),
             new SolarHolidayStruct(9, 20, 0, "国际爱牙日"),
             new SolarHolidayStruct(9, 27, 0, "世界旅游日"),
@@ -803,51 +844,59 @@ namespace SufeiUtil
             new SolarHolidayStruct(10, 1, 1, "国庆节 国际音乐日"),
             new SolarHolidayStruct(10, 2, 1, "国庆节假日"),
             new SolarHolidayStruct(10, 3, 1, "国庆节假日"),
-            new SolarHolidayStruct(10, 6, 0, "老人节"), 
+            new SolarHolidayStruct(10, 6, 0, "老人节"),
             new SolarHolidayStruct(10, 24, 0, "联合国日"),
             new SolarHolidayStruct(11, 10, 0, "世界青年节"),
-            new SolarHolidayStruct(11, 12, 0, "孙中山诞辰纪念"), 
-            new SolarHolidayStruct(12, 1, 0, "世界艾滋病日"), 
-            new SolarHolidayStruct(12, 3, 0, "世界残疾人日"), 
-            new SolarHolidayStruct(12, 20, 0, "澳门回归纪念"), 
-            new SolarHolidayStruct(12, 24, 0, "平安夜"), 
-            new SolarHolidayStruct(12, 25, 0, "圣诞节"), 
+            new SolarHolidayStruct(11, 12, 0, "孙中山诞辰纪念"),
+            new SolarHolidayStruct(12, 1, 0, "世界艾滋病日"),
+            new SolarHolidayStruct(12, 3, 0, "世界残疾人日"),
+            new SolarHolidayStruct(12, 20, 0, "澳门回归纪念"),
+            new SolarHolidayStruct(12, 24, 0, "平安夜"),
+            new SolarHolidayStruct(12, 25, 0, "圣诞节"),
             new SolarHolidayStruct(12, 26, 0, "毛主席诞辰纪念")
            };
-        #endregion
+
+        #endregion 按公历计算的节日
 
         #region 按农历计算的节日
+
         private static LunarHolidayStruct[] lHolidayInfo = new LunarHolidayStruct[]{
-            new LunarHolidayStruct(1, 1, 1, "春节"), 
-            new LunarHolidayStruct(1, 15, 0, "元宵节"), 
-            new LunarHolidayStruct(5, 5, 0, "端午节"), 
+            new LunarHolidayStruct(1, 1, 1, "春节"),
+            new LunarHolidayStruct(1, 15, 0, "元宵节"),
+            new LunarHolidayStruct(5, 5, 0, "端午节"),
             new LunarHolidayStruct(7, 7, 0, "七夕情人节"),
-            new LunarHolidayStruct(7, 15, 0, "中元节 盂兰盆节"), 
-            new LunarHolidayStruct(8, 15, 0, "中秋节"), 
-            new LunarHolidayStruct(9, 9, 0, "重阳节"), 
+            new LunarHolidayStruct(7, 15, 0, "中元节 盂兰盆节"),
+            new LunarHolidayStruct(8, 15, 0, "中秋节"),
+            new LunarHolidayStruct(9, 9, 0, "重阳节"),
             new LunarHolidayStruct(12, 8, 0, "腊八节"),
             new LunarHolidayStruct(12, 23, 0, "北方小年(扫房)"),
             new LunarHolidayStruct(12, 24, 0, "南方小年(掸尘)"),
             //new LunarHolidayStruct(12, 30, 0, "除夕")  //注意除夕需要其它方法进行计算
         };
-        #endregion
+
+        #endregion 按农历计算的节日
 
         #region 按某月第几个星期几
+
         private static WeekHolidayStruct[] wHolidayInfo = new WeekHolidayStruct[]{
-            new WeekHolidayStruct(5, 2, 1, "母亲节"), 
-            new WeekHolidayStruct(5, 3, 1, "全国助残日"), 
-            new WeekHolidayStruct(6, 3, 1, "父亲节"), 
-            new WeekHolidayStruct(9, 3, 3, "国际和平日"), 
-            new WeekHolidayStruct(9, 4, 1, "国际聋人节"), 
-            new WeekHolidayStruct(10, 1, 2, "国际住房日"), 
+            new WeekHolidayStruct(5, 2, 1, "母亲节"),
+            new WeekHolidayStruct(5, 3, 1, "全国助残日"),
+            new WeekHolidayStruct(6, 3, 1, "父亲节"),
+            new WeekHolidayStruct(9, 3, 3, "国际和平日"),
+            new WeekHolidayStruct(9, 4, 1, "国际聋人节"),
+            new WeekHolidayStruct(10, 1, 2, "国际住房日"),
             new WeekHolidayStruct(10, 1, 4, "国际减轻自然灾害日"),
             new WeekHolidayStruct(11, 4, 5, "感恩节")
         };
-        #endregion
-        #endregion
+
+        #endregion 按某月第几个星期几
+
+        #endregion 基础数据
 
         #region 构造函数
+
         #region 公历日期初始化
+
         /// <summary>
         /// 用一个标准的公历日期来初使化
         /// </summary>
@@ -921,9 +970,11 @@ namespace SufeiUtil
             _cMonth = i;
             _cDay = offset;
         }
-        #endregion
+
+        #endregion 公历日期初始化
 
         #region 农历日期初始化
+
         /// <summary>
         /// 用农历的日期来初使化
         /// </summary>
@@ -1032,11 +1083,15 @@ namespace SufeiUtil
             }
             _date = MinDay.AddDays(offset);
         }
-        #endregion
-        #endregion
+
+        #endregion 农历日期初始化
+
+        #endregion 构造函数
 
         #region 私有函数
+
         #region GetChineseMonthDays
+
         /// <summary>
         /// //传回农历y年m月的总天数
         /// </summary>
@@ -1051,9 +1106,11 @@ namespace SufeiUtil
                 return 29;
             }
         }
-        #endregion
+
+        #endregion GetChineseMonthDays
 
         #region GetChineseLeapMonth
+
         /// <summary>
         /// 传回农历 y年闰哪个月 1-12 , 没闰传回 0
         /// </summary>
@@ -1061,9 +1118,11 @@ namespace SufeiUtil
         {
             return LunarDateArray[year - MinYear] & 0xF;
         }
-        #endregion
+
+        #endregion GetChineseLeapMonth
 
         #region GetChineseLeapMonthDays
+
         /// <summary>
         /// 传回农历y年闰月的天数
         /// </summary>
@@ -1085,9 +1144,11 @@ namespace SufeiUtil
                 return 0;
             }
         }
-        #endregion
+
+        #endregion GetChineseLeapMonthDays
 
         #region GetChineseYearDays
+
         /// <summary>
         /// 取农历年一年的天数
         /// </summary>
@@ -1111,12 +1172,14 @@ namespace SufeiUtil
             }
             return sumDay + GetChineseLeapMonthDays(year);
         }
-        #endregion
+
+        #endregion GetChineseYearDays
 
         #region GetChineseHour
+
         /// <summary>
         /// 获得当前时间的时辰
-        /// </summary> 
+        /// </summary>
         private string GetChineseHour(DateTime dt)
         {
             int _hour, _minute, offset, i;
@@ -1145,9 +1208,11 @@ namespace SufeiUtil
 
             return tmpGan[offset].ToString() + zhiStr[offset].ToString();
         }
-        #endregion
+
+        #endregion GetChineseHour
 
         #region CheckDateLimit
+
         /// <summary>
         /// 检查公历日期是否符合要求
         /// </summary>
@@ -1158,9 +1223,11 @@ namespace SufeiUtil
                 throw new Exception("超出可转换的日期");
             }
         }
-        #endregion
+
+        #endregion CheckDateLimit
 
         #region CheckChineseDateLimit
+
         /// <summary>
         /// 检查农历日期是否合理
         /// </summary>
@@ -1184,9 +1251,11 @@ namespace SufeiUtil
                 throw new Exception("非法农历日期");
             }
         }
-        #endregion
+
+        #endregion CheckChineseDateLimit
 
         #region ConvertNumToChineseNum
+
         /// <summary>
         /// 将0-9转成汉字形式
         /// </summary>
@@ -1197,31 +1266,43 @@ namespace SufeiUtil
             {
                 case '0':
                     return HZNum[0].ToString();
+
                 case '1':
                     return HZNum[1].ToString();
+
                 case '2':
                     return HZNum[2].ToString();
+
                 case '3':
                     return HZNum[3].ToString();
+
                 case '4':
                     return HZNum[4].ToString();
+
                 case '5':
                     return HZNum[5].ToString();
+
                 case '6':
                     return HZNum[6].ToString();
+
                 case '7':
                     return HZNum[7].ToString();
+
                 case '8':
                     return HZNum[8].ToString();
+
                 case '9':
                     return HZNum[9].ToString();
+
                 default:
                     return "";
             }
         }
-        #endregion
+
+        #endregion ConvertNumToChineseNum
 
         #region BitTest32
+
         /// <summary>
         /// 测试某位是否为真
         /// </summary>
@@ -1241,9 +1322,11 @@ namespace SufeiUtil
                 return true;
             }
         }
-        #endregion
+
+        #endregion BitTest32
 
         #region ConvertDayOfWeek
+
         /// <summary>
         /// 将星期几转成数字表示
         /// </summary>
@@ -1253,25 +1336,34 @@ namespace SufeiUtil
             {
                 case DayOfWeek.Sunday:
                     return 1;
+
                 case DayOfWeek.Monday:
                     return 2;
+
                 case DayOfWeek.Tuesday:
                     return 3;
+
                 case DayOfWeek.Wednesday:
                     return 4;
+
                 case DayOfWeek.Thursday:
                     return 5;
+
                 case DayOfWeek.Friday:
                     return 6;
+
                 case DayOfWeek.Saturday:
                     return 7;
+
                 default:
                     return 0;
             }
         }
-        #endregion
+
+        #endregion ConvertDayOfWeek
 
         #region CompareWeekDayHoliday
+
         /// <summary>
         /// 比较当天是不是指定的第周几
         /// </summary>
@@ -1306,12 +1398,17 @@ namespace SufeiUtil
 
             return ret;
         }
-        #endregion
-        #endregion
 
-        #region  属性
+        #endregion CompareWeekDayHoliday
+
+        #endregion 私有函数
+
+        #region 属性
+
         #region 节日
+
         #region newCalendarHoliday
+
         /// <summary>
         /// 计算中国农历节日
         /// </summary>
@@ -1326,10 +1423,8 @@ namespace SufeiUtil
                     {
                         if ((lh.Month == this._cMonth) && (lh.Day == this._cDay))
                         {
-
                             tempStr = lh.HolidayName;
                             break;
-
                         }
                     }
 
@@ -1346,9 +1441,11 @@ namespace SufeiUtil
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion newCalendarHoliday
 
         #region WeekDayHoliday
+
         /// <summary>
         /// 按某月第几周第几日计算的节日
         /// </summary>
@@ -1368,9 +1465,11 @@ namespace SufeiUtil
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion WeekDayHoliday
 
         #region DateHoliday
+
         /// <summary>
         /// 按公历日计算的节日
         /// </summary>
@@ -1391,11 +1490,15 @@ namespace SufeiUtil
                 return tempStr;
             }
         }
-        #endregion
-        #endregion
+
+        #endregion DateHoliday
+
+        #endregion 节日
 
         #region 公历日期
+
         #region Date
+
         /// <summary>
         /// 取对应的公历日期
         /// </summary>
@@ -1404,9 +1507,11 @@ namespace SufeiUtil
             get { return _date; }
             set { _date = value; }
         }
-        #endregion
+
+        #endregion Date
 
         #region WeekDay
+
         /// <summary>
         /// 取星期几
         /// </summary>
@@ -1414,9 +1519,11 @@ namespace SufeiUtil
         {
             get { return _date.DayOfWeek; }
         }
-        #endregion
+
+        #endregion WeekDay
 
         #region WeekDayStr
+
         /// <summary>
         /// 周几的字符
         /// </summary>
@@ -1428,24 +1535,32 @@ namespace SufeiUtil
                 {
                     case DayOfWeek.Sunday:
                         return "星期日";
+
                     case DayOfWeek.Monday:
                         return "星期一";
+
                     case DayOfWeek.Tuesday:
                         return "星期二";
+
                     case DayOfWeek.Wednesday:
                         return "星期三";
+
                     case DayOfWeek.Thursday:
                         return "星期四";
+
                     case DayOfWeek.Friday:
                         return "星期五";
+
                     default:
                         return "星期六";
                 }
             }
         }
-        #endregion
+
+        #endregion WeekDayStr
 
         #region DateString
+
         /// <summary>
         /// 公历日期中文表示法 如一九九七年七月一日
         /// </summary>
@@ -1456,9 +1571,11 @@ namespace SufeiUtil
                 return "公元" + this._date.ToLongDateString();
             }
         }
-        #endregion
+
+        #endregion DateString
 
         #region IsLeapYear
+
         /// <summary>
         /// 当前是否公历闰年
         /// </summary>
@@ -1469,9 +1586,11 @@ namespace SufeiUtil
                 return DateTime.IsLeapYear(this._date.Year);
             }
         }
-        #endregion
+
+        #endregion IsLeapYear
 
         #region ChineseConstellation
+
         /// <summary>
         /// 28星宿计算
         /// </summary>
@@ -1488,9 +1607,11 @@ namespace SufeiUtil
                 return (modStarDay >= 0 ? _chineseConstellationName[modStarDay] : _chineseConstellationName[27 + modStarDay]);
             }
         }
-        #endregion
+
+        #endregion ChineseConstellation
 
         #region ChineseHour
+
         /// <summary>
         /// 时辰
         /// </summary>
@@ -1501,12 +1622,15 @@ namespace SufeiUtil
                 return GetChineseHour(_datetime);
             }
         }
-        #endregion
 
-        #endregion
+        #endregion ChineseHour
+
+        #endregion 公历日期
 
         #region 农历日期
+
         #region IsChineseLeapMonth
+
         /// <summary>
         /// 是否闰月
         /// </summary>
@@ -1514,9 +1638,11 @@ namespace SufeiUtil
         {
             get { return this._cIsLeapMonth; }
         }
-        #endregion
+
+        #endregion IsChineseLeapMonth
 
         #region IsChineseLeapYear
+
         /// <summary>
         /// 当年是否有闰月
         /// </summary>
@@ -1527,9 +1653,11 @@ namespace SufeiUtil
                 return this._cIsLeapYear;
             }
         }
-        #endregion
+
+        #endregion IsChineseLeapYear
 
         #region ChineseDay
+
         /// <summary>
         /// 农历日
         /// </summary>
@@ -1537,9 +1665,11 @@ namespace SufeiUtil
         {
             get { return this._cDay; }
         }
-        #endregion
+
+        #endregion ChineseDay
 
         #region ChineseDayString
+
         /// <summary>
         /// 农历日中文表示
         /// </summary>
@@ -1551,21 +1681,26 @@ namespace SufeiUtil
                 {
                     case 0:
                         return "";
+
                     case 10:
                         return "初十";
+
                     case 20:
                         return "二十";
+
                     case 30:
                         return "三十";
+
                     default:
                         return nStr2[(int)(_cDay / 10)].ToString() + nStr1[_cDay % 10].ToString();
-
                 }
             }
         }
-        #endregion
+
+        #endregion ChineseDayString
 
         #region ChineseMonth
+
         /// <summary>
         /// 农历的月份
         /// </summary>
@@ -1573,9 +1708,11 @@ namespace SufeiUtil
         {
             get { return this._cMonth; }
         }
-        #endregion
+
+        #endregion ChineseMonth
 
         #region ChineseMonthString
+
         /// <summary>
         /// 农历月份字符串
         /// </summary>
@@ -1586,9 +1723,11 @@ namespace SufeiUtil
                 return _monthString[this._cMonth];
             }
         }
-        #endregion
+
+        #endregion ChineseMonthString
 
         #region ChineseYear
+
         /// <summary>
         /// 取农历年份
         /// </summary>
@@ -1596,9 +1735,11 @@ namespace SufeiUtil
         {
             get { return this._cYear; }
         }
-        #endregion
+
+        #endregion ChineseYear
 
         #region ChineseYearString
+
         /// <summary>
         /// 取农历年字符串如，一九九七年
         /// </summary>
@@ -1615,9 +1756,11 @@ namespace SufeiUtil
                 return tempStr + "年";
             }
         }
-        #endregion
+
+        #endregion ChineseYearString
 
         #region ChineseDateString
+
         /// <summary>
         /// 取农历日期表示法：农历一九九七年正月初五
         /// </summary>
@@ -1635,9 +1778,11 @@ namespace SufeiUtil
                 }
             }
         }
-        #endregion
+
+        #endregion ChineseDateString
 
         #region ChineseTwentyFourDay
+
         /// <summary>
         /// 定气法计算二十四节气,二十四节气是按地球公转来计算的，并非是阴历计算的
         /// </summary>
@@ -1704,7 +1849,6 @@ namespace SufeiUtil
 
                 return tempStr;
             }
-
         }
 
         //当前日期后一个最近节气
@@ -1734,14 +1878,16 @@ namespace SufeiUtil
                 }
                 return tempStr;
             }
-
         }
-        #endregion
-        #endregion
+
+        #endregion ChineseTwentyFourDay
+
+        #endregion 农历日期
 
         #region 星座
+
         /// <summary>
-        /// 计算指定日期的星座序号 
+        /// 计算指定日期的星座序号
         /// </summary>
         public string Constellation
         {
@@ -1771,10 +1917,13 @@ namespace SufeiUtil
                 return _constellationName[index];
             }
         }
-        #endregion
+
+        #endregion 星座
 
         #region 属相
+
         #region Animal
+
         /// <summary>
         /// 计算属相的索引，注意虽然属相是以农历年来区别的，但是目前在实际使用中是按公历来计算的
         /// 鼠年为1,其它类推
@@ -1787,9 +1936,11 @@ namespace SufeiUtil
                 return (offset % 12) + 1;
             }
         }
-        #endregion
+
+        #endregion Animal
 
         #region AnimalString
+
         /// <summary>
         /// 取属相字符串
         /// </summary>
@@ -1802,11 +1953,15 @@ namespace SufeiUtil
                 return animalStr[offset % 12].ToString();
             }
         }
-        #endregion
-        #endregion
+
+        #endregion AnimalString
+
+        #endregion 属相
 
         #region 天干地支
+
         #region GanZhiYearString
+
         /// <summary>
         /// 取农历年的干支表示法如 乙丑年
         /// </summary>
@@ -1820,9 +1975,11 @@ namespace SufeiUtil
                 return tempStr;
             }
         }
-        #endregion
+
+        #endregion GanZhiYearString
 
         #region GanZhiMonthString
+
         /// <summary>
         /// 取干支的月表示字符串，注意农历的闰月不记干支
         /// </summary>
@@ -1850,46 +2007,59 @@ namespace SufeiUtil
                 switch (i % 10)
                 {
                     #region ...
+
                     case 0: //甲
                         ganIndex = 3;
                         break;
+
                     case 1: //乙
                         ganIndex = 5;
                         break;
+
                     case 2: //丙
                         ganIndex = 7;
                         break;
+
                     case 3: //丁
                         ganIndex = 9;
                         break;
+
                     case 4: //戊
                         ganIndex = 1;
                         break;
+
                     case 5: //己
                         ganIndex = 3;
                         break;
+
                     case 6: //庚
                         ganIndex = 5;
                         break;
+
                     case 7: //辛
                         ganIndex = 7;
                         break;
+
                     case 8: //壬
                         ganIndex = 9;
                         break;
+
                     case 9: //癸
                         ganIndex = 1;
                         break;
-                    #endregion
+
+                        #endregion ...
                 }
                 gan = ganStr[(ganIndex + this._cMonth - 2) % 10].ToString();
 
                 return gan + zhi + "月";
             }
         }
-        #endregion
+
+        #endregion GanZhiMonthString
 
         #region GanZhiDayString
+
         /// <summary>
         /// 取干支日表示法
         /// </summary>
@@ -1904,9 +2074,11 @@ namespace SufeiUtil
                 return ganStr[i % 10].ToString() + zhiStr[i % 12].ToString() + "日";
             }
         }
-        #endregion
+
+        #endregion GanZhiDayString
 
         #region GanZhiDateString
+
         /// <summary>
         /// 取当前日期的干支表示法如 甲子年乙丑月丙庚日
         /// </summary>
@@ -1917,10 +2089,11 @@ namespace SufeiUtil
                 return GanZhiYearString + GanZhiMonthString + GanZhiDayString;
             }
         }
-        #endregion
-        #endregion
-        #endregion
+
+        #endregion GanZhiDateString
+
+        #endregion 天干地支
+
+        #endregion 属性
     }
 }
-
-

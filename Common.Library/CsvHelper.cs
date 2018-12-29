@@ -1,11 +1,7 @@
-﻿/// <summary>
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Data;
+﻿using System.Data;
 using System.IO;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// CSV文件转换类
@@ -24,7 +20,7 @@ namespace SufeiUtil
             try
             {
                 string strBufferLine = "";
-                StreamWriter strmWriterObj = new StreamWriter(strFilePath, false, System.Text.Encoding.UTF8);
+                var strmWriterObj = new StreamWriter(strFilePath, false, Text.Encoding.UTF8);
                 strmWriterObj.WriteLine(tableheader);
                 strmWriterObj.WriteLine(columname);
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -54,7 +50,7 @@ namespace SufeiUtil
         /// <param name="n">表示第n行是字段title,第n+1行是记录开始</param>
         public static DataTable csv2dt(string filePath, int n, DataTable dt)
         {
-            StreamReader reader = new StreamReader(filePath, System.Text.Encoding.UTF8, false);
+            var reader = new StreamReader(filePath, Text.Encoding.UTF8, false);
             int i = 0, m = 0;
             reader.Peek();
             while (reader.Peek() > 0)
@@ -65,7 +61,7 @@ namespace SufeiUtil
                 {
                     string[] split = str.Split(',');
 
-                    System.Data.DataRow dr = dt.NewRow();
+                    var dr = dt.NewRow();
                     for (i = 0; i < split.Length; i++)
                     {
                         dr[i] = split[i];

@@ -1,13 +1,12 @@
 ﻿/// <summary>
 /// 类说明：Assistant
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
 using System;
+using System.Configuration;
 using System.Text;
-using System.Data;
-using OWCChart;
 
 namespace SufeiUtil
 {
@@ -16,8 +15,6 @@ namespace SufeiUtil
     /// </summary>
     public sealed class Assistant
     {
-
-
         #region 创建显示图像的标签
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace SufeiUtil
                         if ((LinkURL.Trim() != "") && (LinkURL.Trim() != "http://"))//非空
                         {
                             TagStr.Append("<a href=\"");
-                            TagStr.Append(ConfigHelper.GetConfigString("URL") + "/FormAdHit.aspx?ADID=" + ADID);
+                            TagStr.Append(ConfigHelper.GetValue("URL") + "/FormAdHit.aspx?ADID=" + ADID);
                             TagStr.Append("&LinkURL=" + LinkURL.Replace("&", "$$$"));
                             TagStr.Append("\"");
                             TagStr.Append(" target=\"_blank\">");
@@ -60,10 +57,10 @@ namespace SufeiUtil
                         ////					TagStr.Append(" <param name=\"movie\" value=\""+filename+"?clickthru=");
                         ////					TagStr.Append("FormAdHit.aspx?ADID="+ADID);
                         ////					TagStr.Append("_LinkURL="+LinkURL);
-                        ////					TagStr.Append("\"> ");					
+                        ////					TagStr.Append("\"> ");
                         //					TagStr.Append(" <param name=\"wmode\" value=\"opaque\"> ");
                         //					TagStr.Append(" <param name=\"quality\" value=\"autohigh\"> ");
-                        //					
+                        //
                         //					TagStr.Append(" <embed  ");
                         //					TagStr.Append(" width="+Width+" height="+High+"  ");
                         //					TagStr.Append(" src=\""+filename+"?clickthru=");
@@ -72,7 +69,7 @@ namespace SufeiUtil
                         //					{
                         //						TagStr.Append("_LinkURL="+LinkURL);
                         //					}
-                        //					TagStr.Append("\"  ");	
+                        //					TagStr.Append("\"  ");
                         //					TagStr.Append(" quality=\"high\" wmode=\"opaque\" type=\"application/x-shockwave-flash\"  ");
                         //					TagStr.Append(" plugspace=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"> ");
                         //					TagStr.Append(" </embed></object> ");
@@ -85,11 +82,10 @@ namespace SufeiUtil
                         //					{
                         //						TagStr.Append("_LinkURL="+LinkURL);
                         //					}
-                        //					TagStr.Append("\"  ");	
+                        //					TagStr.Append("\"  ");
                         TagStr.Append(" width=" + Width + " height=" + High + "  ");
                         TagStr.Append(" quality=\"high\" ");
                         TagStr.Append(" ></embed>");
-
                     }
 
                     break;
@@ -115,13 +111,11 @@ namespace SufeiUtil
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(flash无点击)
-        /// </summary>		
+        /// </summary>
         public static string CreateTag2(string ADID, string filename, string desc, string FileType, string LinkURL, int Width, int High)
         {
             StringBuilder TagStr = new StringBuilder();
@@ -132,7 +126,7 @@ namespace SufeiUtil
                 case "image/pjpeg":
                     {
                         TagStr.Append("<a href=\"");
-                        TagStr.Append(ConfigHelper.GetConfigString("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("&LinkURL=" + LinkURL);
                         TagStr.Append("\"");
                         TagStr.Append(" target=\"_blank\">");
@@ -184,7 +178,6 @@ namespace SufeiUtil
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
                     //					TagStr.Append("</a>");
 
-
                     break;
 
                 default:
@@ -193,9 +186,7 @@ namespace SufeiUtil
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(重载)，无宽高限制，(flash加点击)
@@ -210,7 +201,7 @@ namespace SufeiUtil
                 case "image/pjpeg":
                     {
                         TagStr.Append("<a href=\"");
-                        TagStr.Append(ConfigHelper.GetConfigString("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("&LinkURL=" + LinkURL);
                         TagStr.Append("\"");
                         TagStr.Append(" target=\"_blank\">");
@@ -231,13 +222,13 @@ namespace SufeiUtil
                         //					TagStr.Append(" <param name=\"movie\" value=\""+filename+"?clickthru=");
                         //					TagStr.Append("FormAdHit.aspx?ADID="+ADID);
                         //					TagStr.Append("_LinkURL="+LinkURL);
-                        //					TagStr.Append("\"> ");					
+                        //					TagStr.Append("\"> ");
                         TagStr.Append(" <param name=\"wmode\" value=\"opaque\"> ");
                         TagStr.Append(" <param name=\"quality\" value=\"autohigh\"> ");
                         TagStr.Append(" <embed  ");
                         //					TagStr.Append(" width="+Width+" height="+High+"  ");
                         TagStr.Append(" src=\"" + filename + "?clickthru=");
-                        TagStr.Append(ConfigHelper.GetConfigString("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("_LinkURL=" + LinkURL);
                         TagStr.Append("\"  ");
                         TagStr.Append(" quality=\"autohigh\" wmode=\"opaque\" type=\"application/x-shockwave-flash\"  ");
@@ -257,10 +248,9 @@ namespace SufeiUtil
                 case "audio/x-ms-wma":
                     TagStr.Append("<embed");
                     TagStr.Append(" src=\"" + filename + "\" border=\"0\" ");
-                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");	
+                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
                     TagStr.Append(" autoStart=\"1\" playCount=\"0\" enableContextMenu=\"0\"");
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
-
 
                     break;
 
@@ -269,9 +259,7 @@ namespace SufeiUtil
             }
 
             return TagStr.ToString();
-
         }
-
 
         /// <summary>
         /// 创建显示图像的标签(重载)，无宽高限制，(flash无点击)
@@ -317,10 +305,9 @@ namespace SufeiUtil
                 case "audio/x-ms-wma":
                     TagStr.Append("<embed");
                     TagStr.Append(" src=\"" + filename + "\" border=\"0\" ");
-                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");	
+                    //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
                     TagStr.Append(" autoStart=\"1\" playCount=\"0\" enableContextMenu=\"0\"");
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
-
 
                     break;
 
@@ -329,11 +316,10 @@ namespace SufeiUtil
             }
 
             return TagStr.ToString();
-
         }
 
-
         #region
+
         /// <summary>
         /// 创建显示图像的标签
         /// </summary>
@@ -374,11 +360,11 @@ namespace SufeiUtil
                         TagStr.Append(" quality=\"high\" bgcolor=\"#f5f5f5\"");
                         TagStr.Append(" ></embed>");
 
-                        //					TagStr.Append(" <embed src=\""+filename+"\" ");		
-                        //					TagStr.Append("pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"");					
+                        //					TagStr.Append(" <embed src=\""+filename+"\" ");
+                        //					TagStr.Append("pluginspage=\"http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash\"");
                         //					TagStr.Append(" type=\"application/x-shockwave-flash\"");
                         //					TagStr.Append(" width=\""+Width+"\" height=\""+High+"\"");
-                        //					TagStr.Append(" play=\"true\" loop=\"true\" quality=\"high\" scale=\"showall\" ");					
+                        //					TagStr.Append(" play=\"true\" loop=\"true\" quality=\"high\" scale=\"showall\" ");
                         //					TagStr.Append(" ></embed>");
 
                         TagStr.Append("</a>");
@@ -401,7 +387,7 @@ namespace SufeiUtil
                     //					TagStr.Append("<OBJECT  classid=\"clsid:6BF52A52-394A-11D3-B153-00C04F79FAA6\" VIEWASTEXT>");
                     //					TagStr.Append("<PARAM NAME=\"URL\" VALUE=\""+filename+"\">");
                     //					TagStr.Append("<PARAM NAME=\"autoStart\" VALUE=\"1\">");
-                    //					TagStr.Append("<PARAM NAME=\"enableContextMenu\" VALUE=\"0\" ></OBJECT>");	
+                    //					TagStr.Append("<PARAM NAME=\"enableContextMenu\" VALUE=\"0\" ></OBJECT>");
                     //					TagStr.Append("</a>");
 
                     TagStr.Append("<a href=\"");
@@ -414,7 +400,6 @@ namespace SufeiUtil
                     TagStr.Append(" type=\"application/x-mplayer2\"></embed>");
                     TagStr.Append("</a>");
 
-
                     break;
 
                 default://其他类型作为附件链接下载
@@ -423,10 +408,9 @@ namespace SufeiUtil
             }
 
             return TagStr.ToString();
-
         }
 
-        #endregion
+        #endregion 创建显示图像的标签
 
         #endregion
 
@@ -445,7 +429,7 @@ namespace SufeiUtil
         //    String PhaysicalImagePath = ImagePath;
         //    OWCChart.OWCChartFactory mychart = new OWCChartFactory(Title, PhaysicalImagePath, 530, 300, new OWCChartFontStyle());
         //    OWCChart.OWCSeriesClass MyItem = new OWCSeriesClass();
-  
+
         //    MyItem.SeriesName = "次数";
         //    MyItem.SetDataSource(dt, "Item", "Value");
         //    switch (CharType)
@@ -477,9 +461,7 @@ namespace SufeiUtil
         //    MyItems[1].SeriesName = "点击次数";
         //    MyItems[1].SetDataSource(dts[1], "Item", "Value");
 
-
         //    mychart.CreateMultiColumns("时间", "次", MyItems);
-
 
         //    String imageName = mychart.ExportPictuire();
         //    return imageName;
@@ -512,9 +494,7 @@ namespace SufeiUtil
         //    MyItems[1].SeriesName = "点击次数";
         //    MyItems[1].SetDataSource(dts[1], "Item", "Value");
 
-
         //    mychart.CreateMultiBar(" ", "", MyItems);
-
 
         //    String imageName = mychart.ExportPictuire();
         //    return imageName;
@@ -533,7 +513,7 @@ namespace SufeiUtil
         /// <returns></returns>
         private string GetRandomCode(string allChar, int CodeCount)
         {
-            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"; 
+            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] allCharArray = allChar.Split(',');
             string RandomCode = "";
             int temp = -1;
@@ -560,7 +540,5 @@ namespace SufeiUtil
         }
 
         #endregion
-
-
     }
 }

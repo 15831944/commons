@@ -1,15 +1,13 @@
 ﻿/// <summary>
 /// 类说明：Assistant
 /// 编 码 人：苏飞
-/// 联系方式：361983679  
+/// 联系方式：361983679
 /// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
 /// </summary>
-using System.Web.UI.WebControls;
-using System.Web.UI;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SufeiUtil
+namespace System.Web.UI.WebControls
 {
     /// <summary>
     /// 数据展示控件 绑定数据类
@@ -17,6 +15,7 @@ namespace SufeiUtil
     public class BindDataControl
     {
         #region 绑定服务器数据控件 简单绑定DataList
+
         /// <summary>
         /// 简单绑定DataList
         /// </summary>
@@ -28,9 +27,11 @@ namespace SufeiUtil
             ((DataList)ctrl).DataSource = mydv;
             ((DataList)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 简单绑定DataList
 
         #region 绑定服务器数据控件 SqlDataReader简单绑定DataList
+
         /// <summary>
         /// SqlDataReader简单绑定DataList
         /// </summary>
@@ -42,9 +43,11 @@ namespace SufeiUtil
             ((DataList)ctrl).DataSource = mydv;
             ((DataList)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 SqlDataReader简单绑定DataList
 
         #region 绑定服务器数据控件 简单绑定GridView
+
         /// <summary>
         /// 简单绑定GridView
         /// </summary>
@@ -56,7 +59,8 @@ namespace SufeiUtil
             ((GridView)ctrl).DataSource = mydv;
             ((GridView)ctrl).DataBind();
         }
-        #endregion
+
+        #endregion 绑定服务器数据控件 简单绑定GridView
 
         /// <summary>
         /// 绑定服务器控件 简单绑定Repeater
