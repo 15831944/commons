@@ -44,7 +44,7 @@ namespace System
 
         public static bool? ToBool(this string s, bool? defaultValue = null)
         {
-            if (bool.TryParse(s, out bool value))
+            if (bool.TryParse(s, out var value))
             {
                 return new bool?(value);
             }
@@ -53,16 +53,12 @@ namespace System
 
         public static bool? ToBoolean(this string s, bool? defaultValue = null)
         {
-            if (bool.TryParse(s, out bool value))
-            {
-                return new bool?(value);
-            }
-            return defaultValue;
+            return s.ToBool(defaultValue);
         }
 
         public static byte? ToByte(this string s, byte? defaultValue = null)
         {
-            if (byte.TryParse(s, out byte value))
+            if (byte.TryParse(s, out var value))
             {
                 return new byte?(value);
             }
@@ -71,7 +67,7 @@ namespace System
 
         public static short? ToShort(this string s, short? defaultValue = null)
         {
-            if (short.TryParse(s, out short value))
+            if (short.TryParse(s, out var value))
             {
                 return new short?(value);
             }
@@ -80,16 +76,12 @@ namespace System
 
         public static short? ToInt16(this string s, short? defaultValue = null)
         {
-            if (short.TryParse(s, out short value))
-            {
-                return new short?(value);
-            }
-            return defaultValue;
+            return s.ToShort(defaultValue);
         }
 
         public static int? ToInt(this string s, int? defaultValue = null)
         {
-            if (int.TryParse(s, out int value))
+            if (int.TryParse(s, out var value))
             {
                 return new int?(value);
             }
@@ -98,16 +90,12 @@ namespace System
 
         public static int? ToInt32(this string s, int? defaultValue = null)
         {
-            if (int.TryParse(s, out int value))
-            {
-                return new int?(value);
-            }
-            return defaultValue;
+            return s.ToInt(defaultValue);
         }
 
         public static long? ToLong(this string s, long? defaultValue = null)
         {
-            if (long.TryParse(s, out long value))
+            if (long.TryParse(s, out var value))
             {
                 return new long?(value);
             }
@@ -116,16 +104,12 @@ namespace System
 
         public static long? ToInt64(this string s, long? defaultValue = null)
         {
-            if (long.TryParse(s, out long value))
-            {
-                return new long?(value);
-            }
-            return defaultValue;
+            return s.ToLong(defaultValue);
         }
 
         public static float? ToFloat(this string s, float? defaultValue = null)
         {
-            if (float.TryParse(s, out float value))
+            if (float.TryParse(s, out var value))
             {
                 return new float?(value);
             }
@@ -134,16 +118,12 @@ namespace System
 
         public static float? ToSingle(this string s, float? defaultValue = null)
         {
-            if (float.TryParse(s, out float value))
-            {
-                return new float?(value);
-            }
-            return defaultValue;
+            return s.ToFloat(defaultValue);
         }
 
         public static double? ToDouble(this string s, double? defaultValue = null)
         {
-            if (double.TryParse(s, out double value))
+            if (double.TryParse(s, out var value))
             {
                 return new double?(value);
             }
@@ -152,7 +132,7 @@ namespace System
 
         public static decimal? ToDecimal(this string s, decimal? defaultValue = null)
         {
-            if (decimal.TryParse(s, out decimal value))
+            if (decimal.TryParse(s, out var value))
             {
                 return new decimal?(value);
             }
@@ -161,7 +141,7 @@ namespace System
 
         public static Guid? ToGuid(this string s, Guid? defaultValue = null)
         {
-            if (Guid.TryParse(s, out Guid value))
+            if (Guid.TryParse(s, out var value))
             {
                 return new Guid?(value);
             }
@@ -170,11 +150,11 @@ namespace System
 
         public static TEnum? ToEnum<TEnum>(this string s, TEnum? defaultValue = null) where TEnum : struct
         {
-            if (!int.TryParse(s, out int value))
+            if (!int.TryParse(s, out var value))
             {
                 return defaultValue;
             }
-            var value2 = (TEnum)((object)Enum.ToObject(typeof(TEnum), value));
+            var value2 = (TEnum)Enum.ToObject(typeof(TEnum), value);
             return new TEnum?(value2);
         }
 
@@ -258,8 +238,7 @@ namespace System
         /// <returns></returns>
         public static string Pluralize(this string text, int count, string plural = null)
         {
-            if (count < 2) return text;
-            return string.IsNullOrEmpty(plural) ? text + "s" : plural;
+            return count < 2 ? text : (string.IsNullOrEmpty(plural) ? text + "s" : plural);
         }
 
         /// <summary>
@@ -276,7 +255,9 @@ namespace System
             {
                 var uc = CharUnicodeInfo.GetUnicodeCategory(ch);
                 if (uc != UnicodeCategory.NonSpacingMark)
+                {
                     sb.Append(ch);
+                }
             }
 
             return sb.ToString().Normalize(NormalizationForm.FormC);
@@ -433,6 +414,11 @@ namespace System
             return result;
         }
 
+        public static string[] Split(this string s)
+        {
+            return s.Split(new char[] { ',', '|', '*' });
+        }
+
         public static List<string> SplitToList(this string s, char separator, bool lower = false)
         {
             var list = new List<string>();
@@ -441,15 +427,80 @@ namespace System
             {
                 if (item.IsNotNullOrWhiteSpace())
                 {
-                    var tmp = item;
                     if (lower)
                     {
-                        tmp = item.ToLower();
+                        list.Add(item.ToLower());
                     }
-                    list.Add(tmp);
+                    else
+                    {
+                        list.Add(item);
+                    }
                 }
             }
             return list;
+        }
+
+        /// <summary>
+        /// 删除最后结尾的一个逗号
+        /// </summary>
+        public static string RemoveLastComma(this string str)
+        {
+            return str.Substring(0, str.LastIndexOf(","));
+        }
+
+        /// <summary>
+        /// 删除最后结尾的指定字符后的字符
+        /// </summary>
+        public static string RemoveLastChar(this string str, string strchar)
+        {
+            return str.Substring(0, str.LastIndexOf(strchar));
+        }
+
+        /// <summary>
+        /// 转全角的函数(SBC case)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ToSBC(this string input)
+        {
+            //半角转全角：
+            var c = input.ToCharArray();
+            for (var i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 32)
+                {
+                    c[i] = (char)12288;
+                    continue;
+                }
+                if (c[i] < 127)
+                {
+                    c[i] = (char)(c[i] + 65248);
+                }
+            }
+            return new string(c);
+        }
+
+        /// <summary>
+        ///  转半角的函数(SBC case)
+        /// </summary>
+        /// <param name="input">输入</param>
+        /// <returns></returns>
+        public static string ToDBC(this string input)
+        {
+            var c = input.ToCharArray();
+            for (var i = 0; i < c.Length; i++)
+            {
+                if (c[i] == 12288)
+                {
+                    c[i] = (char)32;
+                    continue;
+                }
+                if (c[i] > 65280 && c[i] < 65375)
+                {
+                    c[i] = (char)(c[i] - 65248);
+                }
+            }
+            return new string(c);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace Utils.Tests
 {
@@ -8,6 +9,10 @@ namespace Utils.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            var s = "asdad";
+            var ss = s.Split(new char[] { ',' });
+            var list = new List<string>();
+            list.JoinToString(",");
         }
     }
 }
