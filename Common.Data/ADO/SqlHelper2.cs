@@ -6,11 +6,10 @@
 /// 修改日期：2013-08-15
 /// </summary>
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections;
+
 namespace SufeiUtil
 {
     /// <summary>
@@ -18,7 +17,7 @@ namespace SufeiUtil
     /// 此类为抽象类，
     /// 不允许实例化，在应用时直接调用即可
     /// </summary>
-    public abstract class SqlHelper
+    public abstract class SqlHelper2
     {
         /// <summary>
         /// 数据库连接字符串
@@ -29,9 +28,10 @@ namespace SufeiUtil
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
 
         #region //ExecteNonQuery方法
+
         /// <summary>
         ///执行一个不需要返回值的SqlCommand命令，通过指定专用的连接字符串。
-        /// 使用参数数组形式提供参数列表 
+        /// 使用参数数组形式提供参数列表
         /// </summary>
         /// <param name="connectionString">一个有效的数据库连接字符串</param>
         /// <param name="cmdType">SqlCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
@@ -54,7 +54,7 @@ namespace SufeiUtil
 
         /// <summary>
         ///执行一个不需要返回值的SqlCommand命令，通过指定专用的连接字符串。
-        /// 使用参数数组形式提供参数列表 
+        /// 使用参数数组形式提供参数列表
         /// </summary>
         /// <param name="cmdType">SqlCommand命令类型 (存储过程， T-SQL语句， 等等。)</param>
         /// <param name="cmdText">存储过程的名字或者 T-SQL 语句</param>
@@ -87,7 +87,7 @@ namespace SufeiUtil
             return ExecteNonQuery(CommandType.Text, cmdText, commandParameters);
         }
 
-        #endregion
+        #endregion //ExecteNonQuery方法
 
         #region//GetTable方法
 
@@ -125,7 +125,7 @@ namespace SufeiUtil
         /// <returns>返回一个表集合(DataTableCollection)表示查询得到的数据集</returns>
         public static DataTableCollection GetTable(CommandType cmdTye, string cmdText, SqlParameter[] commandParameters)
         {
-            return GetTable(SqlHelper.connectionString, cmdTye, cmdText, commandParameters);
+            return GetTable(SqlHelper2.connectionString, cmdTye, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// Execute a SqlCommand that returns a resultset against the database specified in the connection string 
+        /// Execute a SqlCommand that returns a resultset against the database specified in the connection string
         /// using the provided parameters.
         /// </summary>
         /// <param name="connectionString">一个有效的数据库连接字符串</param>
@@ -192,8 +192,8 @@ namespace SufeiUtil
         {
             SqlCommand cmd = new SqlCommand();
             SqlConnection conn = new SqlConnection(connectionString);
-            // we use a try/catch here because if the method throws an exception we want to 
-            // close the connection throw code, because no datareader will exist, hence the 
+            // we use a try/catch here because if the method throws an exception we want to
+            // close the connection throw code, because no datareader will exist, hence the
             // commandBehaviour.CloseConnection will not work
             try
             {
@@ -293,10 +293,10 @@ namespace SufeiUtil
             }
             catch
             {
-
                 throw;
             }
         }
+
         #endregion
 
         #region // ExecuteScalar方法
@@ -310,7 +310,7 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalar(CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper.connectionString, cmdType, cmdText, commandParameters);
+            return ExecuteScalar(SqlHelper2.connectionString, cmdType, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalarProducts(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper.connectionString, CommandType.StoredProcedure, cmdText, commandParameters);
+            return ExecuteScalar(SqlHelper2.connectionString, CommandType.StoredProcedure, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -332,15 +332,15 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalarText(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper.connectionString, CommandType.Text, cmdText, commandParameters);
+            return ExecuteScalar(SqlHelper2.connectionString, CommandType.Text, cmdText, commandParameters);
         }
 
         /// <summary>
-        /// Execute a SqlCommand that returns the first column of the first record against the database specified in the connection string 
+        /// Execute a SqlCommand that returns the first column of the first record against the database specified in the connection string
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  Object obj = ExecuteScalar(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">一个有效的数据库连接字符串</param>
@@ -362,11 +362,11 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// Execute a SqlCommand that returns the first column of the first record against an existing database connection 
+        /// Execute a SqlCommand that returns the first column of the first record against an existing database connection
         /// using the provided parameters.
         /// </summary>
         /// <remarks>
-        /// e.g.:  
+        /// e.g.:
         ///  Object obj = ExecuteScalar(connString, CommandType.StoredProcedure, "PublishOrders", new SqlParameter("@prodid", 24));
         /// </remarks>
         /// <param name="connectionString">一个有效的数据库连接字符串</param>
@@ -431,5 +431,3 @@ namespace SufeiUtil
         }
     }
 }
-
-

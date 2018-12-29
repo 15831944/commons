@@ -62,25 +62,19 @@
     <Compile Include="HttpHelper\HttpCookieHelper.cs" />
     <Compile Include="HttpHelper\HttpHelper.cs" />
     <Compile Include="Web\FilterHelper.cs" />
-    <Compile Include="Input\InputHelper.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
     <Compile Include="IP\IPHelper.cs" />
-    <Compile Include="Json\JsonHelper.cs" />
-    <Compile Include="Json\SerializerJsonHelper.cs" />
     <Compile Include="JS\ExeJsHelper.cs" />
     <Compile Include="seo\SeoHelper.cs" />
     <Compile Include="Validate_Tool\FormulaExpress.cs" />
     <Compile Include="FTP\FTPClient.cs" />
     <Compile Include="FTP\FTPHelper.cs" />
     <Compile Include="FTP\FTPOperater.cs" />
-    <Compile Include="GridView\GridViewHelper.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
-    <Compile Include="Json\ConvertJson.cs" />
     <Compile Include="JS\JsHelper.cs" />
     <Compile Include="Sound\MediaHandler.cs" />
     <Compile Include="Image\PicDeal.cs" />
     <Compile Include="String\QueryString.cs" />
-    <Compile Include="Sqlhelper\SqlHelper.cs" />
     <Compile Include="System\SysHelper.cs" />
     <Compile Include="Validate_Tool\Tools.cs" />
     <Compile Include="Validate_Tool\ValidateImg.cs">
@@ -100,7 +94,6 @@
     <Compile Include="String\StringHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
     <Compile Include="Serialize\SerializeHelper.cs" />
-    <Compile Include="FormatDate\TimeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
     <Compile Include="Regex\RegexHelper.cs" />
     <Compile Include="PinYin\EcanConvertToCh.cs" />
@@ -183,16 +176,7 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.XML" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common.Web\Common.Web.csproj">
-      <Project>{797168fa-da8d-4d3f-8639-1ff4b2c90b4c}</Project>
-      <Name>Common.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{d164891a-aeb0-4a28-9bc3-b2de2b6705c0}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
