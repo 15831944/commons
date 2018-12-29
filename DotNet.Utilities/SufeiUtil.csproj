@@ -51,7 +51,6 @@
     <Compile Include="Api\ResourcesApi.cs" />
     <Compile Include="Api\Win32Private.cs" />
     <Compile Include="Api\Win32Public.cs" />
-    <Compile Include="baiduApi\BaiduMapHelper.cs" />
     <Compile Include="CacheHelper\StaticPage\CachedFileProvider.cs" />
     <Compile Include="CacheHelper\StaticPage\CacheEnabledPage.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -60,12 +59,9 @@
     <Compile Include="Chart\OWCChart11.cs" />
     <Compile Include="Encoding\FileEncoding.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
-    <Compile Include="seo\SeoHelper.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
     <Compile Include="Sound\MediaHandler.cs" />
     <Compile Include="Image\PicDeal.cs" />
-    <Compile Include="Download_Up\FileDown.cs" />
-    <Compile Include="Download_Up\FileUp.cs" />
     <Compile Include="SegList\SegList.cs" />
     <Compile Include="Image\ImageClass.cs" />
     <Compile Include="Image\ImageDown.cs" />
@@ -77,18 +73,13 @@
     <Compile Include="PinYin\PinYin.cs" />
     <Compile Include="Internet_Url\NetHelper.cs" />
     <Compile Include="Random\RandomHelper.cs" />
-    <Compile Include="Download_Up\DownLoadHelper.cs" />
     <Compile Include="ResourceManager\AppMessage.cs" />
     <Compile Include="ResourceManager\ResourceManager.cs" />
     <Compile Include="ResourceManager\ResourceManagerWrapper.cs" />
     <Compile Include="ResourceManager\Resources.cs" />
-    <Compile Include="Download_Up\UpLoadFiles.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
     <Compile Include="Random\BaseRandom.cs" />
-    <Compile Include="Rmb\RMB.cs" />
     <Compile Include="Serialize\Serialize.cs" />
     <Compile Include="Excel\GridViewExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

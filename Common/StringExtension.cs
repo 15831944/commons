@@ -502,5 +502,10 @@ namespace System
             }
             return new string(c);
         }
+
+        public static string ToRMB(this string s)
+        {
+            return s.ToDecimal(0m).Value.ToRMB();
+        }
     }
 }
