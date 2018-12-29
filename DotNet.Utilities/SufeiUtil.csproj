@@ -104,9 +104,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="File\DirFileHelper.cs" />
-    <Compile Include="Page\BasePage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
     <Compile Include="File\FileOperateHelper.cs" />
@@ -122,7 +119,6 @@
     <Compile Include="Page\Utility.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Page\PageHelper.cs" />
     <Compile Include="Yzm\YZMHelper.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -47,8 +47,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryString.cs" />
     <Compile Include="SessionHelper.cs" />
-    <Compile Include="WebControls\BindDataControl.cs" />
-    <Compile Include="WebControls\GridViewHelper.cs" />
+    <Compile Include="UI\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UI\PageHelper.cs" />
+    <Compile Include="UI\WebControls\BindDataControl.cs" />
+    <Compile Include="UI\WebControls\GridViewHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
