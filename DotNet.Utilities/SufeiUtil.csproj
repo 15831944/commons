@@ -46,11 +46,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Api\API.cs" />
-    <Compile Include="Api\Mac.cs" />
-    <Compile Include="Api\ResourcesApi.cs" />
-    <Compile Include="Api\Win32Private.cs" />
-    <Compile Include="Api\Win32Public.cs" />
     <Compile Include="CacheHelper\StaticPage\CachedFileProvider.cs" />
     <Compile Include="CacheHelper\StaticPage\CacheEnabledPage.cs">
       <SubType>ASPXCodeBehind</SubType>
