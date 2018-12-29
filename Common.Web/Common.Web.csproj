@@ -64,7 +64,10 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\WebControls\BindDataControl.cs" />
+    <Compile Include="UI\WebControls\ExcelHelper.cs" />
+    <Compile Include="UI\WebControls\ExportExcel.cs" />
     <Compile Include="UI\WebControls\FileUp.cs" />
+    <Compile Include="UI\WebControls\GridViewExport.cs" />
     <Compile Include="UI\WebControls\GridViewHelper.cs" />
     <Compile Include="WebHelper.cs" />
     <Compile Include="WebSitePathHelper.cs" />

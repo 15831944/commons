@@ -52,10 +52,7 @@
     </Compile>
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="Excel\ExcelHelper.cs" />
-    <Compile Include="Excel\DataToExcel.cs" />
-    <Compile Include="Excel\ExportExcel.cs" />
-    <Compile Include="Excel\GridViewExport.cs" />
+    <Compile Include="DataToExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
