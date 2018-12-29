@@ -57,6 +57,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdslHelper.cs" />
     <Compile Include="BaiduMapHelper.cs" />
     <Compile Include="BarCodeToHTML.cs" />
     <Compile Include="BaseRandom.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Json\JsonHelper.cs" />
     <Compile Include="Json\SerializerJsonHelper.cs" />
     <Compile Include="MediaHandler.cs" />
+    <Compile Include="NetHelper.cs" />
     <Compile Include="PageValidate.cs" />
     <Compile Include="PicDeal.cs" />
     <Compile Include="PinYin.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="UpLoadFiles.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="UrlOper.cs" />
     <Compile Include="VideoConvert.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

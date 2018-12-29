@@ -57,15 +57,11 @@
     </Compile>
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="Internet_Url\AdslHelper.cs" />
-    <Compile Include="Internet_Url\IpHelper.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
-    <Compile Include="Internet_Url\NetHelper.cs" />
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
     <Compile Include="Excel\GridViewExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Internet_Url\UrlOper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dll\Excel.dll" />
