@@ -57,34 +57,26 @@
     </Compile>
     <Compile Include="Chart\Assistant.cs" />
     <Compile Include="Chart\OWCChart11.cs" />
-    <Compile Include="Encoding\FileEncoding.cs" />
     <Compile Include="Internet_Url\AdslHelper.cs" />
     <Compile Include="Internet_Url\IpHelper.cs" />
-    <Compile Include="Sound\MediaHandler.cs" />
     <Compile Include="Image\PicDeal.cs" />
-    <Compile Include="SegList\SegList.cs" />
     <Compile Include="Image\ImageClass.cs" />
     <Compile Include="Image\ImageDown.cs" />
     <Compile Include="Image\ImageUpload.cs" />
     <Compile Include="Excel\ExcelHelper.cs" />
-    <Compile Include="Serialize\SerializeHelper.cs" />
     <Compile Include="BarCode\BarCodeToHTML.cs" />
     <Compile Include="PinYin\EcanConvertToCh.cs" />
     <Compile Include="PinYin\PinYin.cs" />
     <Compile Include="Internet_Url\NetHelper.cs" />
-    <Compile Include="Random\RandomHelper.cs" />
     <Compile Include="ResourceManager\AppMessage.cs" />
     <Compile Include="ResourceManager\ResourceManager.cs" />
     <Compile Include="ResourceManager\ResourceManagerWrapper.cs" />
     <Compile Include="ResourceManager\Resources.cs" />
     <Compile Include="Excel\DataToExcel.cs" />
     <Compile Include="Excel\ExportExcel.cs" />
-    <Compile Include="Random\BaseRandom.cs" />
-    <Compile Include="Serialize\Serialize.cs" />
     <Compile Include="Excel\GridViewExport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internet_Url\UrlOper.cs" />
-    <Compile Include="Yzm\YZMHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dll\Excel.dll" />

@@ -67,6 +67,7 @@
     <Compile Include="UI\WebControls\GridViewHelper.cs" />
     <Compile Include="WebHelper.cs" />
     <Compile Include="WebSitePathHelper.cs" />
+    <Compile Include="YZMHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
