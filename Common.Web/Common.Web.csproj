@@ -34,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,9 @@
   <ItemGroup>
     <Compile Include="CacheHelper.cs" />
     <Compile Include="CookieHelper.cs" />
+    <Compile Include="FilterHelper.cs" />
+    <Compile Include="JavaScriptPlus.cs" />
+    <Compile Include="JsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryString.cs" />
     <Compile Include="SessionHelper.cs" />
@@ -55,8 +59,12 @@
     <Compile Include="UI\Utility.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="UI\ValidateImg.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="UI\WebControls\BindDataControl.cs" />
     <Compile Include="UI\WebControls\GridViewHelper.cs" />
+    <Compile Include="WebHelper.cs" />
     <Compile Include="WebSitePathHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
