@@ -102,28 +102,34 @@
       <Version>2.0.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe">
-      <Version>3.2.0</Version>
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe.Extension">
       <Version>3.0.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe.MySql">
-      <Version>3.2.0</Version>
+      <Version>3.3.1</Version>
     </PackageReference>
     <PackageReference Include="Chloe.Oracle">
-      <Version>3.2.0</Version>
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe.PostgreSQL">
-      <Version>3.2.0</Version>
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe.SQLite">
-      <Version>3.2.0</Version>
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Chloe.SqlServer">
-      <Version>3.2.1</Version>
+      <Version>3.3.0</Version>
     </PackageReference>
     <PackageReference Include="Dapper">
       <Version>1.50.5</Version>
+    </PackageReference>
+    <PackageReference Include="DbEntry.Net">
+      <Version>5.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="DbEntry.Net.Extra">
+      <Version>5.0.0</Version>
     </PackageReference>
     <PackageReference Include="DbWrench">
       <Version>4.5.2</Version>
