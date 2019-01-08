@@ -1,6 +1,4 @@
-﻿using SufeiUtil.Json;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 
 namespace System

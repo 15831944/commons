@@ -31,13 +31,13 @@ namespace System.Reflection
         public static T GetPropertyValue<T>(this object instance, string propertyName)
         {
             object propertyValue = instance.GetPropertyValue(propertyName);
-            return (T)((object)propertyValue);
+            return (T)propertyValue;
         }
 
         public static T GetFieldValue<T>(this object instance, string fieldName)
         {
             object fieldValue = instance.GetFieldValue(fieldName);
-            return (T)((object)fieldValue);
+            return (T)fieldValue;
         }
 
         public static void SetPropertyValue(this object instance, string propertyName, object value)

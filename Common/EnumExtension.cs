@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace System
@@ -37,7 +35,9 @@ namespace System
             dynamic displayAttribute = null;
 
             if (attributes.Any())
+            {
                 displayAttribute = attributes.ElementAt(0);
+            }
 
             // return description
             return displayAttribute?.Description ?? value.ToString();

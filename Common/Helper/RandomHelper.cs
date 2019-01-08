@@ -32,9 +32,9 @@ namespace System.Helper
         {
             //为随机数对象赋值
             //long num = DateTime.Now.Ticks + rep;
-            rep++;
+            this.rep++;
             //_random = new Random(((int)(((ulong)num) & 0xffffffffL)) | ((int)(num >> rep)));
-            _random = new Random();
+            this._random = new Random();
         }
 
         #endregion Constructors
@@ -50,12 +50,12 @@ namespace System.Helper
         {
             string str = string.Empty;
             //long num2 = DateTime.Now.Ticks + this.rep;
-            rep++;
+            this.rep++;
             //Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> this.rep)));
             for (int i = 0; i < codeCount; i++)
             {
                 char ch;
-                int num = _random.Next();
+                int num = this._random.Next();
                 if ((num % 2) == 0)
                 {
                     ch = (char)(0x30 + ((ushort)(num % 10)));
@@ -78,11 +78,11 @@ namespace System.Helper
         {
             string str = string.Empty;
             //long num2 = DateTime.Now.Ticks + rep;
-            rep++;
+            this.rep++;
             //Random random = new Random(((int)(((ulong)num2) & 0xffffffffL)) | ((int)(num2 >> this.rep)));
             for (int i = 0; i < codeCount; i++)
             {
-                int num = _random.Next();
+                int num = this._random.Next();
                 str = str + ((char)(0x30 + ((ushort)(num % 10)))).ToString();
             }
             return str;
@@ -99,13 +99,13 @@ namespace System.Helper
 
             //交换的次数,这里使用数组的长度作为交换次数
             int count = arr.Length;
-            rep++;
+            this.rep++;
             //开始交换
             for (int i = 0; i < count; i++)
             {
                 //生成两个随机数位置
-                int randomNum1 = GetRandomInt(0, arr.Length);
-                int randomNum2 = GetRandomInt(0, arr.Length);
+                int randomNum1 = this.GetRandomInt(0, arr.Length);
+                int randomNum2 = this.GetRandomInt(0, arr.Length);
 
                 //定义临时变量
                 T temp;
@@ -122,8 +122,8 @@ namespace System.Helper
         /// </summary>
         public double GetRandomDouble()
         {
-            rep++;
-            return _random.NextDouble();
+            this.rep++;
+            return this._random.NextDouble();
         }
 
         /// <summary>
@@ -133,8 +133,8 @@ namespace System.Helper
         /// <param name="maxNum">最大值</param>
         public int GetRandomInt(int minNum, int maxNum)
         {
-            rep++;
-            return _random.Next(minNum, maxNum);
+            this.rep++;
+            return this._random.Next(minNum, maxNum);
         }
 
         /// <summary>
@@ -182,6 +182,7 @@ namespace System.Helper
     public static class Well512RandomProvider
     {
         private static readonly uint[] State = new uint[16];
+
         private static uint _index;
 
         static Well512RandomProvider()

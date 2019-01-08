@@ -20,7 +20,9 @@
         SwitchingProtocols = 101,
 
         Processing = 102,
+
         EarlyHints = 103,
+
         Checkpoint = 103,
         //
         // 摘要:
@@ -86,7 +88,9 @@
         PartialContent = 206,
 
         MultiStatus = 207,
+
         AlreadyReported = 208,
+
         IMUsed = 226,
         //
         // 摘要:
@@ -383,11 +387,17 @@
         ExpectationFailed = 417,
 
         ImATeapot = 418,
+
         MethodFailure = 420,
+
         EnhanceYourCalm = 420,
+
         MisdirectedRequest = 421,
+
         UnprocessableEntity = 422,
+
         Locked = 423,
+
         FailedDependency = 424,
         //
         // 摘要:
@@ -399,20 +409,35 @@
         UpgradeRequired = 426,
 
         PreconditionRequired = 428,
+
         TooManyRequests = 429,
+
         RequestHeaderFieldsTooLarge = 431,
+
         LoginTimeOut = 440,
+
         NoResponse = 444,
+
         RetryWith = 449,
+
         BlockedByWindowsParentalControls = 450,
+
         UnavailableForLegalReasons = 451,
+
         ExchangeActiveSyncRedirect = 451,
+
         RequestHeaderTooLarge = 494,
+
         SSLCertificateError = 495,
+
         SSLCertificateRequired = 496,
+
         HTTPRequestSentToHTTPSPort = 497,
+
         InvalidToken = 498,
+
         TokenRequired = 499,
+
         ClientClosedRequest = 499,
         //
         // 摘要:
@@ -470,21 +495,37 @@
         HttpVersionNotSupported = 505,
 
         VariantAlsoNegotiates = 506,
+
         InsufficientStorage = 507,
+
         LoopDetected = 508,
+
         BandwidthLimitExceeded = 509,
+
         NotExtended = 510,
+
         NetworkAuthenticationRequired = 511,
+
         UnknownError = 520,
+
         WebServerIsDown = 521,
+
         ConnectionTimedOut = 522,
+
         OriginIsUnreachable = 523,
+
         ATimeoutOccurred = 524,
+
         SSLHandshakeFailed = 525,
+
         InvalidSSLCertificate = 526,
+
         RailgunError = 527,
+
         OriginDNSError = 528,
+
         SiteIsFrozen = 530,
+
         NetworkReadTimeoutError = 598,
 
         #endregion HTTP标准状态,IIS扩展状态,Nginx扩展状态等
@@ -513,13 +554,21 @@
         #region 插旗
 
         Flag1 = 701,
+
         Flag2 = 702,
+
         Flag3 = 703,
+
         Flag4 = 704,
+
         Flag5 = 705,
+
         Flag6 = 706,
+
         Flag7 = 707,
+
         Flag8 = 708,
+
         Flag9 = 709,
 
         #endregion 插旗

@@ -438,7 +438,7 @@ namespace System.Web
                     else
                     {
                         var image = Image.FromStream(newFile);
-                        var copyImage = Image.FromFile(_CopyIamgePath);
+                        var copyImage = Image.FromFile(this._CopyIamgePath);
                         var g = Graphics.FromImage(image);
                         g.DrawImage(copyImage, new Rectangle(image.Width - copyImage.Width - 5, image.Height - copyImage.Height - 5, copyImage.Width, copyImage.Height), 0, 0, copyImage.Width, copyImage.Height, GraphicsUnit.Pixel);
                         g.Dispose();

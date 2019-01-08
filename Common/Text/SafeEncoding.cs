@@ -3,9 +3,13 @@
     public class SafeEncoding
     {
         private static volatile Encoding utf8Encoding;
+
         private static volatile Encoding utf32Encoding;
+
         private static volatile Encoding bigEndianUTF32;
+
         private static volatile Encoding unicodeEncoding;
+
         private static volatile Encoding bigEndianUnicode;
 
         public static Encoding UTF8

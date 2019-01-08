@@ -25,9 +25,15 @@ namespace System.Linq
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
         {
             if (source == null)
+            {
                 throw new ArgumentNullException();
+            }
+
             if (keySelector == null)
+            {
                 throw new ArgumentNullException();
+            }
+
             Dictionary<TKey, T> dictionary = new Dictionary<TKey, T>();
             foreach (T current in source)
             {
@@ -61,10 +67,12 @@ namespace System.Linq
 
                 while ((hasFirst && (hasFirst = firstEnumerator.MoveNext())) |
                        (hasSecond && (hasSecond = secondEnumerator.MoveNext())))
+                {
                     yield return Tuple.Create(
                         hasFirst ? firstEnumerator.Current : default(T),
                         hasSecond ? secondEnumerator.Current : default(T)
                     );
+                }
             }
         }
 

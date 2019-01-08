@@ -16,7 +16,7 @@ namespace System.IO
             stream.Write(array, 0, array.Length);
         }
 
-        public async static Task SaveAsAsync(this Stream stream, string fullpath)
+        public static async Task SaveAsAsync(this Stream stream, string fullpath)
         {
             byte[] buffer = new byte[stream.Length];
             FileStream fs = new FileStream(fullpath, FileMode.CreateNew, FileAccess.Write);

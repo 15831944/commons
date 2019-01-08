@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 
 namespace System.Helper
@@ -32,10 +31,12 @@ namespace System.Helper
             var sign = Math.Sign(days);
             var unsignedDays = Math.Abs(days);
             for (var i = 0; i < unsignedDays; i++)
+            {
                 do
                 {
                     date = date.AddDays(sign);
                 } while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday || IsHoliday(date));
+            }
 
             return date;
         }
@@ -81,7 +82,11 @@ namespace System.Helper
             var cal = CultureInfo.CurrentCulture.Calendar;
             var firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             var weekNum = weekOfYear;
-            if (firstWeek <= 1) weekNum -= 1;
+            if (firstWeek <= 1)
+            {
+                weekNum -= 1;
+            }
+
             var result = firstThursday.AddDays(weekNum * 7);
             return result.AddDays(-3);
         }
@@ -178,7 +183,9 @@ namespace System.Helper
             // and we always get those right
             var day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
                 time = time.AddDays(3);
+            }
 
             // Return the week of our adjusted day
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek,

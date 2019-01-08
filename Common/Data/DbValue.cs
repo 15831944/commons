@@ -4,7 +4,7 @@ namespace System.Data
     {
         private object _value;
 
-        public object Value => _value;
+        public object Value => this._value;
 
         public DbValue()
         {
@@ -14,10 +14,10 @@ namespace System.Data
         {
             if (value == DBNull.Value)
             {
-                _value = null;
+                this._value = null;
                 return;
             }
-            _value = value;
+            this._value = value;
         }
 
         public static implicit operator byte(DbValue dbValue)

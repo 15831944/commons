@@ -51,10 +51,12 @@ namespace System
             var sign = Math.Sign(days);
             var unsignedDays = Math.Abs(days);
             for (var i = 0; i < unsignedDays; i++)
+            {
                 do
                 {
                     date = date.AddDays(sign);
                 } while (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday || date.IsHoliday());
+            }
 
             return date;
         }
@@ -136,7 +138,9 @@ namespace System
             // and we always get those right
             var day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
+            {
                 time = time.AddDays(3);
+            }
 
             // Return the week of our adjusted day
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek,

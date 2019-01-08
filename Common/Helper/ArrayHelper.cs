@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace System.Helper
 {
@@ -112,7 +111,10 @@ namespace System.Helper
         {
             var diff = (uint)a.Length ^ (uint)b.Length;
             for (var i = 0; i < a.Length && i < b.Length; i++)
+            {
                 diff |= (uint)(a[i] ^ b[i]);
+            }
+
             return diff == 0;
         }
 
@@ -130,11 +132,22 @@ namespace System.Helper
         /// </exception>
         public static T[,] To2DArray<T>(params T[][] arrays)
         {
-            if (arrays == null) throw new ArgumentNullException();
+            if (arrays == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             foreach (var a in arrays)
             {
-                if (a == null) throw new ArgumentException("Can not contain null arrays");
-                if (a.Length != arrays[0].Length) throw new ArgumentException("Input arrays should have the same length");
+                if (a == null)
+                {
+                    throw new ArgumentException("Can not contain null arrays");
+                }
+
+                if (a.Length != arrays[0].Length)
+                {
+                    throw new ArgumentException("Input arrays should have the same length");
+                }
             }
 
             var height = arrays.Length;
@@ -143,8 +156,12 @@ namespace System.Helper
             var result = new T[width, height];
 
             for (var i = 0; i < height; i++)
+            {
                 for (var j = 0; j < width; j++)
+                {
                     result[i, j] = arrays[i][j];
+                }
+            }
 
             return result;
         }

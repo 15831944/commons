@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace System.Helper
+﻿namespace System.Helper
 {
     /// <summary>
     ///     Helper class for paddings.

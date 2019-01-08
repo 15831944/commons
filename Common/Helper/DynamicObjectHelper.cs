@@ -18,11 +18,17 @@ namespace System.Helper
             var dicB = objB as IDictionary<string, object>;
 
             foreach (var keyValuePair in dicB)
+            {
                 if (dicA.Any(a => a.Key == keyValuePair.Key))
+                {
                     dicA[keyValuePair.Key] =
                         AddIDictionary((ExpandoObject)dicA[keyValuePair.Key], (ExpandoObject)keyValuePair.Value);
+                }
                 else
+                {
                     dicA.Add(keyValuePair.Key, keyValuePair.Value);
+                }
+            }
 
             return (ExpandoObject)dicA;
         }
