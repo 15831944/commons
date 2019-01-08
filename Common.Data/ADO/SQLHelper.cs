@@ -13,7 +13,7 @@ namespace System.Data.ADO
     /// The SqlHelper class is intended to encapsulate high performance,
     /// scalable best practices for common uses of SqlClient.
     /// </summary>
-    public abstract class SqlHelper
+    public abstract class SQLHelper
     {
         // Hashtable to store cached parameters
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());

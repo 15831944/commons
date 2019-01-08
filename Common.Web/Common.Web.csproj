@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CachedFileProvider.cs" />
     <Compile Include="UI\CacheEnabledPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

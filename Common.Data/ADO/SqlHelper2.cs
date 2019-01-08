@@ -1,19 +1,12 @@
-﻿/// <summary>
-/// 类说明：公共的数据库访问访问类
-/// 编码日期：2010-4-22
-/// 编 码 人：苏飞
-/// 联系方式：361983679  Email：sufei.1013@163.com  Blogs:http://www.sufeinet.com
-/// 修改日期：2013-08-15
-/// </summary>
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace SufeiUtil
+namespace System.Data.ADO
 {
     /// <summary>
-    /// 数据库的通用访问代码 苏飞修改
+    /// 数据库的通用访问代码
     /// 此类为抽象类，
     /// 不允许实例化，在应用时直接调用即可
     /// </summary>
@@ -22,7 +15,7 @@ namespace SufeiUtil
         /// <summary>
         /// 数据库连接字符串
         /// </summary>
-        public static readonly string connectionString = System.Configuration.ConfigurationSettings.AppSettings["con"].ToString().Trim();
+        public static string ConnectionString { get; set; } = DBInfo.ConnectionString;
 
         // Hashtable to store cached parameters
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
@@ -40,12 +33,12 @@ namespace SufeiUtil
         /// <returns>返回一个数值表示此SqlCommand命令执行后影响的行数</returns>
         public static int ExecteNonQuery(string connectionString, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            var cmd = new SqlCommand();
+            using (var conn = new SqlConnection(connectionString))
             {
                 //通过PrePareCommand方法将参数逐个加入到SqlCommand的参数集合中
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                int val = cmd.ExecuteNonQuery();
+                var val = cmd.ExecuteNonQuery();
                 //清空SqlCommand中的参数列表
                 cmd.Parameters.Clear();
                 return val;
@@ -62,7 +55,7 @@ namespace SufeiUtil
         /// <returns>返回一个数值表示此SqlCommand命令执行后影响的行数</returns>
         public static int ExecteNonQuery(CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecteNonQuery(connectionString, cmdType, cmdText, commandParameters);
+            return ExecteNonQuery(ConnectionString, cmdType, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -102,16 +95,18 @@ namespace SufeiUtil
         /// <returns>返回一个表集合(DataTableCollection)表示查询得到的数据集</returns>
         public static DataTableCollection GetTable(string connecttionString, CommandType cmdTye, string cmdText, SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            DataSet ds = new DataSet();
-            using (SqlConnection conn = new SqlConnection(connecttionString))
+            var cmd = new SqlCommand();
+            var ds = new DataSet();
+            using (var conn = new SqlConnection(connecttionString))
             {
                 PrepareCommand(cmd, conn, null, cmdTye, cmdText, commandParameters);
-                SqlDataAdapter adapter = new SqlDataAdapter();
-                adapter.SelectCommand = cmd;
+                var adapter = new SqlDataAdapter
+                {
+                    SelectCommand = cmd
+                };
                 adapter.Fill(ds);
             }
-            DataTableCollection table = ds.Tables;
+            var table = ds.Tables;
             return table;
         }
 
@@ -125,7 +120,7 @@ namespace SufeiUtil
         /// <returns>返回一个表集合(DataTableCollection)表示查询得到的数据集</returns>
         public static DataTableCollection GetTable(CommandType cmdTye, string cmdText, SqlParameter[] commandParameters)
         {
-            return GetTable(SqlHelper2.connectionString, cmdTye, cmdText, commandParameters);
+            return GetTable(SqlHelper2.ConnectionString, cmdTye, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -165,17 +160,25 @@ namespace SufeiUtil
         {
             //判断数据库连接状态
             if (conn.State != ConnectionState.Open)
+            {
                 conn.Open();
+            }
+
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
             //判断是否需要事物处理
             if (trans != null)
+            {
                 cmd.Transaction = trans;
+            }
+
             cmd.CommandType = cmdType;
             if (cmdParms != null)
             {
-                foreach (SqlParameter parm in cmdParms)
+                foreach (var parm in cmdParms)
+                {
                     cmd.Parameters.Add(parm);
+                }
             }
         }
 
@@ -190,15 +193,15 @@ namespace SufeiUtil
         /// <returns>A SqlDataReader containing the results</returns>
         public static SqlDataReader ExecuteReader(string connectionString, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            SqlConnection conn = new SqlConnection(connectionString);
+            var cmd = new SqlCommand();
+            var conn = new SqlConnection(connectionString);
             // we use a try/catch here because if the method throws an exception we want to
             // close the connection throw code, because no datareader will exist, hence the
             // commandBehaviour.CloseConnection will not work
             try
             {
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                SqlDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                var rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 cmd.Parameters.Clear();
                 return rdr;
             }
@@ -221,14 +224,14 @@ namespace SufeiUtil
         /// <returns>return a dataset</returns>
         public static DataSet ExecuteDataSet(string connectionString, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connectionString))
                 {
                     PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                    SqlDataAdapter da = new SqlDataAdapter();
-                    DataSet ds = new DataSet();
+                    var da = new SqlDataAdapter();
+                    var ds = new DataSet();
                     da.SelectCommand = cmd;
                     da.Fill(ds);
                     return ds;
@@ -249,7 +252,7 @@ namespace SufeiUtil
         /// <returns>return a dataset</returns>
         public static DataSet ExecuteDataSet(CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteDataSet(connectionString, cmdType, cmdText, commandParameters);
+            return ExecuteDataSet(ConnectionString, cmdType, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -260,7 +263,7 @@ namespace SufeiUtil
         /// <returns>return a dataset</returns>
         public static DataSet ExecuteDataSetProducts(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteDataSet(connectionString, CommandType.StoredProcedure, cmdText, commandParameters);
+            return ExecuteDataSet(ConnectionString, CommandType.StoredProcedure, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -271,22 +274,22 @@ namespace SufeiUtil
         /// <returns>return a dataset</returns>
         public static DataSet ExecuteDataSetText(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteDataSet(connectionString, CommandType.Text, cmdText, commandParameters);
+            return ExecuteDataSet(ConnectionString, CommandType.Text, cmdText, commandParameters);
         }
 
         public static DataView ExecuteDataSet(string connectionString, string sortExpression, string direction, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connectionString))
                 {
                     PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                    SqlDataAdapter da = new SqlDataAdapter();
-                    DataSet ds = new DataSet();
+                    var da = new SqlDataAdapter();
+                    var ds = new DataSet();
                     da.SelectCommand = cmd;
                     da.Fill(ds);
-                    DataView dv = ds.Tables[0].DefaultView;
+                    var dv = ds.Tables[0].DefaultView;
                     dv.Sort = sortExpression + " " + direction;
                     return dv;
                 }
@@ -310,7 +313,7 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalar(CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper2.connectionString, cmdType, cmdText, commandParameters);
+            return ExecuteScalar(ConnectionString, cmdType, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -321,7 +324,7 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalarProducts(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper2.connectionString, CommandType.StoredProcedure, cmdText, commandParameters);
+            return ExecuteScalar(ConnectionString, CommandType.StoredProcedure, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -332,7 +335,7 @@ namespace SufeiUtil
         /// <returns>返回一个对象</returns>
         public static object ExecuteScalarText(string cmdText, params SqlParameter[] commandParameters)
         {
-            return ExecuteScalar(SqlHelper2.connectionString, CommandType.Text, cmdText, commandParameters);
+            return ExecuteScalar(ConnectionString, CommandType.Text, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -350,12 +353,12 @@ namespace SufeiUtil
         /// <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
         public static object ExecuteScalar(string connectionString, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
-                object val = cmd.ExecuteScalar();
+                var val = cmd.ExecuteScalar();
                 cmd.Parameters.Clear();
                 return val;
             }
@@ -376,9 +379,9 @@ namespace SufeiUtil
         /// <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
         public static object ExecuteScalar(SqlConnection connection, CommandType cmdType, string cmdText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
-            object val = cmd.ExecuteScalar();
+            var val = cmd.ExecuteScalar();
             cmd.Parameters.Clear();
             return val;
         }
@@ -402,12 +405,18 @@ namespace SufeiUtil
         /// <returns>Cached SqlParamters array</returns>
         public static SqlParameter[] GetCachedParameters(string cacheKey)
         {
-            SqlParameter[] cachedParms = (SqlParameter[])parmCache[cacheKey];
+            var cachedParms = (SqlParameter[])parmCache[cacheKey];
             if (cachedParms == null)
+            {
                 return null;
-            SqlParameter[] clonedParms = new SqlParameter[cachedParms.Length];
+            }
+
+            var clonedParms = new SqlParameter[cachedParms.Length];
             for (int i = 0, j = cachedParms.Length; i < j; i++)
+            {
                 clonedParms[i] = (SqlParameter)((ICloneable)cachedParms[i]).Clone();
+            }
+
             return clonedParms;
         }
 
@@ -419,7 +428,7 @@ namespace SufeiUtil
         /// <returns>bool结果</returns>
         public static bool Exists(string strSql, params SqlParameter[] cmdParms)
         {
-            int cmdresult = Convert.ToInt32(ExecuteScalar(connectionString, CommandType.Text, strSql, cmdParms));
+            var cmdresult = Convert.ToInt32(ExecuteScalar(ConnectionString, CommandType.Text, strSql, cmdParms));
             if (cmdresult == 0)
             {
                 return false;
