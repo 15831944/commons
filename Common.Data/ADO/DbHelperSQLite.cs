@@ -210,14 +210,7 @@ namespace System.Data.ADO
                     {
                         connection.Open();
                         var obj = cmd.ExecuteScalar();
-                        if ((Object.Equals(obj, null)) || (Object.Equals(obj, DBNull.Value)))
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            return obj;
-                        }
+                        return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
                     }
                     catch (SQLiteException e)
                     {
@@ -354,14 +347,7 @@ namespace System.Data.ADO
                         PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                         var obj = cmd.ExecuteScalar();
                         cmd.Parameters.Clear();
-                        if ((Object.Equals(obj, null)) || (Object.Equals(obj, DBNull.Value)))
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            return obj;
-                        }
+                        return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
                     }
                     catch (SQLiteException e)
                     {

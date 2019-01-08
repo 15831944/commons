@@ -1,4 +1,5 @@
 using Oracle.ManagedDataAccess.Client;
+
 using System.Collections;
 using System.Collections.Generic;
 
@@ -23,16 +24,16 @@ namespace System.Data.ADO
         public static int ExecuteNonQuery(string connectionString, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
             // Create a new Oracle command
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
 
             //Create a connection
-            using (OracleConnection connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(connectionString))
             {
                 //Prepare the command
                 PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
 
                 //Execute the command
-                int val = cmd.ExecuteNonQuery();
+                var val = cmd.ExecuteNonQuery();
                 connection.Close();
                 cmd.Parameters.Clear();
                 return val;
@@ -46,13 +47,13 @@ namespace System.Data.ADO
         /// <returns>DataSet</returns>
         public static DataSet Query(string connectionString, string sqlString)
         {
-            using (OracleConnection connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(connectionString))
             {
-                DataSet ds = new DataSet();
+                var ds = new DataSet();
                 try
                 {
                     connection.Open();
-                    OracleDataAdapter command = new OracleDataAdapter(sqlString, connection);
+                    var command = new OracleDataAdapter(sqlString, connection);
                     command.Fill(ds, "ds");
                 }
                 catch (OracleException ex)
@@ -72,13 +73,13 @@ namespace System.Data.ADO
 
         public static DataSet Query(string connectionString, string sqlString, params OracleParameter[] cmdParms)
         {
-            using (OracleConnection connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(connectionString))
             {
-                OracleCommand cmd = new OracleCommand();
+                var cmd = new OracleCommand();
                 PrepareCommand(cmd, connection, null, sqlString, cmdParms);
-                using (OracleDataAdapter da = new OracleDataAdapter(cmd))
+                using (var da = new OracleDataAdapter(cmd))
                 {
-                    DataSet ds = new DataSet();
+                    var ds = new DataSet();
                     try
                     {
                         da.Fill(ds, "ds");
@@ -103,15 +104,21 @@ namespace System.Data.ADO
         private static void PrepareCommand(OracleCommand cmd, OracleConnection conn, OracleTransaction trans, string cmdText, OracleParameter[] cmdParms)
         {
             if (conn.State != ConnectionState.Open)
+            {
                 conn.Open();
+            }
+
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
             if (trans != null)
+            {
                 cmd.Transaction = trans;
+            }
+
             cmd.CommandType = CommandType.Text;//cmdType;
             if (cmdParms != null)
             {
-                foreach (OracleParameter parameter in cmdParms)
+                foreach (var parameter in cmdParms)
                 {
                     if ((parameter.Direction == ParameterDirection.InputOutput || parameter.Direction == ParameterDirection.Input) &&
                         (parameter.Value == null))
@@ -130,22 +137,15 @@ namespace System.Data.ADO
         /// <returns>查询结果（object）</returns>
         public static object GetSingle(string connectionString, string sqlString)
         {
-            using (OracleConnection connection = new OracleConnection(connectionString))
+            using (var connection = new OracleConnection(connectionString))
             {
-                using (OracleCommand cmd = new OracleCommand(sqlString, connection))
+                using (var cmd = new OracleCommand(sqlString, connection))
                 {
                     try
                     {
                         connection.Open();
-                        object obj = cmd.ExecuteScalar();
-                        if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            return obj;
-                        }
+                        var obj = cmd.ExecuteScalar();
+                        return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
                     }
                     catch (OracleException ex)
                     {
@@ -164,24 +164,9 @@ namespace System.Data.ADO
 
         public static bool Exists(string connectionString, string strOracle)
         {
-            object obj = OracleHelper.GetSingle(connectionString, strOracle);
-            int cmdresult;
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                cmdresult = 0;
-            }
-            else
-            {
-                cmdresult = int.Parse(obj.ToString());
-            }
-            if (cmdresult == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            var obj = OracleHelper.GetSingle(connectionString, strOracle);
+            var cmdresult = Equals(obj, null) || Equals(obj, DBNull.Value) ? 0 : int.Parse(obj.ToString());
+            return cmdresult != 0 ? true : false;
         }
 
         /// <summary>
@@ -199,9 +184,9 @@ namespace System.Data.ADO
         /// <returns>an int representing the number of rows affected by the command</returns>
         public static int ExecuteNonQuery(OracleTransaction trans, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
             PrepareCommand(cmd, trans.Connection, trans, cmdType, cmdText, commandParameters);
-            int val = cmd.ExecuteNonQuery();
+            var val = cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
             return val;
         }
@@ -221,10 +206,10 @@ namespace System.Data.ADO
         /// <returns>an int representing the number of rows affected by the command</returns>
         public static int ExecuteNonQuery(OracleConnection connection, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
 
             PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
-            int val = cmd.ExecuteNonQuery();
+            var val = cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
             return val;
         }
@@ -242,10 +227,10 @@ namespace System.Data.ADO
         /// <returns>an int representing the number of rows affected by the command</returns>
         public static int ExecuteNonQuery(string connectionString, string cmdText)
         {
-            OracleCommand cmd = new OracleCommand();
-            OracleConnection connection = new OracleConnection(connectionString);
+            var cmd = new OracleCommand();
+            var connection = new OracleConnection(connectionString);
             PrepareCommand(cmd, connection, null, CommandType.Text, cmdText, null);
-            int val = cmd.ExecuteNonQuery();
+            var val = cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
             return val;
         }
@@ -260,13 +245,13 @@ namespace System.Data.ADO
         /// <returns></returns>
         public static OracleDataReader ExecuteReader(string connectionString, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            OracleCommand cmd = new OracleCommand();
-            OracleConnection conn = new OracleConnection(connectionString);
+            var cmd = new OracleCommand();
+            var conn = new OracleConnection(connectionString);
             try
             {
                 //Prepare the command to execute
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                OracleDataReader rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                var rdr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 cmd.Parameters.Clear();
                 return rdr;
             }
@@ -292,12 +277,12 @@ namespace System.Data.ADO
         /// <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
         public static object ExecuteScalar(string connectionString, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
 
-            using (OracleConnection conn = new OracleConnection(connectionString))
+            using (var conn = new OracleConnection(connectionString))
             {
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                object val = cmd.ExecuteScalar();
+                var val = cmd.ExecuteScalar();
                 cmd.Parameters.Clear();
                 return val;
             }
@@ -315,17 +300,22 @@ namespace System.Data.ADO
         public static object ExecuteScalar(OracleTransaction transaction, CommandType commandType, string commandText, params OracleParameter[] commandParameters)
         {
             if (transaction == null)
+            {
                 throw new ArgumentNullException("transaction");
+            }
+
             if (transaction != null && transaction.Connection == null)
+            {
                 throw new ArgumentException("The transaction was rollbacked	or commited, please	provide	an open	transaction.", "transaction");
+            }
 
             // Create a	command	and	prepare	it for execution
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
 
             PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters);
 
             // Execute the command & return	the	results
-            object retval = cmd.ExecuteScalar();
+            var retval = cmd.ExecuteScalar();
 
             // Detach the SqlParameters	from the command object, so	they can be	used again
             cmd.Parameters.Clear();
@@ -347,10 +337,10 @@ namespace System.Data.ADO
         /// <returns>An object that should be converted to the expected type using Convert.To{Type}</returns>
         public static object ExecuteScalar(OracleConnection connectionString, CommandType cmdType, string cmdText, params OracleParameter[] commandParameters)
         {
-            OracleCommand cmd = new OracleCommand();
+            var cmd = new OracleCommand();
 
             PrepareCommand(cmd, connectionString, null, cmdType, cmdText, commandParameters);
-            object val = cmd.ExecuteScalar();
+            var val = cmd.ExecuteScalar();
             cmd.Parameters.Clear();
             return val;
         }
@@ -372,17 +362,21 @@ namespace System.Data.ADO
         /// <returns></returns>
         public static OracleParameter[] GetCachedParameters(string cacheKey)
         {
-            OracleParameter[] cachedParms = (OracleParameter[])parmCache[cacheKey];
+            var cachedParms = (OracleParameter[])parmCache[cacheKey];
 
             if (cachedParms == null)
+            {
                 return null;
+            }
 
             // If the parameters are in the cache
-            OracleParameter[] clonedParms = new OracleParameter[cachedParms.Length];
+            var clonedParms = new OracleParameter[cachedParms.Length];
 
             // return a copy of the parameters
             for (int i = 0, j = cachedParms.Length; i < j; i++)
-                clonedParms[i] = (OracleParameter)((ICloneable)cachedParms[i]).Clone();
+            {
+                clonedParms[i] = (OracleParameter)cachedParms[i].Clone();
+            }
 
             return clonedParms;
         }
@@ -400,7 +394,9 @@ namespace System.Data.ADO
         {
             //Open the connection if required
             if (conn.State != ConnectionState.Open)
+            {
                 conn.Open();
+            }
 
             //Set up the command
             cmd.Connection = conn;
@@ -409,13 +405,17 @@ namespace System.Data.ADO
 
             //Bind it to the transaction if it exists
             if (trans != null)
+            {
                 cmd.Transaction = trans;
+            }
 
             // Bind the parameters passed in
             if (commandParameters != null)
             {
-                foreach (OracleParameter parm in commandParameters)
+                foreach (var parm in commandParameters)
+                {
                     cmd.Parameters.Add(parm);
+                }
             }
         }
 
@@ -426,10 +426,7 @@ namespace System.Data.ADO
         /// <returns></returns>
         public static string OraBit(bool value)
         {
-            if (value)
-                return "Y";
-            else
-                return "N";
+            return value ? "Y" : "N";
         }
 
         /// <summary>
@@ -439,10 +436,7 @@ namespace System.Data.ADO
         /// <returns></returns>
         public static bool OraBool(string value)
         {
-            if (value.Equals("Y"))
-                return true;
-            else
-                return false;
+            return value.Equals("Y") ? true : false;
         }
 
         /// <summary>
@@ -451,18 +445,20 @@ namespace System.Data.ADO
         /// <param name="sqlStringList">多条SQL语句</param>
         public static bool ExecuteSqlTran(string conStr, List<CommandInfo> cmdList)
         {
-            using (OracleConnection conn = new OracleConnection(conStr))
+            using (var conn = new OracleConnection(conStr))
             {
                 conn.Open();
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = conn;
-                OracleTransaction tx = conn.BeginTransaction();
+                var cmd = new OracleCommand
+                {
+                    Connection = conn
+                };
+                var tx = conn.BeginTransaction();
                 cmd.Transaction = tx;
                 try
                 {
-                    foreach (CommandInfo c in cmdList)
+                    foreach (var c in cmdList)
                     {
-                        if (!String.IsNullOrEmpty(c.CommandText))
+                        if (!string.IsNullOrEmpty(c.CommandText))
                         {
                             PrepareCommand(cmd, conn, tx, CommandType.Text, c.CommandText, (OracleParameter[])c.Parameters);
                             if (c.EffentNextType == EffentNextType.WhenHaveContine || c.EffentNextType == EffentNextType.WhenNoHaveContine)
@@ -474,8 +470,8 @@ namespace System.Data.ADO
                                     //return false;
                                 }
 
-                                object obj = cmd.ExecuteScalar();
-                                bool isHave = false;
+                                var obj = cmd.ExecuteScalar();
+                                var isHave = false;
                                 if (obj == null && obj == DBNull.Value)
                                 {
                                     isHave = false;
@@ -496,7 +492,7 @@ namespace System.Data.ADO
                                 }
                                 continue;
                             }
-                            int res = cmd.ExecuteNonQuery();
+                            var res = cmd.ExecuteNonQuery();
                             if (c.EffentNextType == EffentNextType.ExcuteEffectRows && res == 0)
                             {
                                 tx.Rollback();
@@ -527,20 +523,22 @@ namespace System.Data.ADO
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
         /// <param name="sqlStringList">多条SQL语句</param>
-        public static void ExecuteSqlTran(string conStr, List<String> sqlStringList)
+        public static void ExecuteSqlTran(string conStr, List<string> sqlStringList)
         {
-            using (OracleConnection conn = new OracleConnection(conStr))
+            using (var conn = new OracleConnection(conStr))
             {
                 conn.Open();
-                OracleCommand cmd = new OracleCommand();
-                cmd.Connection = conn;
-                OracleTransaction tx = conn.BeginTransaction();
+                var cmd = new OracleCommand
+                {
+                    Connection = conn
+                };
+                var tx = conn.BeginTransaction();
                 cmd.Transaction = tx;
                 try
                 {
-                    foreach (string sql in sqlStringList)
+                    foreach (var sql in sqlStringList)
                     {
-                        if (!String.IsNullOrEmpty(sql))
+                        if (!string.IsNullOrEmpty(sql))
                         {
                             cmd.CommandText = sql;
                             cmd.ExecuteNonQuery();

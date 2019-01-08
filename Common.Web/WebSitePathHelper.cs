@@ -1,4 +1,6 @@
-﻿namespace System.Web
+﻿using System.Text.RegularExpressions;
+
+namespace System.Web
 {
     /// <summary>
     /// 网站路径操作类
@@ -55,18 +57,11 @@
         /// <returns>绝对地址</returns>
         public static string GetWebPath(string localPath)
         {
-            string path = HttpContext.Current.Request.ApplicationPath;
+            var path = HttpContext.Current.Request.ApplicationPath;
             string thisPath;
             string thisLocalPath;
             //如果不是根目录就加上"/" 根目录自己会加"/"
-            if (path != "/")
-            {
-                thisPath = path + "/";
-            }
-            else
-            {
-                thisPath = path;
-            }
+            thisPath = path != "/" ? path + "/" : path;
             if (localPath.StartsWith("~/"))
             {
                 thisLocalPath = localPath.Substring(2);
@@ -88,17 +83,9 @@
         /// <returns></returns>
         public static string GetWebPath()
         {
-            string path = System.Web.HttpContext.Current.Request.ApplicationPath;
-            string thisPath;
+            var path = HttpContext.Current.Request.ApplicationPath;
+            var thisPath = path != "/" ? path + "/" : path;
             //如果不是根目录就加上"/" 根目录自己会加"/"
-            if (path != "/")
-            {
-                thisPath = path + "/";
-            }
-            else
-            {
-                thisPath = path;
-            }
             return thisPath;
         }
 
@@ -113,14 +100,7 @@
         /// <returns>绝对路径</returns>
         public static string GetFilePath(string localPath)
         {
-            if (System.Text.RegularExpressions.Regex.IsMatch(localPath, @"([A-Za-z]):\\([\S]*)"))
-            {
-                return localPath;
-            }
-            else
-            {
-                return System.Web.HttpContext.Current.Server.MapPath(localPath);
-            }
+            return Regex.IsMatch(localPath, @"([A-Za-z]):\\([\S]*)") ? localPath : HttpContext.Current.Server.MapPath(localPath);
         }
 
         #endregion 根据相对路径或绝对路径获取绝对路径

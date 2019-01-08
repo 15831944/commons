@@ -7,8 +7,6 @@ namespace System.Web
     /// </summary>
     public class QueryString
     {
-        #region 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
-
         /// <summary>
         /// 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
         /// </summary>
@@ -16,10 +14,8 @@ namespace System.Web
         /// <returns></returns>
         public static string Q(string name)
         {
-            return Request.QueryString[name] == null ? "" : Request.QueryString[name];
+            return Request.QueryString[name] ?? "";
         }
-
-        #endregion 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
 
         /// <summary>
         /// 等于  Request.Form  如果为null 返回 空“” ，否则返回 Request.Form[name]
@@ -31,8 +27,6 @@ namespace System.Web
             return Request.Form[name] == null ? "" : Request.Form[name].ToString();
         }
 
-        #region 获取url中的id
-
         /// <summary>
         /// 获取url中的id
         /// </summary>
@@ -43,10 +37,6 @@ namespace System.Web
             return StrToId(Q(name));
         }
 
-        #endregion 获取url中的id
-
-        #region 获取正确的Id，如果不是正整数，返回0
-
         /// <summary>
         /// 获取正确的Id，如果不是正整数，返回0
         /// </summary>
@@ -54,15 +44,8 @@ namespace System.Web
         /// <returns>返回正确的整数ID，失败返回0</returns>
         public static int StrToId(string _value)
         {
-            if (IsNumberId(_value))
-                return int.Parse(_value);
-            else
-                return 0;
+            return IsNumberId(_value) ? int.Parse(_value) : 0;
         }
-
-        #endregion 获取正确的Id，如果不是正整数，返回0
-
-        #region 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
 
         /// <summary>
         /// 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
@@ -74,10 +57,6 @@ namespace System.Web
             return QuickValidate("^[1-9]*[0-9]*$", _value);
         }
 
-        #endregion 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
-
-        #region 快速验证一个字符串是否符合指定的正则表达式。
-
         /// <summary>
         /// 快速验证一个字符串是否符合指定的正则表达式。
         /// </summary>
@@ -86,8 +65,12 @@ namespace System.Web
         /// <returns>是否合法的bool值。</returns>
         public static bool QuickValidate(string _express, string _value)
         {
-            if (_value == null) return false;
-            Regex myRegex = new Regex(_express);
+            if (_value == null)
+            {
+                return false;
+            }
+
+            var myRegex = new Regex(_express);
             if (_value.Length == 0)
             {
                 return false;
@@ -95,34 +78,19 @@ namespace System.Web
             return myRegex.IsMatch(_value);
         }
 
-        #endregion 快速验证一个字符串是否符合指定的正则表达式。
-
-        #region 类内部调用
-
         /// <summary>
         /// HttpContext Current
         /// </summary>
-        public static HttpContext Current
-        {
-            get { return HttpContext.Current; }
-        }
+        public static HttpContext Current => HttpContext.Current;
 
         /// <summary>
         /// HttpContext Current  HttpRequest Request   get { return Current.Request;
         /// </summary>
-        public static HttpRequest Request
-        {
-            get { return Current.Request; }
-        }
+        public static HttpRequest Request => Current.Request;
 
         /// <summary>
         ///  HttpContext Current  HttpRequest Request   get { return Current.Request; HttpResponse Response  return Current.Response;
         /// </summary>
-        public static HttpResponse Response
-        {
-            get { return Current.Response; }
-        }
-
-        #endregion 类内部调用
+        public static HttpResponse Response => Current.Response;
     }
 }

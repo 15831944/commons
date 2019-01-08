@@ -208,14 +208,7 @@ namespace System.Data.ADO
                     {
                         connection.Open();
                         var obj = cmd.ExecuteScalar();
-                        if ((object.Equals(obj, null)) || (object.Equals(obj, DBNull.Value)))
-                        {
-                            return null;
-                        }
-                        else
-                        {
-                            return obj;
-                        }
+                        return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
                     }
                     catch (OleDbException e)
                     {

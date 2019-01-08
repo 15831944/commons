@@ -4,8 +4,7 @@ using System.Text.RegularExpressions;
 namespace System.Web
 {
     /// <summary>
-    /// 编码人：苏飞
-    /// 作用：用于操作Html标签的类
+    /// 操作Html标签
     /// </summary>
     public class FilterHelper
     {
@@ -16,7 +15,7 @@ namespace System.Web
         /// <returns>过滤Html标签后的字符串</returns>
         public static string FilterAllHtml(string html)
         {
-            string filter = "<[\\s\\S]*?>";
+            var filter = "<[\\s\\S]*?>";
             html = URLDecode(html);
             if (Regex.IsMatch(html, filter))
             {
@@ -38,7 +37,7 @@ namespace System.Web
         public static bool CheckHtml(string html)
         {
             html = URLDecode(html);
-            string filter = "<[\\s\\S]*?>";
+            var filter = "<[\\s\\S]*?>";
 
             if (Regex.IsMatch(html, filter))
             {
