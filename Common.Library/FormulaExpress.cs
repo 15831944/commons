@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-
-namespace SufeiUtil
+﻿namespace System
 {
     /// <summary>
     /// EnumFormula
@@ -14,15 +6,25 @@ namespace SufeiUtil
     public enum EnumFormula
     {
         Add,//加号
+
         Dec,//减号
+
         Mul,//乘号
+
         Div,//除号
+
         Sin,//正玄
+
         Cos,//余玄
+
         Tan,//正切
+
         ATan,//余切
+
         Sqrt,//平方根
+
         Pow,//求幂
+
         None,//无
     }
 
@@ -33,8 +35,8 @@ namespace SufeiUtil
     {
         static FormulaDeal()
         {
-
         }
+
         private double CalculateExpress(string strExpression)
         {
             string strTemp = "";
@@ -49,42 +51,40 @@ namespace SufeiUtil
                 {
                     strTemp = strExpression.Substring(strExpression.IndexOf("*") + 1, strExpression.Length - strExpression.IndexOf("*") - 1);
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("*"));
-                    strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
+                    strOne = strTempB.Substring(this.GetPrivorPos(strTempB) + 1, strTempB.Length - this.GetPrivorPos(strTempB) - 1);
 
-                    strTwo = strTemp.Substring(0, GetNextPos(strTemp));
-                    ReplaceValue = Convert.ToDouble(GetExpType(strOne)) * Convert.ToDouble(GetExpType(strTwo));
+                    strTwo = strTemp.Substring(0, this.GetNextPos(strTemp));
+                    ReplaceValue = Convert.ToDouble(this.GetExpType(strOne)) * Convert.ToDouble(this.GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "*" + strTwo, ReplaceValue.ToString());
                 }
                 else if (strExpression.IndexOf("/") != -1)
                 {
                     strTemp = strExpression.Substring(strExpression.IndexOf("/") + 1, strExpression.Length - strExpression.IndexOf("/") - 1);
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("/"));
-                    strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
+                    strOne = strTempB.Substring(this.GetPrivorPos(strTempB) + 1, strTempB.Length - this.GetPrivorPos(strTempB) - 1);
 
-
-                    strTwo = strTemp.Substring(0, GetNextPos(strTemp));
-                    ReplaceValue = Convert.ToDouble(GetExpType(strOne)) / Convert.ToDouble(GetExpType(strTwo));
+                    strTwo = strTemp.Substring(0, this.GetNextPos(strTemp));
+                    ReplaceValue = Convert.ToDouble(this.GetExpType(strOne)) / Convert.ToDouble(this.GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "/" + strTwo, ReplaceValue.ToString());
                 }
                 else if (strExpression.IndexOf("+") != -1)
                 {
                     strTemp = strExpression.Substring(strExpression.IndexOf("+") + 1, strExpression.Length - strExpression.IndexOf("+") - 1);
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("+"));
-                    strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
+                    strOne = strTempB.Substring(this.GetPrivorPos(strTempB) + 1, strTempB.Length - this.GetPrivorPos(strTempB) - 1);
 
-                    strTwo = strTemp.Substring(0, GetNextPos(strTemp));
-                    ReplaceValue = Convert.ToDouble(GetExpType(strOne)) + Convert.ToDouble(GetExpType(strTwo));
+                    strTwo = strTemp.Substring(0, this.GetNextPos(strTemp));
+                    ReplaceValue = Convert.ToDouble(this.GetExpType(strOne)) + Convert.ToDouble(this.GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "+" + strTwo, ReplaceValue.ToString());
                 }
                 else if (strExpression.IndexOf("-") != -1)
                 {
                     strTemp = strExpression.Substring(strExpression.IndexOf("-") + 1, strExpression.Length - strExpression.IndexOf("-") - 1);
                     strTempB = strExpression.Substring(0, strExpression.IndexOf("-"));
-                    strOne = strTempB.Substring(GetPrivorPos(strTempB) + 1, strTempB.Length - GetPrivorPos(strTempB) - 1);
+                    strOne = strTempB.Substring(this.GetPrivorPos(strTempB) + 1, strTempB.Length - this.GetPrivorPos(strTempB) - 1);
 
-
-                    strTwo = strTemp.Substring(0, GetNextPos(strTemp));
-                    ReplaceValue = Convert.ToDouble(GetExpType(strOne)) - Convert.ToDouble(GetExpType(strTwo));
+                    strTwo = strTemp.Substring(0, this.GetNextPos(strTemp));
+                    ReplaceValue = Convert.ToDouble(this.GetExpType(strOne)) - Convert.ToDouble(this.GetExpType(strTwo));
                     strExpression = strExpression.Replace(strOne + "-" + strTwo, ReplaceValue.ToString());
                 }
             }
@@ -99,26 +99,34 @@ namespace SufeiUtil
                 case EnumFormula.Sin:
                     retValue = Math.Sin(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Cos:
                     retValue = Math.Cos(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Tan:
                     retValue = Math.Tan(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.ATan:
                     retValue = Math.Atan(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Sqrt:
                     retValue = Math.Sqrt(Convert.ToDouble(strExpression));
                     break;
+
                 case EnumFormula.Pow:
                     retValue = Math.Pow(Convert.ToDouble(strExpression), 2);
                     break;
             }
-            if (retValue == 0) return Convert.ToDouble(strExpression);
+            if (retValue == 0)
+            {
+                return Convert.ToDouble(strExpression);
+            }
+
             return retValue;
         }
-
 
         private int GetNextPos(string strExpression)
         {
@@ -138,7 +146,6 @@ namespace SufeiUtil
             return tmpMin;
         }
 
-
         private int GetPrivorPos(string strExpression)
         {
             int[] ExpPos = new int[4];
@@ -155,8 +162,8 @@ namespace SufeiUtil
                 }
             }
             return tmpMax;
-
         }
+
         public string SpiltExpression(string strExpression)
         {
             string strTemp = "";
@@ -165,12 +172,12 @@ namespace SufeiUtil
             {
                 strTemp = strExpression.Substring(strExpression.LastIndexOf("(") + 1, strExpression.Length - strExpression.LastIndexOf("(") - 1);
                 strExp = strTemp.Substring(0, strTemp.IndexOf(")"));
-                strExpression = strExpression.Replace("(" + strExp + ")", CalculateExpress(strExp).ToString());
+                strExpression = strExpression.Replace("(" + strExp + ")", this.CalculateExpress(strExp).ToString());
             }
             if (strExpression.IndexOf("+") != -1 || strExpression.IndexOf("-") != -1
             || strExpression.IndexOf("*") != -1 || strExpression.IndexOf("/") != -1)
             {
-                strExpression = CalculateExpress(strExpression).ToString();
+                strExpression = this.CalculateExpress(strExpression).ToString();
             }
             return strExpression;
         }
@@ -180,27 +187,27 @@ namespace SufeiUtil
             strExpression = strExpression.ToUpper();
             if (strExpression.IndexOf("SIN") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.Sin).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.Sin).ToString();
             }
             if (strExpression.IndexOf("COS") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("S") + 1, strExpression.Length - 1 - strExpression.IndexOf("S")), EnumFormula.Cos).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("S") + 1, strExpression.Length - 1 - strExpression.IndexOf("S")), EnumFormula.Cos).ToString();
             }
             if (strExpression.IndexOf("TAN") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.Tan).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.Tan).ToString();
             }
             if (strExpression.IndexOf("ATAN") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.ATan).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("N") + 1, strExpression.Length - 1 - strExpression.IndexOf("N")), EnumFormula.ATan).ToString();
             }
             if (strExpression.IndexOf("SQRT") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("T") + 1, strExpression.Length - 1 - strExpression.IndexOf("T")), EnumFormula.Sqrt).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("T") + 1, strExpression.Length - 1 - strExpression.IndexOf("T")), EnumFormula.Sqrt).ToString();
             }
             if (strExpression.IndexOf("POW") != -1)
             {
-                return CalculateExExpress(strExpression.Substring(strExpression.IndexOf("W") + 1, strExpression.Length - 1 - strExpression.IndexOf("W")), EnumFormula.Pow).ToString();
+                return this.CalculateExExpress(strExpression.Substring(strExpression.IndexOf("W") + 1, strExpression.Length - 1 - strExpression.IndexOf("W")), EnumFormula.Pow).ToString();
             }
             return strExpression;
         }

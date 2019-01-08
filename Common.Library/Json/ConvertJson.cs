@@ -1,18 +1,11 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Reflection;
 using System.Text;
 
-namespace SufeiUtil
+namespace System.JSON
 {
     //JSON转换类
     public class ConvertJson
@@ -97,7 +90,11 @@ namespace SufeiUtil
         public static string ListToJson<T>(IList<T> list, string jsonName)
         {
             StringBuilder Json = new StringBuilder();
-            if (string.IsNullOrEmpty(jsonName)) jsonName = list[0].GetType().Name;
+            if (string.IsNullOrEmpty(jsonName))
+            {
+                jsonName = list[0].GetType().Name;
+            }
+
             Json.Append("{\"" + jsonName + "\":[");
             if (list.Count > 0)
             {
@@ -272,7 +269,11 @@ namespace SufeiUtil
         public static string ToJson(DataTable dt, string jsonName)
         {
             StringBuilder Json = new StringBuilder();
-            if (string.IsNullOrEmpty(jsonName)) jsonName = dt.TableName;
+            if (string.IsNullOrEmpty(jsonName))
+            {
+                jsonName = dt.TableName;
+            }
+
             Json.Append("{\"" + jsonName + "\":[");
             if (dt.Rows.Count > 0)
             {

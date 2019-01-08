@@ -1,17 +1,10 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Collections;
-using System.IO;
+﻿using System.Collections;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 
-namespace SufeiUtil
+namespace System
 {
     public class ImageClass
     {
@@ -19,6 +12,7 @@ namespace SufeiUtil
         { }
 
         #region 缩略图
+
         /// <summary>
         /// 生成缩略图
         /// </summary>
@@ -26,7 +20,7 @@ namespace SufeiUtil
         /// <param name="thumbnailPath">缩略图路径（物理路径）</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
-        /// <param name="mode">生成缩略图的方式</param>    
+        /// <param name="mode">生成缩略图的方式</param>
         public static void MakeThumbnail(string originalImagePath, string thumbnailPath, int width, int height, string mode)
         {
             System.Drawing.Image originalImage = System.Drawing.Image.FromFile(originalImagePath);
@@ -41,16 +35,19 @@ namespace SufeiUtil
 
             switch (mode)
             {
-                case "HW":  //指定高宽缩放（可能变形）                
+                case "HW":  //指定高宽缩放（可能变形）
                     break;
-                case "W":   //指定宽，高按比例                    
+
+                case "W":   //指定宽，高按比例
                     toheight = originalImage.Height * width / originalImage.Width;
                     break;
+
                 case "H":   //指定高，宽按比例
                     towidth = originalImage.Width * height / originalImage.Height;
                     break;
-                case "Cut": //指定高宽裁减（不变形）                
-                    if ((double)originalImage.Width / (double)originalImage.Height > (double)towidth / (double)toheight)
+
+                case "Cut": //指定高宽裁减（不变形）
+                    if (originalImage.Width / (double)originalImage.Height > towidth / (double)toheight)
                     {
                         oh = originalImage.Height;
                         ow = originalImage.Height * towidth / toheight;
@@ -65,6 +62,7 @@ namespace SufeiUtil
                         y = (originalImage.Height - oh) / 2;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -103,9 +101,11 @@ namespace SufeiUtil
                 g.Dispose();
             }
         }
-        #endregion
+
+        #endregion 缩略图
 
         #region 图片水印
+
         /// <summary>
         /// 图片水印处理方法
         /// </summary>
@@ -199,9 +199,11 @@ namespace SufeiUtil
             loca.Add(y);
             return loca;
         }
-        #endregion
+
+        #endregion 图片水印
 
         #region 文字水印
+
         /// <summary>
         /// 文字水印处理方法
         /// </summary>
@@ -237,7 +239,7 @@ namespace SufeiUtil
             }
             return path;
 
-            #endregion
+            #endregion 文字水印
         }
 
         /// <summary>
@@ -304,9 +306,11 @@ namespace SufeiUtil
 
             #endregion
         }
+
         #endregion
 
         #region 调整光暗
+
         /// <summary>
         /// 调整光暗
         /// </summary>
@@ -332,9 +336,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 反色处理
+
         /// <summary>
         /// 反色处理
         /// </summary>
@@ -359,9 +365,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 浮雕处理
+
         /// <summary>
         /// 浮雕处理
         /// </summary>
@@ -382,20 +390,46 @@ namespace SufeiUtil
                     r = Math.Abs(color1.R - color2.R + 128);
                     g = Math.Abs(color1.G - color2.G + 128);
                     b = Math.Abs(color1.B - color2.B + 128);
-                    if (r > 255) r = 255;
-                    if (r < 0) r = 0;
-                    if (g > 255) g = 255;
-                    if (g < 0) g = 0;
-                    if (b > 255) b = 255;
-                    if (b < 0) b = 0;
+                    if (r > 255)
+                    {
+                        r = 255;
+                    }
+
+                    if (r < 0)
+                    {
+                        r = 0;
+                    }
+
+                    if (g > 255)
+                    {
+                        g = 255;
+                    }
+
+                    if (g < 0)
+                    {
+                        g = 0;
+                    }
+
+                    if (b > 255)
+                    {
+                        b = 255;
+                    }
+
+                    if (b < 0)
+                    {
+                        b = 0;
+                    }
+
                     newBitmap.SetPixel(x, y, Color.FromArgb(r, g, b));
                 }
             }
             return newBitmap;
         }
+
         #endregion
 
         #region 拉伸图片
+
         /// <summary>
         /// 拉伸图片
         /// </summary>
@@ -418,9 +452,11 @@ namespace SufeiUtil
                 return null;
             }
         }
+
         #endregion
 
         #region 滤色处理
+
         /// <summary>
         /// 滤色处理
         /// </summary>
@@ -443,9 +479,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 左右翻转
+
         /// <summary>
         /// 左右翻转
         /// </summary>
@@ -467,9 +505,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 上下翻转
+
         /// <summary>
         /// 上下翻转
         /// </summary>
@@ -491,9 +531,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 压缩图片
+
         /// <summary>
         /// 压缩到指定尺寸
         /// </summary>
@@ -501,8 +543,9 @@ namespace SufeiUtil
         /// <param name="newfile">新文件</param>
         public bool Compress(string oldfile, string newfile)
         {
-            return Compress(oldfile, newfile, 100, 125);
+            return this.Compress(oldfile, newfile, 100, 125);
         }
+
         /// <summary>
         /// 压缩指定尺寸，如果写的和图片大家一样表示大小不变，只是把图片压缩下一些
         /// </summary>
@@ -532,13 +575,20 @@ namespace SufeiUtil
                 ImageCodecInfo[] arrayICI = ImageCodecInfo.GetImageEncoders();
                 ImageCodecInfo jpegICI = null;
                 for (int x = 0; x < arrayICI.Length; x++)
+                {
                     if (arrayICI[x].FormatDescription.Equals("JPEG"))
                     {
                         jpegICI = arrayICI[x]; //设置JPEG编码
                         break;
                     }
+                }
+
                 img.Dispose();
-                if (jpegICI != null) outBmp.Save(newfile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                if (jpegICI != null)
+                {
+                    outBmp.Save(newfile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+
                 outBmp.Dispose();
                 return true;
             }
@@ -547,17 +597,21 @@ namespace SufeiUtil
                 return false;
             }
         }
+
         #endregion
 
         #region 图片灰度化
+
         public Color Gray(Color c)
         {
-            int rgb = Convert.ToInt32((double)(((0.3 * c.R) + (0.59 * c.G)) + (0.11 * c.B)));
+            int rgb = Convert.ToInt32(((0.3 * c.R) + (0.59 * c.G)) + (0.11 * c.B));
             return Color.FromArgb(rgb, rgb, rgb);
         }
+
         #endregion
 
         #region 转换为黑白图片
+
         /// <summary>
         /// 转换为黑白图片
         /// </summary>
@@ -580,9 +634,11 @@ namespace SufeiUtil
             }
             return bm;
         }
+
         #endregion
 
         #region 获取图片中的各帧
+
         /// <summary>
         /// 获取图片中的各帧
         /// </summary>
@@ -599,6 +655,7 @@ namespace SufeiUtil
                 gif.Save(pSavedPath + "\\frame_" + i + ".jpg", ImageFormat.Jpeg);
             }
         }
+
         #endregion
     }
 }

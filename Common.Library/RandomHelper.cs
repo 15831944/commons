@@ -1,11 +1,4 @@
-﻿/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-
-namespace SufeiUtil
+﻿namespace System
 {
     /// <summary>
     /// 使用Random类生成伪随机数
@@ -16,6 +9,7 @@ namespace SufeiUtil
         private Random _random;
 
         #region 构造函数
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -24,9 +18,11 @@ namespace SufeiUtil
             //为随机数对象赋值
             this._random = new Random();
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 生成一个指定范围的随机整数
+
         /// <summary>
         /// 生成一个指定范围的随机整数，该随机数范围包括最小值，但不包括最大值
         /// </summary>
@@ -36,9 +32,11 @@ namespace SufeiUtil
         {
             return this._random.Next(minNum, maxNum);
         }
-        #endregion
+
+        #endregion 生成一个指定范围的随机整数
 
         #region 生成一个0.0到1.0的随机小数
+
         /// <summary>
         /// 生成一个0.0到1.0的随机小数
         /// </summary>
@@ -46,9 +44,11 @@ namespace SufeiUtil
         {
             return this._random.NextDouble();
         }
-        #endregion
+
+        #endregion 生成一个0.0到1.0的随机小数
 
         #region 对一个数组进行随机排序
+
         /// <summary>
         /// 对一个数组进行随机排序
         /// </summary>
@@ -65,8 +65,8 @@ namespace SufeiUtil
             for (int i = 0; i < count; i++)
             {
                 //生成两个随机数位置
-                int randomNum1 = GetRandomInt(0, arr.Length);
-                int randomNum2 = GetRandomInt(0, arr.Length);
+                int randomNum1 = this.GetRandomInt(0, arr.Length);
+                int randomNum2 = this.GetRandomInt(0, arr.Length);
 
                 //定义临时变量
                 T temp;
@@ -78,9 +78,9 @@ namespace SufeiUtil
             }
         }
 
-
-        // 一：随机生成不重复数字字符串  
+        // 一：随机生成不重复数字字符串
         private int rep = 0;
+
         public string GenerateCheckCodeNum(int codeCount)
         {
             string str = string.Empty;
@@ -129,7 +129,7 @@ namespace SufeiUtil
         /// <returns></returns>
         private string GetRandomCode(string allChar, int CodeCount)
         {
-            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"; 
+            //string allChar = "1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,i,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
             string[] allCharArray = allChar.Split(',');
             string RandomCode = "";
             int temp = -1;
@@ -154,7 +154,7 @@ namespace SufeiUtil
             return RandomCode;
         }
 
-        #endregion
+        #endregion 对一个数组进行随机排序
         #endregion
     }
 }

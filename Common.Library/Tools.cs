@@ -1,14 +1,7 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 共用工具类
@@ -16,6 +9,7 @@ namespace SufeiUtil
     public static class Tools
     {
         #region 获得用户IP
+
         /// <summary>
         /// 获得用户IP
         /// </summary>
@@ -25,11 +19,18 @@ namespace SufeiUtil
             string[] temp;
             bool isErr = false;
             if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_ForWARDED_For"] == null)
+            {
                 ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString();
+            }
             else
+            {
                 ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_ForWARDED_For"].ToString();
+            }
+
             if (ip.Length > 15)
+            {
                 isErr = true;
+            }
             else
             {
                 temp = ip.Split('.');
@@ -37,21 +38,32 @@ namespace SufeiUtil
                 {
                     for (int i = 0; i < temp.Length; i++)
                     {
-                        if (temp[i].Length > 3) isErr = true;
+                        if (temp[i].Length > 3)
+                        {
+                            isErr = true;
+                        }
                     }
                 }
                 else
+                {
                     isErr = true;
+                }
             }
 
             if (isErr)
+            {
                 return "1.1.1.1";
+            }
             else
+            {
                 return ip;
+            }
         }
-        #endregion
+
+        #endregion 获得用户IP
 
         #region 根据配置对指定字符串进行 MD5 加密
+
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密
         /// </summary>
@@ -64,9 +76,11 @@ namespace SufeiUtil
 
             return s.ToLower().Substring(8, 16);
         }
-        #endregion
+
+        #endregion 根据配置对指定字符串进行 MD5 加密
 
         #region 得到字符串长度，一个汉字长度为2
+
         /// <summary>
         /// 得到字符串长度，一个汉字长度为2
         /// </summary>
@@ -79,16 +93,22 @@ namespace SufeiUtil
             byte[] s = ascii.GetBytes(inputString);
             for (int i = 0; i < s.Length; i++)
             {
-                if ((int)s[i] == 63)
+                if (s[i] == 63)
+                {
                     tempLen += 2;
+                }
                 else
+                {
                     tempLen += 1;
+                }
             }
             return tempLen;
         }
-        #endregion
+
+        #endregion 得到字符串长度，一个汉字长度为2
 
         #region 截取指定长度字符串
+
         /// <summary>
         /// 截取指定长度字符串
         /// </summary>
@@ -109,10 +129,14 @@ namespace SufeiUtil
             byte[] s = ascii.GetBytes(inputString);
             for (int i = 0; i < s.Length; i++)
             {
-                if ((int)s[i] == 63)
+                if (s[i] == 63)
+                {
                     tempLen += 2;
+                }
                 else
+                {
                     tempLen += 1;
+                }
 
                 try
                 {
@@ -124,17 +148,24 @@ namespace SufeiUtil
                 }
 
                 if (tempLen > len)
+                {
                     break;
+                }
             }
 
             byte[] mybyte = System.Text.Encoding.Default.GetBytes(inputString);
             if (isShowFix && mybyte.Length > len)
+            {
                 tempString += "…";
+            }
+
             return tempString;
         }
-        #endregion
+
+        #endregion 截取指定长度字符串
 
         #region 获得两个日期的间隔
+
         /// <summary>
         /// 获得两个日期的间隔
         /// </summary>
@@ -148,9 +179,11 @@ namespace SufeiUtil
             TimeSpan ts = ts1.Subtract(ts2).Duration();
             return ts;
         }
-        #endregion
+
+        #endregion 获得两个日期的间隔
 
         #region 格式化日期时间
+
         /// <summary>
         /// 格式化日期时间
         /// </summary>
@@ -163,31 +196,43 @@ namespace SufeiUtil
             {
                 case "0":
                     return dateTime1.ToString("yyyy-MM-dd");
+
                 case "1":
                     return dateTime1.ToString("yyyy-MM-dd HH:mm:ss");
+
                 case "2":
                     return dateTime1.ToString("yyyy/MM/dd");
+
                 case "3":
                     return dateTime1.ToString("yyyy年MM月dd日");
+
                 case "4":
                     return dateTime1.ToString("MM-dd");
+
                 case "5":
                     return dateTime1.ToString("MM/dd");
+
                 case "6":
                     return dateTime1.ToString("MM月dd日");
+
                 case "7":
                     return dateTime1.ToString("yyyy-MM");
+
                 case "8":
                     return dateTime1.ToString("yyyy/MM");
+
                 case "9":
                     return dateTime1.ToString("yyyy年MM月");
+
                 default:
                     return dateTime1.ToString();
             }
         }
-        #endregion
+
+        #endregion 格式化日期时间
 
         #region 得到随机日期
+
         /// <summary>
         /// 得到随机日期
         /// </summary>
@@ -219,7 +264,6 @@ namespace SufeiUtil
                 iTotalSecontds = (int)dTotalSecontds;
             }
 
-
             if (iTotalSecontds > 0)
             {
                 minTime = time2;
@@ -238,15 +282,19 @@ namespace SufeiUtil
             int maxValue = iTotalSecontds;
 
             if (iTotalSecontds <= System.Int32.MinValue)
+            {
                 maxValue = System.Int32.MinValue + 1;
+            }
 
             int i = random.Next(System.Math.Abs(maxValue));
 
             return minTime.AddSeconds(i);
         }
-        #endregion
+
+        #endregion 得到随机日期
 
         #region HTML转行成TEXT
+
         /// <summary>
         /// HTML转行成TEXT
         /// </summary>
@@ -261,8 +309,8 @@ namespace SufeiUtil
             @"&(quot|#34);",
             @"&(amp|#38);",
             @"&(lt|#60);",
-            @"&(gt|#62);", 
-            @"&(nbsp|#160);", 
+            @"&(gt|#62);",
+            @"&(nbsp|#160);",
             @"&(iexcl|#161);",
             @"&(cent|#162);",
             @"&(pound|#163);",
@@ -284,17 +332,18 @@ namespace SufeiUtil
             strOutput.Replace(">", "");
             strOutput.Replace("\r\n", "");
 
-
             return strOutput;
         }
-        #endregion
+
+        #endregion HTML转行成TEXT
 
         #region 判断对象是否为空
+
         /// <summary>
         /// 判断对象是否为空，为空返回true
         /// </summary>
         /// <typeparam name="T">要验证的对象的类型</typeparam>
-        /// <param name="data">要验证的对象</param>        
+        /// <param name="data">要验证的对象</param>
         public static bool IsNullOrEmpty<T>(T data)
         {
             //如果为null
@@ -352,13 +401,15 @@ namespace SufeiUtil
             //不为空
             return false;
         }
-        #endregion
+
+        #endregion 判断对象是否为空
 
         #region 验证IP地址是否合法
+
         /// <summary>
         /// 验证IP地址是否合法
         /// </summary>
-        /// <param name="ip">要验证的IP地址</param>        
+        /// <param name="ip">要验证的IP地址</param>
         public static bool IsIP(string ip)
         {
             //如果为空，认为验证合格
@@ -376,9 +427,11 @@ namespace SufeiUtil
             //验证
             return RegexHelper.IsMatch(ip, pattern);
         }
-        #endregion
 
-        #region  验证EMail是否合法
+        #endregion 验证IP地址是否合法
+
+        #region 验证EMail是否合法
+
         /// <summary>
         /// 验证EMail是否合法
         /// </summary>
@@ -400,13 +453,15 @@ namespace SufeiUtil
             //验证
             return RegexHelper.IsMatch(email, pattern);
         }
-        #endregion
+
+        #endregion 验证EMail是否合法
 
         #region 验证是否为整数
+
         /// <summary>
         /// 验证是否为整数 如果为空，认为验证不合格 返回false
         /// </summary>
-        /// <param name="number">要验证的整数</param>        
+        /// <param name="number">要验证的整数</param>
         public static bool IsInt(string number)
         {
             //如果为空，认为验证不合格
@@ -424,13 +479,15 @@ namespace SufeiUtil
             //验证
             return RegexHelper.IsMatch(number, pattern);
         }
-        #endregion
+
+        #endregion 验证是否为整数
 
         #region 验证是否为数字
+
         /// <summary>
         /// 验证是否为数字
         /// </summary>
-        /// <param name="number">要验证的数字</param>        
+        /// <param name="number">要验证的数字</param>
         public static bool IsNumber(string number)
         {
             //如果为空，认为验证不合格
@@ -448,9 +505,11 @@ namespace SufeiUtil
             //验证
             return RegexHelper.IsMatch(number, pattern);
         }
-        #endregion
+
+        #endregion 验证是否为数字
 
         #region 验证日期是否合法
+
         /// <summary>
         /// 验证日期是否合法,对不规则的作了简单处理
         /// </summary>
@@ -492,6 +551,7 @@ namespace SufeiUtil
                 }
 
                 #region 对纯数字进行解析
+
                 //对8位纯数字进行解析
                 if (date.Length == 8)
                 {
@@ -571,18 +631,21 @@ namespace SufeiUtil
                     date = Convert.ToDateTime(year).ToString("d");
                     return true;
                 }
-                #endregion
+
+                #endregion 对纯数字进行解析
 
                 return false;
             }
         }
-        #endregion
+
+        #endregion 验证日期是否合法
 
         #region 验证身份证是否合法
+
         /// <summary>
         /// 验证身份证是否合法
         /// </summary>
-        /// <param name="idCard">要验证的身份证</param>        
+        /// <param name="idCard">要验证的身份证</param>
         public static bool IsIdCard(string idCard)
         {
             //如果为空，认为验证合格
@@ -603,9 +666,11 @@ namespace SufeiUtil
             //验证
             return RegexHelper.IsMatch(idCard, pattern.ToString());
         }
-        #endregion
+
+        #endregion 验证身份证是否合法
 
         #region 检测客户的输入中是否有危险字符串
+
         /// <summary>
         /// 检测客户输入的字符串是否有效,并将原始字符串修改为有效字符串或空字符串。
         /// 当检测到客户的输入中有攻击性危险字符串,则返回false,有效返回true。
@@ -647,6 +712,7 @@ namespace SufeiUtil
                 throw new Exception(ex.Message);
             }
         }
-        #endregion
+
+        #endregion 检测客户的输入中是否有危险字符串
     }
 }

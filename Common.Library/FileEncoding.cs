@@ -1,17 +1,10 @@
-﻿/// <summary>
-/// 类说明：EncodingType 用于自动识别文件编码的类
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+﻿using System.IO;
 using System.Text;
-using System.IO;
 
 /// <summary>
 /// FileEncoding 的摘要说明
 /// </summary>
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 获取文件的编码格式
@@ -61,7 +54,6 @@ namespace SufeiUtil
             }
             r.Close();
             return reVal;
-
         }
 
         /// <summary>
@@ -85,7 +77,7 @@ namespace SufeiUtil
                         {
                             charByteCounter++;
                         }
-                        //标记位首位若为非0 则至少以2个1开始 如:110XXXXX...........1111110X 
+                        //标记位首位若为非0 则至少以2个1开始 如:110XXXXX...........1111110X
                         if (charByteCounter == 1 || charByteCounter > 6)
                         {
                             return false;
@@ -108,7 +100,5 @@ namespace SufeiUtil
             }
             return true;
         }
-
     }
-
 }

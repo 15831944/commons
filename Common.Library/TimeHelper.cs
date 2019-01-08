@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// 类说明：时间类SecondToMinute(int Second) 把秒转换成分钟
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-
-namespace SufeiUtil
+﻿namespace System
 {
     /// <summary>
     /// 时间类
@@ -28,55 +20,72 @@ namespace SufeiUtil
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 2:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     if (DateTime.IsLeapYear(DateTime.Now.Year))
+                    {
                         lastDay = DateTime.Now.ToString(year + "-0" + month + "-29");
+                    }
                     else
+                    {
                         lastDay = DateTime.Now.ToString(year + "-0" + month + "-28");
+                    }
+
                     break;
+
                 case 3:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString("yyyy-0" + month + "-31");
                     break;
+
                 case 4:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 5:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 6:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 7:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 8:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-31");
                     break;
+
                 case 9:
                     firstDay = DateTime.Now.ToString(year + "-0" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-0" + month + "-30");
                     break;
+
                 case 10:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-31");
                     break;
+
                 case 11:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-30");
                     break;
+
                 default:
                     firstDay = DateTime.Now.ToString(year + "-" + month + "-01");
                     lastDay = DateTime.Now.ToString(year + "-" + month + "-31");
                     break;
             }
         }
+
         /// <summary>
         /// 将时间格式化成 年月日 的形式,如果时间为null，返回当前系统时间
         /// </summary>
@@ -92,16 +101,18 @@ namespace SufeiUtil
             }
             else
             {
-                return GetFormatDate(DateTime.Now, Separator);
+                return this.GetFormatDate(DateTime.Now, Separator);
             }
         }
+
         /// <summary>
         /// 将时间格式化成 时分秒 的形式,如果时间为null，返回当前系统时间
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="Separator"></param>
         /// <returns></returns>
-        public string GetFormatTime(DateTime dt, char Separator) {
+        public string GetFormatTime(DateTime dt, char Separator)
+        {
             if (dt != null && !dt.Equals(DBNull.Value))
             {
                 string tem = string.Format("hh{0}mm{1}ss", Separator, Separator);
@@ -109,20 +120,22 @@ namespace SufeiUtil
             }
             else
             {
-                return GetFormatDate(DateTime.Now, Separator);
+                return this.GetFormatDate(DateTime.Now, Separator);
             }
         }
+
         /// <summary>
         /// 把秒转换成分钟
         /// </summary>
         /// <returns></returns>
         public static int SecondToMinute(int Second)
         {
-            decimal mm = (decimal)((decimal)Second / (decimal)60);
+            decimal mm = Second / (decimal)60;
             return Convert.ToInt32(Math.Ceiling(mm));
         }
 
         #region 返回某年某月最后一天
+
         /// <summary>
         /// 返回某年某月最后一天
         /// </summary>
@@ -135,9 +148,11 @@ namespace SufeiUtil
             int Day = lastDay.Day;
             return Day;
         }
-        #endregion
+
+        #endregion 返回某年某月最后一天
 
         #region 返回时间差
+
         public static string DateDiff(DateTime DateTime1, DateTime DateTime2)
         {
             string dateDiff = null;
@@ -167,9 +182,11 @@ namespace SufeiUtil
             { }
             return dateDiff;
         }
-        #endregion
+
+        #endregion 返回时间差
 
         #region 获得两个日期的间隔
+
         /// <summary>
         /// 获得两个日期的间隔
         /// </summary>
@@ -183,9 +200,11 @@ namespace SufeiUtil
             TimeSpan ts = ts1.Subtract(ts2).Duration();
             return ts;
         }
-        #endregion
+
+        #endregion 获得两个日期的间隔
 
         #region 格式化日期时间
+
         /// <summary>
         /// 格式化日期时间
         /// </summary>
@@ -198,31 +217,43 @@ namespace SufeiUtil
             {
                 case "0":
                     return dateTime1.ToString("yyyy-MM-dd");
+
                 case "1":
                     return dateTime1.ToString("yyyy-MM-dd HH:mm:ss");
+
                 case "2":
                     return dateTime1.ToString("yyyy/MM/dd");
+
                 case "3":
                     return dateTime1.ToString("yyyy年MM月dd日");
+
                 case "4":
                     return dateTime1.ToString("MM-dd");
+
                 case "5":
                     return dateTime1.ToString("MM/dd");
+
                 case "6":
                     return dateTime1.ToString("MM月dd日");
+
                 case "7":
                     return dateTime1.ToString("yyyy-MM");
+
                 case "8":
                     return dateTime1.ToString("yyyy/MM");
+
                 case "9":
                     return dateTime1.ToString("yyyy年MM月");
+
                 default:
                     return dateTime1.ToString();
             }
         }
-        #endregion
+
+        #endregion 格式化日期时间
 
         #region 得到随机日期
+
         /// <summary>
         /// 得到随机日期
         /// </summary>
@@ -254,7 +285,6 @@ namespace SufeiUtil
                 iTotalSecontds = (int)dTotalSecontds;
             }
 
-
             if (iTotalSecontds > 0)
             {
                 minTime = time2;
@@ -273,12 +303,15 @@ namespace SufeiUtil
             int maxValue = iTotalSecontds;
 
             if (iTotalSecontds <= System.Int32.MinValue)
+            {
                 maxValue = System.Int32.MinValue + 1;
+            }
 
             int i = random.Next(System.Math.Abs(maxValue));
 
             return minTime.AddSeconds(i);
         }
-        #endregion
+
+        #endregion 得到随机日期
     }
 }

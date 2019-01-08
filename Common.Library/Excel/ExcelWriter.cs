@@ -1,11 +1,13 @@
 using OfficeOpenXml;
 
-namespace Common.Excel
+namespace System.Excel
 {
     public class ExcelWriter
     {
         private Excel excel;
+
         private Sheet sheet;
+
         private ExcelWorksheet worksheet;
 
         public ExcelWriter(Sheet sheet)

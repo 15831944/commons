@@ -1,19 +1,13 @@
-﻿/// <summary>
-/// 类说明：XMLProcess
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Data;
+﻿using System.Data;
 using System.IO;
 using System.Xml;
 
-namespace SufeiUtil
+namespace System
 {
     public class XMLProcess
     {
         #region 构造函数
+
         public XMLProcess()
         { }
 
@@ -21,29 +15,37 @@ namespace SufeiUtil
         {
             this._XMLPath = strPath;
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 公有属性
+
         private string _XMLPath;
+
         public string XMLPath
         {
             get { return this._XMLPath; }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 私有方法
+
         /// <summary>
         /// 导入XML文件
         /// </summary>
         /// <param name="XMLPath">XML文件路径</param>
         private XmlDocument XMLLoad()
         {
-            string XMLFile = XMLPath;
+            string XMLFile = this.XMLPath;
             XmlDocument xmldoc = new XmlDocument();
             try
             {
                 string filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + XMLFile;
-                if (File.Exists(filename)) xmldoc.Load(filename);
+                if (File.Exists(filename))
+                {
+                    xmldoc.Load(filename);
+                }
             }
             catch (Exception e)
             { }
@@ -60,7 +62,10 @@ namespace SufeiUtil
             try
             {
                 string filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + strPath;
-                if (File.Exists(filename)) xmldoc.Load(filename);
+                if (File.Exists(filename))
+                {
+                    xmldoc.Load(filename);
+                }
             }
             catch (Exception e)
             { }
@@ -82,9 +87,11 @@ namespace SufeiUtil
                 return System.Web.HttpContext.Current.Server.MapPath(strPath);
             }
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 读取数据
+
         /// <summary>
         /// 读取指定节点的数据
         /// </summary>
@@ -97,7 +104,7 @@ namespace SufeiUtil
             string value = "";
             try
             {
-                XmlDocument doc = XMLLoad();
+                XmlDocument doc = this.XMLLoad();
                 XmlNode xn = doc.SelectSingleNode(node);
                 value = xn.InnerText;
             }
@@ -157,7 +164,7 @@ namespace SufeiUtil
         {
             int i = 0;
             string[] str = { };
-            XmlDocument doc = XMLLoad();
+            XmlDocument doc = this.XMLLoad();
             XmlNode xn = doc.SelectSingleNode(node);
             XmlNodeList nodelist = xn.ChildNodes;  //得到该节点的子节点
             if (nodelist.Count > 0)
@@ -178,13 +185,13 @@ namespace SufeiUtil
         /// <param name="node">要查询的节点</param>
         public XmlNodeList ReadAllChild(string node)
         {
-            XmlDocument doc = XMLLoad();
+            XmlDocument doc = this.XMLLoad();
             XmlNode xn = doc.SelectSingleNode(node);
             XmlNodeList nodelist = xn.ChildNodes;  //得到该节点的子节点
             return nodelist;
         }
 
-        /// <summary> 
+        /// <summary>
         /// 读取XML返回经排序或筛选后的DataView
         /// </summary>
         /// <param name="strWhere">筛选条件，如:"name='kgdiwss'"</param>
@@ -197,7 +204,7 @@ namespace SufeiUtil
                 string filename = AppDomain.CurrentDomain.BaseDirectory.ToString() + XMLFile;
                 DataSet ds = new DataSet();
                 ds.ReadXml(filename);
-                DataView dv = new DataView(ds.Tables[0]); //创建DataView来完成排序或筛选操作	
+                DataView dv = new DataView(ds.Tables[0]); //创建DataView来完成排序或筛选操作
                 if (strSort != null)
                 {
                     dv.Sort = strSort; //对DataView中的记录进行排序
@@ -235,9 +242,11 @@ namespace SufeiUtil
                 return null;
             }
         }
-        #endregion
+
+        #endregion 读取数据
 
         #region 插入数据
+
         /// <summary>
         /// 插入数据
         /// </summary>
@@ -269,9 +278,14 @@ namespace SufeiUtil
                 {
                     XmlElement xe = doc.CreateElement(element);
                     if (attribute.Equals(""))
+                    {
                         xe.InnerText = value;
+                    }
                     else
+                    {
                         xe.SetAttribute(attribute, value);
+                    }
+
                     xn.AppendChild(xe);
                 }
                 doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + path);
@@ -301,14 +315,22 @@ namespace SufeiUtil
                     for (int j = 0; j < strList[i].Length; j++)
                     {
                         if (j == 0)
+                        {
                             strAttribute = strList[i][j];
+                        }
                         else
+                        {
                             strValue = strList[i][j];
+                        }
                     }
                     if (strAttribute.Equals(""))
+                    {
                         xe.InnerText = strValue;
+                    }
                     else
+                    {
                         xe.SetAttribute(strAttribute, strValue);
+                    }
                 }
                 xn.AppendChild(xe);
                 doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + path);
@@ -349,9 +371,11 @@ namespace SufeiUtil
                 return false;
             }
         }
-        #endregion
+
+        #endregion 插入数据
 
         #region 修改数据
+
         /// <summary>
         /// 修改指定节点的数据
         /// </summary>
@@ -361,10 +385,10 @@ namespace SufeiUtil
         {
             try
             {
-                XmlDocument doc = XMLLoad();
+                XmlDocument doc = this.XMLLoad();
                 XmlNode xn = doc.SelectSingleNode(node);
                 xn.InnerText = value;
-                doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + XMLPath);
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + this.XMLPath);
             }
             catch { }
         }
@@ -408,9 +432,14 @@ namespace SufeiUtil
                 XmlNode xn = doc.SelectSingleNode(node);
                 XmlElement xe = (XmlElement)xn;
                 if (attribute.Equals(""))
+                {
                     xe.InnerText = value;
+                }
                 else
+                {
                     xe.SetAttribute(attribute, value);
+                }
+
                 doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + path);
             }
             catch { }
@@ -451,7 +480,6 @@ namespace SufeiUtil
                             return true;
                         }
                     }
-
                 }
                 return false;
             }
@@ -460,9 +488,11 @@ namespace SufeiUtil
                 return false;
             }
         }
-        #endregion
+
+        #endregion 修改数据
 
         #region 删除数据
+
         /// <summary>
         /// 删除节点值
         /// </summary>
@@ -503,9 +533,14 @@ namespace SufeiUtil
                 XmlNode xn = doc.SelectSingleNode(node);
                 XmlElement xe = (XmlElement)xn;
                 if (attribute.Equals(""))
+                {
                     xn.ParentNode.RemoveChild(xn);
+                }
                 else
+                {
                     xe.RemoveAttribute(attribute);
+                }
+
                 doc.Save(AppDomain.CurrentDomain.BaseDirectory.ToString() + path);
             }
             catch { }
@@ -607,6 +642,7 @@ namespace SufeiUtil
                 return false;
             }
         }
-        #endregion
+
+        #endregion 删除数据
     }
 }

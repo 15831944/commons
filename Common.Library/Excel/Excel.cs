@@ -1,16 +1,22 @@
 using OfficeOpenXml;
+
 using System.Collections.Generic;
 using System.IO;
 
-namespace Common.Excel
+namespace System.Excel
 {
     public class Excel
     {
         public FileInfo File { get; set; }
+
         public ExcelPackage Package { get; set; }
+
         public ExcelWorkbook Book { get; set; }
+
         public ExcelWorksheets Worksheets { get; set; }
+
         public int SheetsCount { get; set; }
+
         public List<string> SheetsName { get; set; }
 
         public Excel(string filename)

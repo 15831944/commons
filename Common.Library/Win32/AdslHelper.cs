@@ -1,48 +1,63 @@
-﻿/// <summary>
-/// 类说明：ADSL重新连接、拨号
-/// 编码日期：2013-04-10
-/// 编 码 人：Eagle
-/// 联系方式：838010363  
-/// 更新网址：http://www.sufeinet.com/thread-655-1-1.html
-/// 修改日期：2013-04-11
-/// </summary>
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Timers;
-using System.Runtime.InteropServices;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
-namespace SufeiUtil
+using System.Runtime.InteropServices;
+using System.Timers;
+
+namespace System.Win32
 {
     public class Ras
     {
         // Fields
         private bool bConnected;
+
         private ConnectionNotify ConnectNotify;
+
         private const int DNLEN = 15;
+
         private string EntryName;
+
         private const int ERROR_BUFFER_TOO_SMALL = 0x25b;
+
         private int hrasconn;
+
         public const int MAX_PATH = 260;
+
         public Timer NotifyTimer;
+
         private const int PWLEN = 0x100;
+
         private const string Ras_Authenticate = "正在验证用户名与密码.";
+
         public const string Ras_Connected = "成功连接到";
+
         public const string Ras_Connecting = "正在连接";
+
         private const string Ras_DialUping = "正在拨...";
+
         public const string Ras_Disconnected = "连接中断.";
+
         private const string Ras_Dot = "...";
+
         private const int RAS_MaxCallbackNumber = 0x80;
+
         private const int RAS_MaxDeviceName = 0x80;
+
         private const int RAS_MaxDeviceType = 0x10;
+
         public const int RAS_MaxEntryName = 0x100;
+
         private const int RAS_MaxPhoneNumber = 0x80;
+
         private const string Ras_OpenPort = "正在打开端口...";
+
         private const string Ras_PortOpend = "端口已经打开.";
+
         private RASCONN[] Rasconn;
+
         private const int RASCS_DONE = 0x2000;
+
         private const int RASCS_PAUSED = 0x1000;
+
         private const int UNLEN = 0x100;
 
         // Methods
@@ -51,7 +66,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ConnectionDelegate">连接通知委托</param>
         /// <param name="interval"></param>
@@ -154,6 +169,7 @@ namespace SufeiUtil
             strError = this.GetErrorString(nErrorValue);
             return false;
         }
+
         /// <summary>
         /// 获取默认条目
         /// </summary>
@@ -325,10 +341,13 @@ namespace SufeiUtil
 
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasCreatePhonebookEntry(int hwnd, string lpszPhonebook);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasDeleteEntry(string lpszPhonebook, string lpszEntry);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasDial(int lpRasDialExtensions, string lpszPhonebook, ref RASDIALPARAMS lpRasDialParams, int dwNotifierType, RasDialEvent lpvNotifier, ref int lphRasConn);
+
         /// <summary>
         /// 拨
         /// </summary>
@@ -378,22 +397,31 @@ namespace SufeiUtil
 
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasEditPhonebookEntry(int hwnd, string lpszPhonebook, string lpszEntryName);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasEnumConnections([In, Out] RASCONN[] lprasconn, ref int lpcb, ref int lpcConnections);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasEnumEntries(string reserved, string lpszPhonebook, [In, Out] RASENTRYNAME[] lprasentryname, ref int lpcb, ref int lpcEntries);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasGetConnectStatus(int hrasconn, ref RASCONNSTATUS lprasconnstatus);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasGetEntryDialParams(string lpszPhonebook, ref RASDIALPARAMS lprasdialparams, ref bool lpfPassword);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasGetErrorString(int uErrorValue, string lpszErrorString, int cBufSize);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasHangUp(int hrasconn);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasRenameEntry(string lpszPhonebook, string lpszOldEntry, string lpszNewEntry);
+
         [DllImport("rasapi32.dll", CharSet = CharSet.Auto)]
         private static extern int RasSetEntryDialParams(string lpszPhonebook, ref RASDIALPARAMS lprasdialparams, bool fRemovePassword);
+
         /// <summary>
         /// 重命名输入
         /// </summary>
@@ -529,11 +557,15 @@ namespace SufeiUtil
         private struct RASCONN
         {
             internal int dwSize;
+
             internal int hrasconn;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x101)]
             internal string szEntryName;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x11)]
             internal string szDeviceType;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x81)]
             internal string szDeviceName;
         }
@@ -541,31 +573,57 @@ namespace SufeiUtil
         private enum RASCONNSTATE
         {
             RASCS_AllDevicesConnected = 4,
+
             RASCS_AuthAck = 12,
+
             RASCS_AuthCallback = 8,
+
             RASCS_AuthChangePassword = 9,
+
             RASCS_Authenticate = 5,
+
             RASCS_Authenticated = 14,
+
             RASCS_AuthLinkSpeed = 11,
+
             RASCS_AuthNotify = 6,
+
             RASCS_AuthProject = 10,
+
             RASCS_AuthRetry = 7,
+
             RASCS_CallbackSetByCaller = 0x1002,
+
             RASCS_ConnectDevice = 2,
+
             RASCS_Connected = 0x2000,
+
             RASCS_DeviceConnected = 3,
+
             RASCS_Disconnected = 0x2001,
+
             RASCS_Interactive = 0x1000,
+
             RASCS_OpenPort = 0,
+
             RASCS_PasswordExpired = 0x1003,
+
             RASCS_PortOpened = 1,
+
             RASCS_PrepareForCallback = 15,
+
             RASCS_Projected = 0x12,
+
             RASCS_ReAuthenticate = 13,
+
             RASCS_RetryAuthentication = 0x1001,
+
             RASCS_SubEntryConnected = 0x13,
+
             RASCS_SubEntryDisconnected = 20,
+
             RASCS_WaitForCallback = 0x11,
+
             RASCS_WaitForModemReset = 0x10
         }
 
@@ -573,10 +631,14 @@ namespace SufeiUtil
         private struct RASCONNSTATUS
         {
             internal int dwSize;
+
             internal Ras.RASCONNSTATE rasconnstate;
+
             internal int dwError;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x11)]
             internal string szDeviceType;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x81)]
             internal string szDeviceName;
         }
@@ -593,16 +655,22 @@ namespace SufeiUtil
         private struct RASDIALPARAMS
         {
             internal int dwSize;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x101)]
             internal string szEntryName;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x81)]
             internal string szPhoneNumber;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x81)]
             internal string szCallbackNumber;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x101)]
             internal string szUserName;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x101)]
             internal string szPassword;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x10)]
             internal string szDomain;
         }
@@ -611,6 +679,7 @@ namespace SufeiUtil
         private struct RASENTRYNAME
         {
             internal int dwSize;
+
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x101)]
             internal string szEntryName;
         }

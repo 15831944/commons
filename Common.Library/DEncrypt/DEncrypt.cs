@@ -1,11 +1,7 @@
-/// <summary>
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
 using System.Security.Cryptography;
 using System.Text;
-namespace SufeiUtil
+
+namespace System.DEncrypt
 {
     /// <summary>
     /// Encrypt 的摘要说明。
@@ -17,7 +13,6 @@ namespace SufeiUtil
         /// </summary>
         public DEncrypt()
         {
-
         }
 
         #region 使用 缺省密钥字符串 加密/解密string
@@ -31,6 +26,7 @@ namespace SufeiUtil
         {
             return Encrypt(original, "MATICSOFT");
         }
+
         /// <summary>
         /// 使用缺省密钥字符串解密string
         /// </summary>
@@ -41,9 +37,10 @@ namespace SufeiUtil
             return Decrypt(original, "MATICSOFT", System.Text.Encoding.Default);
         }
 
-        #endregion
+        #endregion 使用 缺省密钥字符串 加密/解密string
 
         #region 使用 给定密钥字符串 加密/解密string
+
         /// <summary>
         /// 使用给定密钥字符串加密string
         /// </summary>
@@ -57,6 +54,7 @@ namespace SufeiUtil
             byte[] kb = System.Text.Encoding.Default.GetBytes(key);
             return Convert.ToBase64String(Encrypt(buff, kb));
         }
+
         /// <summary>
         /// 使用给定密钥字符串解密string
         /// </summary>
@@ -81,9 +79,11 @@ namespace SufeiUtil
             byte[] kb = System.Text.Encoding.Default.GetBytes(key);
             return encoding.GetString(Decrypt(buff, kb));
         }
-        #endregion
+
+        #endregion 使用 给定密钥字符串 加密/解密string
 
         #region 使用 缺省密钥字符串 加密/解密/byte[]
+
         /// <summary>
         /// 使用缺省密钥字符串解密byte[]
         /// </summary>
@@ -95,6 +95,7 @@ namespace SufeiUtil
             byte[] key = System.Text.Encoding.Default.GetBytes("MATICSOFT");
             return Decrypt(encrypted, key);
         }
+
         /// <summary>
         /// 使用缺省密钥字符串加密
         /// </summary>
@@ -106,9 +107,10 @@ namespace SufeiUtil
             byte[] key = System.Text.Encoding.Default.GetBytes("MATICSOFT");
             return Encrypt(original, key);
         }
-        #endregion
 
-        #region  使用 给定密钥 加密/解密/byte[]
+        #endregion 使用 缺省密钥字符串 加密/解密/byte[]
+
+        #region 使用 给定密钥 加密/解密/byte[]
 
         /// <summary>
         /// 生成MD5摘要
@@ -153,6 +155,6 @@ namespace SufeiUtil
             return des.CreateDecryptor().TransformFinalBlock(encrypted, 0, encrypted.Length);
         }
 
-        #endregion
+        #endregion 使用 给定密钥 加密/解密/byte[]
     }
 }

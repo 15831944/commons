@@ -1,15 +1,8 @@
-/// <summary>
-/// 类说明：SegList
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 分词辅助类
@@ -17,47 +10,52 @@ namespace SufeiUtil
     public class SegList
     {
         public int MaxLength;
+
         private ArrayList m_seg;
 
         public int Count
         {
             get
             {
-                return m_seg.Count;
+                return this.m_seg.Count;
             }
         }
 
         public SegList()
         {
-            m_seg = new ArrayList();
-            MaxLength = 0;
+            this.m_seg = new ArrayList();
+            this.MaxLength = 0;
         }
 
         public void Add(object obj)
         {
-            m_seg.Add(obj);
-            if (MaxLength < obj.ToString().Length)
+            this.m_seg.Add(obj);
+            if (this.MaxLength < obj.ToString().Length)
             {
-                MaxLength = obj.ToString().Length;
+                this.MaxLength = obj.ToString().Length;
             }
         }
 
         public object GetElem(int i)
         {
             if (i < this.Count)
-                return m_seg[i];
+            {
+                return this.m_seg[i];
+            }
             else
+            {
                 return null;
+            }
         }
 
         public void SetElem(int i, object obj)
         {
-            m_seg[i] = obj;
+            this.m_seg[i] = obj;
         }
 
         public bool Contains(object obj)
         {
-            return m_seg.Contains(obj);
+            return this.m_seg.Contains(obj);
         }
 
         /// <summary>
@@ -65,7 +63,7 @@ namespace SufeiUtil
         /// </summary>
         public void Sort()
         {
-            Sort(this);
+            this.Sort(this);
         }
 
         /// <summary>
@@ -79,23 +77,32 @@ namespace SufeiUtil
                 max = i;
                 for (int j = i + 1; j < list.Count; ++j)
                 {
-
                     string str1 = list.GetElem(j).ToString();
                     string str2 = list.GetElem(max).ToString();
                     int l1;
                     int l2;
                     if (str1 == "null")
+                    {
                         l1 = 0;
+                    }
                     else
+                    {
                         l1 = str1.Length;
+                    }
 
                     if (str2 == "null")
+                    {
                         l2 = 0;
+                    }
                     else
+                    {
                         l2 = str2.Length;
+                    }
 
                     if (l1 > l2)
+                    {
                         max = j;
+                    }
                 }
                 object o = list.GetElem(max);
                 list.SetElem(max, list.GetElem(i));
@@ -117,16 +124,27 @@ namespace SufeiUtil
     public class Segment
     {
         #region 私有字段
+
         private string m_DicPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sDict.dic");
+
         private string m_NoisePath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sNoise.dic");
+
         private string m_NumberPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sNumber.dic");
+
         private string m_WordPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sWord.dic");
+
         private string m_PrefixPath = System.Web.HttpContext.Current.Server.MapPath("bin/ShootSeg/sPrefix.dic");
+
         private Hashtable htWords;
+
         private ArrayList alNoise;
+
         private ArrayList alNumber;
+
         private ArrayList alWord;
+
         private ArrayList alPrefix;
+
         private double m_EventTime = 0;
 
         /// <summary>
@@ -138,9 +156,11 @@ namespace SufeiUtil
         /// 用于验证汉字的正则表达式
         /// </summary>
         private string strChinese = "[\u4e00-\u9fa5]";
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
+
         /// <summary>
         /// 基本词典路径
         /// </summary>
@@ -148,11 +168,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_DicPath;
+                return this.m_DicPath;
             }
             set
             {
-                m_DicPath = value;
+                this.m_DicPath = value;
             }
         }
 
@@ -163,7 +183,11 @@ namespace SufeiUtil
         /// <param name="val">缓存的数据</param>
         private static void SetCache(string key, object val)
         {
-            if (val == null) val = " ";
+            if (val == null)
+            {
+                val = " ";
+            }
+
             System.Web.HttpContext.Current.Application.Lock();
             System.Web.HttpContext.Current.Application.Set(key, val);
             System.Web.HttpContext.Current.Application.UnLock();
@@ -184,11 +208,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_NoisePath;
+                return this.m_NoisePath;
             }
             set
             {
-                m_NoisePath = value;
+                this.m_NoisePath = value;
             }
         }
 
@@ -199,11 +223,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_NumberPath;
+                return this.m_NumberPath;
             }
             set
             {
-                m_NumberPath = value;
+                this.m_NumberPath = value;
             }
         }
 
@@ -214,11 +238,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_WordPath;
+                return this.m_WordPath;
             }
             set
             {
-                m_WordPath = value;
+                this.m_WordPath = value;
             }
         }
 
@@ -229,11 +253,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_PrefixPath;
+                return this.m_PrefixPath;
             }
             set
             {
-                m_PrefixPath = value;
+                this.m_PrefixPath = value;
             }
         }
 
@@ -244,17 +268,25 @@ namespace SufeiUtil
         {
             get
             {
-                if (alPrefix.Count == 0)
+                if (this.alPrefix.Count == 0)
+                {
                     return false;
+                }
                 else
+                {
                     return true;
+                }
             }
             set
             {
                 if (value)
-                    alPrefix = LoadWords(PrefixPath, alPrefix);
+                {
+                    this.alPrefix = this.LoadWords(this.PrefixPath, this.alPrefix);
+                }
                 else
-                    alPrefix = new ArrayList();
+                {
+                    this.alPrefix = new ArrayList();
+                }
             }
         }
 
@@ -266,7 +298,7 @@ namespace SufeiUtil
         {
             get
             {
-                return m_EventTime;
+                return this.m_EventTime;
             }
         }
 
@@ -277,16 +309,21 @@ namespace SufeiUtil
         {
             get
             {
-                return m_Separator;
+                return this.m_Separator;
             }
             set
             {
-                if (value != "" && value != null) m_Separator = value;
+                if (value != "" && value != null)
+                {
+                    this.m_Separator = value;
+                }
             }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 构造方法
+
         /// <summary>
         /// 构造方法
         /// </summary>
@@ -298,15 +335,17 @@ namespace SufeiUtil
         /// </summary>
         public Segment(string p_DicPath, string p_NoisePath, string p_NumberPath, string p_WordPath)
         {
-            m_WordPath = p_DicPath;
-            m_WordPath = p_NoisePath;
-            m_WordPath = p_NumberPath;
-            m_WordPath = p_WordPath;
+            this.m_WordPath = p_DicPath;
+            this.m_WordPath = p_NoisePath;
+            this.m_WordPath = p_NumberPath;
+            this.m_WordPath = p_WordPath;
             this.InitWordDics();
         }
-        #endregion
+
+        #endregion 构造方法
 
         #region 公有方法
+
         /// <summary>
         /// 加载词列表
         /// </summary>
@@ -315,14 +354,14 @@ namespace SufeiUtil
             DateTime start = DateTime.Now;
             if (GetCache("jcms_dict") == null)
             {
-                htWords = new Hashtable();
-                Hashtable father = htWords;
-                Hashtable forfather = htWords;
+                this.htWords = new Hashtable();
+                Hashtable father = this.htWords;
+                Hashtable forfather = this.htWords;
 
                 string strChar1;
                 string strChar2;
 
-                StreamReader reader = new StreamReader(DicPath, System.Text.Encoding.UTF8);
+                StreamReader reader = new StreamReader(this.DicPath, System.Text.Encoding.UTF8);
                 string strline = reader.ReadLine();
 
                 SegList list;
@@ -334,23 +373,28 @@ namespace SufeiUtil
                     i++;
                     strChar1 = strline.Substring(0, 1);
                     strChar2 = strline.Substring(1, 1);
-                    if (!htWords.ContainsKey(strChar1))
+                    if (!this.htWords.ContainsKey(strChar1))
                     {
                         father = new Hashtable();
-                        htWords.Add(strChar1, father);
+                        this.htWords.Add(strChar1, father);
                     }
                     else
                     {
-                        father = (Hashtable)htWords[strChar1];
+                        father = (Hashtable)this.htWords[strChar1];
                     }
 
                     if (!father.ContainsKey(strChar2))
                     {
                         list = new SegList();
                         if (strline.Length > 2)
+                        {
                             list.Add(strline.Substring(2));
+                        }
                         else
+                        {
                             list.Add("null");
+                        }
+
                         father.Add(strChar2, list);
                     }
                     else
@@ -366,7 +410,7 @@ namespace SufeiUtil
                         }
                         father[strChar2] = list;
                     }
-                    htWords[strChar1] = father;
+                    this.htWords[strChar1] = father;
                     strline = reader.ReadLine();
                 }
                 try
@@ -375,17 +419,17 @@ namespace SufeiUtil
                 }
                 catch
                 { }
-                SetCache("jcms_dict", htWords);
+                SetCache("jcms_dict", this.htWords);
             }
-            htWords = (Hashtable)GetCache("jcms_dict");
+            this.htWords = (Hashtable)GetCache("jcms_dict");
 
-            alNoise = LoadWords(NoisePath, alNoise);
-            alNumber = LoadWords(NumberPath, alNumber);
-            alWord = LoadWords(WordPath, alWord);
-            alPrefix = LoadWords(PrefixPath, alPrefix);
+            this.alNoise = this.LoadWords(this.NoisePath, this.alNoise);
+            this.alNumber = this.LoadWords(this.NumberPath, this.alNumber);
+            this.alWord = this.LoadWords(this.WordPath, this.alWord);
+            this.alPrefix = this.LoadWords(this.PrefixPath, this.alPrefix);
 
             TimeSpan duration = DateTime.Now - start;
-            m_EventTime = duration.TotalMilliseconds;
+            this.m_EventTime = duration.TotalMilliseconds;
         }
 
         /// <summary>
@@ -415,7 +459,7 @@ namespace SufeiUtil
         /// </summary>
         public void OutWords()
         {
-            IDictionaryEnumerator idEnumerator1 = htWords.GetEnumerator();
+            IDictionaryEnumerator idEnumerator1 = this.htWords.GetEnumerator();
             while (idEnumerator1.MoveNext())
             {
                 IDictionaryEnumerator idEnumerator2 = ((Hashtable)idEnumerator1.Value).GetEnumerator();
@@ -435,7 +479,11 @@ namespace SufeiUtil
         /// </summary>
         public void OutArrayList(ArrayList list)
         {
-            if (list == null) return;
+            if (list == null)
+            {
+                return;
+            }
+
             for (int i = 0; i < list.Count; i++)
             {
                 Console.WriteLine(list[i].ToString());
@@ -443,15 +491,23 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 分词过程,不支持回车 
+        /// 分词过程,不支持回车
         /// </summary>
         /// <param name="strText">要分词的文本</param>
         /// <returns>分词后的文本</returns>
         public string SegmentText(string strText)
         {
             strText = (strText + "$").Trim();
-            if (htWords == null) return strText;
-            if (strText.Length < 3) return strText;
+            if (this.htWords == null)
+            {
+                return strText;
+            }
+
+            if (strText.Length < 3)
+            {
+                return strText;
+            }
+
             DateTime start = DateTime.Now;
             int length = 0;
             int preFix = 0;
@@ -460,89 +516,120 @@ namespace SufeiUtil
             string reText = "";
             string strPrefix = "";
             string strLastChar = "";
-            string strLastWords = Separator;
+            string strLastWords = this.Separator;
 
             for (int i = 0; i < strText.Length - 1; i++)
             {
                 #region 对于每一个字的处理过程
+
                 string strChar1 = strText.Substring(i, 1);
                 string strChar2 = strText.Substring(i + 1, 1).Trim();
                 bool yes;
                 SegList l;
                 Hashtable h;
 
-                if (reText.Length > 0) strLastChar = reText.Substring(reText.Length - 1);
+                if (reText.Length > 0)
+                {
+                    strLastChar = reText.Substring(reText.Length - 1);
+                }
 
                 if (strChar1 == " ")
                 {
-                    if ((number || word) && strLastChar != Separator) reText += this.Separator;
+                    if ((number || word) && strLastChar != this.Separator)
+                    {
+                        reText += this.Separator;
+                    }
+
                     yes = true;
                 }
                 else
+                {
                     yes = false;
+                }
 
-                int CharType = GetCharType(strChar1);
+                int CharType = this.GetCharType(strChar1);
                 switch (CharType)
                 {
                     case 1:
-                        #region  如果是数字，如果数字的上一位是字母要和后面的数字分开
+
+                        #region 如果是数字，如果数字的上一位是字母要和后面的数字分开
+
                         if (word)
                         {
-                            reText += Separator;
+                            reText += this.Separator;
                         }
                         word = false;
                         number = true;
                         strLastWords = "";
                         break;
-                        #endregion
+
+                    #endregion 如果是数字，如果数字的上一位是字母要和后面的数字分开
+
                     case 2:
                     case 5:
+
                         #region 如果是字母
+
                         if (number)
-                            strLastWords = Separator;
+                        {
+                            strLastWords = this.Separator;
+                        }
                         else
+                        {
                             strLastWords = "";
+                        }
 
                         word = true;
                         number = false;
                         break;
-                        #endregion
+
+                    #endregion 如果是字母
+
                     case 3:
                     case 4:
+
                         #region 第一级哈希表是否包含关键字，假如包含处理第二级哈希表
+
                         //上一个字是否为字母
-                        if (word) reText += Separator;
+                        if (word)
+                        {
+                            reText += this.Separator;
+                        }
 
                         #region 检测上一个是否是数字，这个过程是用于修正数字后的量词的
+
                         if (number && CharType != 4)
                         {
-                            h = (Hashtable)htWords["n"];
+                            h = (Hashtable)this.htWords["n"];
                             if (h.ContainsKey(strChar1))
                             {
                                 l = (SegList)h[strChar1];
                                 if (l.Contains(strChar2))
                                 {
-                                    reText += strChar1 + strChar2 + Separator;
+                                    reText += strChar1 + strChar2 + this.Separator;
                                     yes = true;
                                     i++;
                                 }
                                 else if (l.Contains("null"))
                                 {
-                                    reText += strChar1 + Separator;
+                                    reText += strChar1 + this.Separator;
                                     yes = true;
                                 }
                             }
                             else
-                                reText += Separator;
+                            {
+                                reText += this.Separator;
+                            }
                         }
-                        #endregion
+
+                        #endregion 检测上一个是否是数字，这个过程是用于修正数字后的量词的
 
                         //非汉字数字的汉字
                         if (CharType == 3)
                         {
                             word = false;
                             number = false;
-                            strLastWords = Separator;
+                            strLastWords = this.Separator;
                         }
                         else
                         {
@@ -552,12 +639,13 @@ namespace SufeiUtil
                         }
 
                         //第二级哈希表取出
-                        h = (Hashtable)htWords[strChar1];
+                        h = (Hashtable)this.htWords[strChar1];
 
                         //第二级哈希表是否包含关键字
                         if (h.ContainsKey(strChar2))
                         {
-                            #region  第二级包含关键字
+                            #region 第二级包含关键字
+
                             //取出ArrayList对象
                             l = (SegList)h[strChar2];
 
@@ -576,7 +664,7 @@ namespace SufeiUtil
                                     {
                                         if (strPrefix != "")
                                         {
-                                            reText += strPrefix + Separator;
+                                            reText += strPrefix + this.Separator;
                                             strPrefix = "";
                                             preFix = 0;
                                         }
@@ -594,7 +682,7 @@ namespace SufeiUtil
                                     {
                                         if (strPrefix != "")
                                         {
-                                            reText += strPrefix + Separator;
+                                            reText += strPrefix + this.Separator;
                                             strPrefix = "";
                                             preFix = 0;
                                         }
@@ -622,8 +710,15 @@ namespace SufeiUtil
                                     }
                                     else
                                     {
-                                        if (CharType == 4) reText += strChar1 + strChar2;
-                                        else reText += strChar1 + strChar2;
+                                        if (CharType == 4)
+                                        {
+                                            reText += strChar1 + strChar2;
+                                        }
+                                        else
+                                        {
+                                            reText += strChar1 + strChar2;
+                                        }
+
                                         strLastWords = this.Separator;
                                         number = false;
                                     }
@@ -636,7 +731,8 @@ namespace SufeiUtil
                                     break;
                                 }
                             }
-                            #endregion
+
+                            #endregion 第二级包含关键字
 
                             //如果没有匹配还可能有一种情况，这个词语只有两个字，以这两个字开头的词语不存在
                             if (!yes && l.Contains("null"))
@@ -655,38 +751,58 @@ namespace SufeiUtil
                                 }
                                 else
                                 {
-                                    if (CharType == 4) reText += strChar1 + strChar2;
-                                    else reText += strChar1 + strChar2;
+                                    if (CharType == 4)
+                                    {
+                                        reText += strChar1 + strChar2;
+                                    }
+                                    else
+                                    {
+                                        reText += strChar1 + strChar2;
+                                    }
+
                                     strLastWords = this.Separator;
                                     number = false;
                                 }
                                 i++;
                                 yes = true;
                             }
-                            if (reText.Length > 0) strLastChar = reText.Substring(reText.Length - 1);
-                            if (CharType == 4 && GetCharType(strLastChar) == 4)
+                            if (reText.Length > 0)
+                            {
+                                strLastChar = reText.Substring(reText.Length - 1);
+                            }
+
+                            if (CharType == 4 && this.GetCharType(strLastChar) == 4)
                             {
                                 number = true;
                             }
-                            else if (strLastChar != this.Separator) reText += this.Separator;
+                            else if (strLastChar != this.Separator)
+                            {
+                                reText += this.Separator;
+                            }
                         }
-                        #endregion
+
+                        #endregion 第一级哈希表是否包含关键字，假如包含处理第二级哈希表
+
                         break;
+
                     default:
+
                         #region 未知字符,可能是生僻字,也可能是标点符合之类
+
                         if (word && !yes)
                         {
-                            reText += Separator;
+                            reText += this.Separator;
                         }
                         else if (number && !yes)
                         {
-                            reText += Separator;
+                            reText += this.Separator;
                         }
                         number = false;
                         word = false;
                         strLastWords = this.Separator;
                         break;
-                        #endregion
+
+                        #endregion 未知字符,可能是生僻字,也可能是标点符合之类
                 }
                 if (!yes && number || !yes && word)
                 {
@@ -696,15 +812,16 @@ namespace SufeiUtil
                 if (!yes)
                 {
                     #region 处理姓名问题
+
                     if (preFix == 0)
                     {
-                        if (alPrefix.Contains(strChar1 + strChar2))
+                        if (this.alPrefix.Contains(strChar1 + strChar2))
                         {
                             i++;
                             strPrefix = strChar1 + strChar2;
                             preFix++;
                         }
-                        else if (alPrefix.Contains(strChar1))
+                        else if (this.alPrefix.Contains(strChar1))
                         {
                             if (!number)
                             {
@@ -722,20 +839,20 @@ namespace SufeiUtil
                         {
                             if (preFix == 3)
                             {
-                                reText += strPrefix + Separator + strChar1 + Separator;
+                                reText += strPrefix + this.Separator + strChar1 + this.Separator;
                                 strPrefix = "";
                                 preFix = 0;
                             }
                             else if (preFix > 0)
                             {
-                                if (Regex.IsMatch(strChar1, strChinese))
+                                if (Regex.IsMatch(strChar1, this.strChinese))
                                 {
                                     strPrefix += strChar1;
                                     preFix++;
                                 }
                                 else
                                 {
-                                    reText += strPrefix + Separator + strChar1 + Separator;
+                                    reText += strPrefix + this.Separator + strChar1 + this.Separator;
                                     strPrefix = "";
                                     preFix = 0;
                                 }
@@ -752,20 +869,20 @@ namespace SufeiUtil
                     {
                         if (preFix == 3)
                         {
-                            reText += strPrefix + Separator + strChar1 + Separator;
+                            reText += strPrefix + this.Separator + strChar1 + this.Separator;
                             strPrefix = "";
                             preFix = 0;
                         }
                         else if (preFix > 0)
                         {
-                            if (Regex.IsMatch(strChar1, strChinese))
+                            if (Regex.IsMatch(strChar1, this.strChinese))
                             {
                                 strPrefix += strChar1;
                                 preFix++;
                             }
                             else
                             {
-                                reText += strPrefix + Separator + strChar1 + Separator;
+                                reText += strPrefix + this.Separator + strChar1 + this.Separator;
                                 strPrefix = "";
                                 preFix = 0;
                             }
@@ -776,60 +893,96 @@ namespace SufeiUtil
                             number = false;
                         }
                     }
-                    #endregion
+
+                    #endregion 处理姓名问题
                 }
                 length = i;
-                #endregion
+
+                #endregion 对于每一个字的处理过程
             }
 
             #region 最后防止最后一个字的丢失
+
             if (length < strText.Length - 1)
             {
                 string strLastChar1 = strText.Substring(strText.Length - 1).Trim();
                 string strLastChar2 = strText.Substring(strText.Length - 2).Trim();
 
-                if (reText.Length > 0) strLastChar = reText.Substring(reText.Length - 1);
+                if (reText.Length > 0)
+                {
+                    strLastChar = reText.Substring(reText.Length - 1);
+                }
+
                 if (preFix != 0)
                 {
                     reText += strPrefix + strLastChar1;
                 }
                 else
                 {
-                    switch (GetCharType(strLastChar1))
+                    switch (this.GetCharType(strLastChar1))
                     {
                         case 1:
                             if (strLastChar1 != "." && strLastChar1 != "．")
+                            {
                                 reText += strLastChar1;
+                            }
                             else
-                                reText += Separator + strLastChar1;
+                            {
+                                reText += this.Separator + strLastChar1;
+                            }
+
                             break;
+
                         case 2:
                         case 5:
-                            if (alWord.Contains(strLastChar2))
+                            if (this.alWord.Contains(strLastChar2))
+                            {
                                 reText += strLastChar1;
+                            }
+
                             break;
+
                         case 3:
                         case 4:
-                            if ((number || word) && strLastChar != Separator)
-                                reText += Separator + strLastChar1;
+                            if ((number || word) && strLastChar != this.Separator)
+                            {
+                                reText += this.Separator + strLastChar1;
+                            }
                             else
+                            {
                                 reText += strLastChar1;
+                            }
+
                             break;
+
                         default:
-                            if (strLastChar != Separator)
-                                reText += Separator + strLastChar1;
+                            if (strLastChar != this.Separator)
+                            {
+                                reText += this.Separator + strLastChar1;
+                            }
                             else
+                            {
                                 reText += strLastChar1;
+                            }
+
                             break;
                     }
                 }
-                if (reText.Length > 0) strLastChar = (reText.Substring(reText.Length - 1));
-                if (strLastChar != this.Separator) reText += this.Separator;
+                if (reText.Length > 0)
+                {
+                    strLastChar = (reText.Substring(reText.Length - 1));
+                }
+
+                if (strLastChar != this.Separator)
+                {
+                    reText += this.Separator;
+                }
             }
-            #endregion
+
+            #endregion 最后防止最后一个字的丢失
 
             TimeSpan duration = DateTime.Now - start;
-            m_EventTime = duration.TotalMilliseconds;
+            this.m_EventTime = duration.TotalMilliseconds;
             return reText.Replace(" $", ""); //这里包含一个字的，则去掉
         }
 
@@ -846,40 +999,55 @@ namespace SufeiUtil
                 string reText = "";
                 for (int i = 0; i < strArr.Length; i++)
                 {
-                    reText += SegmentText(strArr[i]) + "\r\n";
+                    reText += this.SegmentText(strArr[i]) + "\r\n";
                 }
 
                 TimeSpan duration = DateTime.Now - start;
-                m_EventTime = duration.TotalMilliseconds;
+                this.m_EventTime = duration.TotalMilliseconds;
                 return reText;
             }
             else
             {
-                return SegmentText(strText);
+                return this.SegmentText(strText);
             }
         }
 
         #region 判断字符类型
+
         /// <summary>
         /// 判断字符类型,0为未知,1为数字,2为字母,3为汉字,4为汉字数字
         /// </summary>
         private int GetCharType(string p_Char)
         {
             int CharType = 0;
-            if (alNumber.Contains(p_Char)) CharType = 1;
-            if (alWord.Contains(p_Char)) CharType = 2;
-            if (htWords.ContainsKey(p_Char)) CharType += 3;
+            if (this.alNumber.Contains(p_Char))
+            {
+                CharType = 1;
+            }
+
+            if (this.alWord.Contains(p_Char))
+            {
+                CharType = 2;
+            }
+
+            if (this.htWords.ContainsKey(p_Char))
+            {
+                CharType += 3;
+            }
+
             return CharType;
         }
-        #endregion
+
+        #endregion 判断字符类型
 
         #region 对加载的词典排序并重新写入
+
         /// <summary>
         /// 对加载的词典排序并重新写入
         /// </summary>
         public void SortDic()
         {
-            SortDic(false);
+            this.SortDic(false);
         }
 
         /// <summary>
@@ -889,9 +1057,9 @@ namespace SufeiUtil
         public void SortDic(bool Reload)
         {
             DateTime start = DateTime.Now;
-            StreamWriter sw = new StreamWriter(DicPath, false, System.Text.Encoding.UTF8);
+            StreamWriter sw = new StreamWriter(this.DicPath, false, System.Text.Encoding.UTF8);
 
-            IDictionaryEnumerator idEnumerator1 = htWords.GetEnumerator();
+            IDictionaryEnumerator idEnumerator1 = this.htWords.GetEnumerator();
             while (idEnumerator1.MoveNext())
             {
                 IDictionaryEnumerator idEnumerator2 = ((Hashtable)idEnumerator1.Value).GetEnumerator();
@@ -902,20 +1070,28 @@ namespace SufeiUtil
                     for (int i = 0; i < aa.Count; i++)
                     {
                         if (aa.GetElem(i).ToString() == "null")
+                        {
                             sw.WriteLine(idEnumerator1.Key.ToString() + idEnumerator2.Key.ToString());
+                        }
                         else
+                        {
                             sw.WriteLine(idEnumerator1.Key.ToString() + idEnumerator2.Key.ToString() + aa.GetElem(i).ToString());
+                        }
                     }
                 }
             }
             sw.Close();
 
-            if (Reload) InitWordDics();
+            if (Reload)
+            {
+                this.InitWordDics();
+            }
 
             TimeSpan duration = DateTime.Now - start;
-            m_EventTime = duration.TotalMilliseconds;
+            this.m_EventTime = duration.TotalMilliseconds;
         }
-        #endregion
+
+        #endregion 对加载的词典排序并重新写入
 
         /// <summary>
         /// 删除两行完全相同的词,暂时无用!
@@ -927,14 +1103,18 @@ namespace SufeiUtil
             DateTime start = DateTime.Now;
 
             Hashtable htOptimize = new Hashtable();
-            StreamReader reader = new StreamReader(DicPath, System.Text.Encoding.UTF8);
+            StreamReader reader = new StreamReader(this.DicPath, System.Text.Encoding.UTF8);
             string strline = reader.ReadLine();
             while (strline != null && strline.Trim() != "")
             {
                 if (!htOptimize.ContainsKey(strline))
+                {
                     htOptimize.Add(strline, null);
+                }
                 else
+                {
                     l++;
+                }
             }
             Console.WriteLine("ready");
             try
@@ -942,19 +1122,23 @@ namespace SufeiUtil
                 reader.Close();
             }
             catch { }
-            StreamWriter sw = new StreamWriter(DicPath, false, System.Text.Encoding.UTF8);
+            StreamWriter sw = new StreamWriter(this.DicPath, false, System.Text.Encoding.UTF8);
             IDictionaryEnumerator ide = htOptimize.GetEnumerator();
             while (ide.MoveNext())
+            {
                 sw.WriteLine(ide.Key.ToString());
+            }
+
             try
             {
                 sw.Close();
             }
             catch { }
             TimeSpan duration = DateTime.Now - start;
-            m_EventTime = duration.TotalMilliseconds;
+            this.m_EventTime = duration.TotalMilliseconds;
             return l;
         }
-        #endregion
+
+        #endregion 公有方法
     }
 }

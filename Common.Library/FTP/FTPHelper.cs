@@ -1,16 +1,10 @@
-﻿/// <summary>
-/// 类说明：CacheHelper
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;  
-using System.Collections.Generic;  
-using System.Text;  
-using System.IO;  
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System.FTP
 {
     /// <summary>
     /// FTP帮助类
@@ -18,38 +12,44 @@ namespace SufeiUtil
     public class FTPHelper
     {
         #region 字段
-        string ftpURI;
-        string ftpUserID;
-        string ftpServerIP;
-        string ftpPassword;
-        string ftpRemotePath;
-        #endregion
 
-        /// <summary>  
+        private string ftpURI;
+
+        private string ftpUserID;
+
+        private string ftpServerIP;
+
+        private string ftpPassword;
+
+        private string ftpRemotePath;
+
+        #endregion 字段
+
+        /// <summary>
         /// 连接FTP服务器
-        /// </summary>  
-        /// <param name="FtpServerIP">FTP连接地址</param>  
-        /// <param name="FtpRemotePath">指定FTP连接成功后的当前目录, 如果不指定即默认为根目录</param>  
-        /// <param name="FtpUserID">用户名</param>  
-        /// <param name="FtpPassword">密码</param>  
+        /// </summary>
+        /// <param name="FtpServerIP">FTP连接地址</param>
+        /// <param name="FtpRemotePath">指定FTP连接成功后的当前目录, 如果不指定即默认为根目录</param>
+        /// <param name="FtpUserID">用户名</param>
+        /// <param name="FtpPassword">密码</param>
         public FTPHelper(string FtpServerIP, string FtpRemotePath, string FtpUserID, string FtpPassword)
         {
-            ftpServerIP = FtpServerIP;
-            ftpRemotePath = FtpRemotePath;
-            ftpUserID = FtpUserID;
-            ftpPassword = FtpPassword;
-            ftpURI = "ftp://" + ftpServerIP + "/" + ftpRemotePath + "/";
+            this.ftpServerIP = FtpServerIP;
+            this.ftpRemotePath = FtpRemotePath;
+            this.ftpUserID = FtpUserID;
+            this.ftpPassword = FtpPassword;
+            this.ftpURI = "ftp://" + this.ftpServerIP + "/" + this.ftpRemotePath + "/";
         }
 
-        /// <summary>  
-        /// 上传  
-        /// </summary>   
+        /// <summary>
+        /// 上传
+        /// </summary>
         public void Upload(string filename)
         {
             FileInfo fileInf = new FileInfo(filename);
             FtpWebRequest reqFTP;
-            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileInf.Name));
-            reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + fileInf.Name));
+            reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
             reqFTP.Method = WebRequestMethods.Ftp.UploadFile;
             reqFTP.KeepAlive = false;
             reqFTP.UseBinary = true;
@@ -76,17 +76,17 @@ namespace SufeiUtil
             }
         }
 
-        /// <summary>  
-        /// 下载  
-        /// </summary>   
+        /// <summary>
+        /// 下载
+        /// </summary>
         public void Download(string filePath, string fileName)
         {
             try
             {
                 FileStream outputStream = new FileStream(filePath + "\\" + fileName, FileMode.Create);
                 FtpWebRequest reqFTP;
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + fileName));
+                reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
                 reqFTP.UseBinary = true;
                 FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
@@ -111,16 +111,16 @@ namespace SufeiUtil
             }
         }
 
-        /// <summary>  
-        /// 删除文件  
-        /// </summary>  
+        /// <summary>
+        /// 删除文件
+        /// </summary>
         public void Delete(string fileName)
         {
             try
             {
                 FtpWebRequest reqFTP;
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + fileName));
+                reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 reqFTP.Method = WebRequestMethods.Ftp.DeleteFile;
                 reqFTP.KeepAlive = false;
                 string result = String.Empty;
@@ -139,17 +139,17 @@ namespace SufeiUtil
             }
         }
 
-        /// <summary>  
-        /// 获取当前目录下明细(包含文件和文件夹)  
-        /// </summary>  
+        /// <summary>
+        /// 获取当前目录下明细(包含文件和文件夹)
+        /// </summary>
         public string[] GetFilesDetailList()
         {
             try
             {
                 StringBuilder result = new StringBuilder();
                 FtpWebRequest ftp;
-                ftp = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI));
-                ftp.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                ftp = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI));
+                ftp.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 ftp.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
                 WebResponse response = ftp.GetResponse();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
@@ -173,14 +173,14 @@ namespace SufeiUtil
             }
         }
 
-        /// <summary>  
+        /// <summary>
         /// 获取FTP文件列表(包括文件夹)
-        /// </summary>   
+        /// </summary>
         private string[] GetAllList(string url)
         {
             List<string> list = new List<string>();
             FtpWebRequest req = (FtpWebRequest)WebRequest.Create(new Uri(url));
-            req.Credentials = new NetworkCredential(ftpPassword, ftpPassword);
+            req.Credentials = new NetworkCredential(this.ftpPassword, this.ftpPassword);
             req.Method = WebRequestMethods.Ftp.ListDirectory;
             req.UseBinary = true;
             req.UsePassive = true;
@@ -205,9 +205,9 @@ namespace SufeiUtil
             return list.ToArray();
         }
 
-        /// <summary>  
-        /// 获取当前目录下文件列表(不包括文件夹)  
-        /// </summary>  
+        /// <summary>
+        /// 获取当前目录下文件列表(不包括文件夹)
+        /// </summary>
         public string[] GetFileList(string url)
         {
             StringBuilder result = new StringBuilder();
@@ -216,14 +216,13 @@ namespace SufeiUtil
             {
                 reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(url));
                 reqFTP.UseBinary = true;
-                reqFTP.Credentials = new NetworkCredential(ftpPassword, ftpPassword);
+                reqFTP.Credentials = new NetworkCredential(this.ftpPassword, this.ftpPassword);
                 reqFTP.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
                 WebResponse response = reqFTP.GetResponse();
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 string line = reader.ReadLine();
                 while (line != null)
                 {
-
                     if (line.IndexOf("<DIR>") == -1)
                     {
                         result.Append(Regex.Match(line, @"[\S]+ [\S]+", RegexOptions.IgnoreCase).Value.Split(' ')[1]);
@@ -242,13 +241,13 @@ namespace SufeiUtil
             return result.ToString().Split('\n');
         }
 
-        /// <summary>  
-        /// 判断当前目录下指定的文件是否存在  
-        /// </summary>  
-        /// <param name="RemoteFileName">远程文件名</param>  
+        /// <summary>
+        /// 判断当前目录下指定的文件是否存在
+        /// </summary>
+        /// <param name="RemoteFileName">远程文件名</param>
         public bool FileExist(string RemoteFileName)
         {
-            string[] fileList = GetFileList("*.*");
+            string[] fileList = this.GetFileList("*.*");
             foreach (string str in fileList)
             {
                 if (str.Trim() == RemoteFileName.Trim())
@@ -259,18 +258,18 @@ namespace SufeiUtil
             return false;
         }
 
-        /// <summary>  
-        /// 创建文件夹  
-        /// </summary>   
+        /// <summary>
+        /// 创建文件夹
+        /// </summary>
         public void MakeDir(string dirName)
         {
             FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + dirName));
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + dirName));
                 reqFTP.Method = WebRequestMethods.Ftp.MakeDirectory;
                 reqFTP.UseBinary = true;
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 ftpStream.Close();
@@ -280,19 +279,19 @@ namespace SufeiUtil
             { }
         }
 
-        /// <summary>  
-        /// 获取指定文件大小  
-        /// </summary>  
+        /// <summary>
+        /// 获取指定文件大小
+        /// </summary>
         public long GetFileSize(string filename)
         {
             FtpWebRequest reqFTP;
             long fileSize = 0;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + filename));
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + filename));
                 reqFTP.Method = WebRequestMethods.Ftp.GetFileSize;
                 reqFTP.UseBinary = true;
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 fileSize = response.ContentLength;
@@ -304,19 +303,19 @@ namespace SufeiUtil
             return fileSize;
         }
 
-        /// <summary>  
-        /// 更改文件名  
-        /// </summary> 
+        /// <summary>
+        /// 更改文件名
+        /// </summary>
         public void ReName(string currentFilename, string newFilename)
         {
             FtpWebRequest reqFTP;
             try
             {
-                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + currentFilename));
+                reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(this.ftpURI + currentFilename));
                 reqFTP.Method = WebRequestMethods.Ftp.Rename;
                 reqFTP.RenameTo = newFilename;
                 reqFTP.UseBinary = true;
-                reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+                reqFTP.Credentials = new NetworkCredential(this.ftpUserID, this.ftpPassword);
                 FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
                 Stream ftpStream = response.GetResponseStream();
                 ftpStream.Close();
@@ -326,29 +325,29 @@ namespace SufeiUtil
             { }
         }
 
-        /// <summary>  
-        /// 移动文件  
-        /// </summary>  
+        /// <summary>
+        /// 移动文件
+        /// </summary>
         public void MovieFile(string currentFilename, string newDirectory)
         {
-            ReName(currentFilename, newDirectory);
+            this.ReName(currentFilename, newDirectory);
         }
 
-        /// <summary>  
-        /// 切换当前目录  
-        /// </summary>  
-        /// <param name="IsRoot">true:绝对路径 false:相对路径</param>   
+        /// <summary>
+        /// 切换当前目录
+        /// </summary>
+        /// <param name="IsRoot">true:绝对路径 false:相对路径</param>
         public void GotoDirectory(string DirectoryName, bool IsRoot)
         {
             if (IsRoot)
             {
-                ftpRemotePath = DirectoryName;
+                this.ftpRemotePath = DirectoryName;
             }
             else
             {
-                ftpRemotePath += DirectoryName + "/";
+                this.ftpRemotePath += DirectoryName + "/";
             }
-            ftpURI = "ftp://" + ftpServerIP + "/" + ftpRemotePath + "/";
+            this.ftpURI = "ftp://" + this.ftpServerIP + "/" + this.ftpRemotePath + "/";
         }
     }
 }

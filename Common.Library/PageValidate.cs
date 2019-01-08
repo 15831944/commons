@@ -1,32 +1,30 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Text;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     public class PageValidate
     {
         private static Regex RegNumber = new Regex("^[0-9]+$");
+
         private static Regex RegNumberSign = new Regex("^[+-]?[0-9]+$");
+
         private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
+
         private static Regex RegDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$"); //等价于^[+-]?\d+[.]?\d+$
-        private static Regex RegEmail = new Regex("^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
+
+        private static Regex RegEmail = new Regex("^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样
+
         private static Regex RegCHZN = new Regex("[\u4e00-\u9fa5]");
 
         public PageValidate()
         {
         }
 
-
         #region 数字字符串检查
+
         /// <summary>
         /// 格式化字符串
         /// </summary>
@@ -37,6 +35,7 @@ namespace SufeiUtil
         {
             return inputData;
         }
+
         /// <summary>
         /// 检查Request查询字符串的键值，是否是数字，最大长度限制
         /// </summary>
@@ -51,21 +50,31 @@ namespace SufeiUtil
             {
                 retVal = req.QueryString[inputKey];
                 if (null == retVal)
+                {
                     retVal = req.Form[inputKey];
+                }
+
                 if (null != retVal)
                 {
                     retVal = SqlText(retVal, maxLen);
                     if (!IsNumber(retVal))
+                    {
                         retVal = string.Empty;
+                    }
                 }
             }
             if (retVal == null)
+            {
                 retVal = string.Empty;
+            }
+
             return retVal;
         }
 
         public enum CheckType
+
         { None, Int, SignInt, Float, SignFloat, Chinese, Mail }
+
         /// <summary>
         /// 检测字符串类型
         /// </summary>
@@ -74,37 +83,44 @@ namespace SufeiUtil
         /// <returns></returns>
         public static bool checkString(string inputData, int checktype)
         {
-
             bool _return = false;
             switch (checktype)
             {
                 case 0:
                     _return = true;
                     break;
+
                 case 1:
                     _return = IsNumber(inputData);
                     break;
+
                 case 2:
                     _return = IsNumberSign(inputData);
                     break;
+
                 case 3:
                     _return = IsDecimal(inputData);
                     break;
+
                 case 4:
                     _return = IsDecimalSign(inputData);
                     break;
+
                 case 5:
                     _return = IsHasCHZN(inputData);
                     break;
+
                 case 6:
                     _return = IsEmail(inputData);
                     break;
+
                 default:
                     _return = false;
                     break;
             }
             return _return;
         }
+
         /// <summary>
         /// 是否数字字符串
         /// </summary>
@@ -115,6 +131,7 @@ namespace SufeiUtil
             Match m = RegNumber.Match(inputData);
             return m.Success;
         }
+
         /// <summary>
         /// 是否数字字符串 可带正负号
         /// </summary>
@@ -125,6 +142,7 @@ namespace SufeiUtil
             Match m = RegNumberSign.Match(inputData);
             return m.Success;
         }
+
         /// <summary>
         /// 是否是浮点数
         /// </summary>
@@ -135,6 +153,7 @@ namespace SufeiUtil
             Match m = RegDecimal.Match(inputData);
             return m.Success;
         }
+
         /// <summary>
         /// 是否是浮点数 可带正负号
         /// </summary>
@@ -146,7 +165,7 @@ namespace SufeiUtil
             return m.Success;
         }
 
-        #endregion
+        #endregion 数字字符串检查
 
         #region 中文检测
 
@@ -161,7 +180,7 @@ namespace SufeiUtil
             return m.Success;
         }
 
-        #endregion
+        #endregion 中文检测
 
         public static string GetShortDate(string dt)
         {
@@ -169,6 +188,7 @@ namespace SufeiUtil
         }
 
         #region 邮件地址
+
         /// <summary>
         /// 是否是浮点数 可带正负号
         /// </summary>
@@ -180,7 +200,7 @@ namespace SufeiUtil
             return m.Success;
         }
 
-        #endregion
+        #endregion 邮件地址
 
         #region 其他
 
@@ -189,18 +209,19 @@ namespace SufeiUtil
         /// </summary>
         /// <param name="sqlInput">输入字符串</param>
         /// <param name="maxLength">最大长度</param>
-        /// <returns></returns>			
+        /// <returns></returns>
         public static string SqlText(string sqlInput, int maxLength)
         {
             if (sqlInput != null && sqlInput != string.Empty)
             {
                 sqlInput = sqlInput.Trim();
                 if (sqlInput.Length > maxLength)//按最大长度截取字符串
+                {
                     sqlInput = sqlInput.Substring(0, maxLength);
+                }
             }
             return sqlInput;
         }
-
 
         /// <summary>
         /// 字符串编码
@@ -211,6 +232,7 @@ namespace SufeiUtil
         {
             return HttpUtility.HtmlEncode(inputData);
         }
+
         /// <summary>
         /// 设置Label显示Encode的字符串
         /// </summary>
@@ -220,14 +242,16 @@ namespace SufeiUtil
         {
             lbl.Text = HtmlEncode(txtInput);
         }
+
         public static void SetLabel(Label lbl, object inputObj)
         {
             SetLabel(lbl, inputObj.ToString());
         }
 
-        #endregion
+        #endregion 其他
 
         #region 对于用户权限从数据库中读出的解密过程
+
         public static string switch_riddle(string s_ch)//解密
         {
             string s_out, s_temp, temp;
@@ -244,39 +268,72 @@ namespace SufeiUtil
                 temp = s_ch.Substring(i, 1);
                 switch (temp)
                 {
-                    case "a": s_temp = "1010";
+                    case "a":
+                        s_temp = "1010";
                         break;
-                    case "b": s_temp = "1011";
+
+                    case "b":
+                        s_temp = "1011";
                         break;
-                    case "c": s_temp = "1100";
+
+                    case "c":
+                        s_temp = "1100";
                         break;
-                    case "d": s_temp = "1101";
+
+                    case "d":
+                        s_temp = "1101";
                         break;
-                    case "e": s_temp = "1110";
+
+                    case "e":
+                        s_temp = "1110";
                         break;
-                    case "f": s_temp = "1111";
+
+                    case "f":
+                        s_temp = "1111";
                         break;
-                    case "0": s_temp = "0000";
+
+                    case "0":
+                        s_temp = "0000";
                         break;
-                    case "1": s_temp = "0001";
+
+                    case "1":
+                        s_temp = "0001";
                         break;
-                    case "2": s_temp = "0010";
+
+                    case "2":
+                        s_temp = "0010";
                         break;
-                    case "3": s_temp = "0011";
+
+                    case "3":
+                        s_temp = "0011";
                         break;
-                    case "4": s_temp = "0100";
+
+                    case "4":
+                        s_temp = "0100";
                         break;
-                    case "5": s_temp = "0101";
+
+                    case "5":
+                        s_temp = "0101";
                         break;
-                    case "6": s_temp = "0110";
+
+                    case "6":
+                        s_temp = "0110";
                         break;
-                    case "7": s_temp = "0111";
+
+                    case "7":
+                        s_temp = "0111";
                         break;
-                    case "8": s_temp = "1000";
+
+                    case "8":
+                        s_temp = "1000";
                         break;
-                    case "9": s_temp = "1001";
+
+                    case "9":
+                        s_temp = "1001";
                         break;
-                    default: s_temp = "0000";
+
+                    default:
+                        s_temp = "0000";
                         break;
                 }
                 s_out = s_out + s_temp;
@@ -284,9 +341,11 @@ namespace SufeiUtil
             }
             return s_out;
         }
-        #endregion
+
+        #endregion 对于用户权限从数据库中读出的解密过程
 
         #region 用户权限的加密过程
+
         public static string switch_encrypt(string s_ch)
         {
             string s_out, s_temp, temp;
@@ -303,39 +362,72 @@ namespace SufeiUtil
                 temp = s_ch.Substring(i, 4);
                 switch (temp)
                 {
-                    case "1010": s_temp = "a";
+                    case "1010":
+                        s_temp = "a";
                         break;
-                    case "1011": s_temp = "b";
+
+                    case "1011":
+                        s_temp = "b";
                         break;
-                    case "1100": s_temp = "c";
+
+                    case "1100":
+                        s_temp = "c";
                         break;
-                    case "1101": s_temp = "d";
+
+                    case "1101":
+                        s_temp = "d";
                         break;
-                    case "1110": s_temp = "e";
+
+                    case "1110":
+                        s_temp = "e";
                         break;
-                    case "1111": s_temp = "f";
+
+                    case "1111":
+                        s_temp = "f";
                         break;
-                    case "0000": s_temp = "0";
+
+                    case "0000":
+                        s_temp = "0";
                         break;
-                    case "0001": s_temp = "1";
+
+                    case "0001":
+                        s_temp = "1";
                         break;
-                    case "0010": s_temp = "2";
+
+                    case "0010":
+                        s_temp = "2";
                         break;
-                    case "0011": s_temp = "3";
+
+                    case "0011":
+                        s_temp = "3";
                         break;
-                    case "0100": s_temp = "4";
+
+                    case "0100":
+                        s_temp = "4";
                         break;
-                    case "0101": s_temp = "5";
+
+                    case "0101":
+                        s_temp = "5";
                         break;
-                    case "0110": s_temp = "6";
+
+                    case "0110":
+                        s_temp = "6";
                         break;
-                    case "0111": s_temp = "7";
+
+                    case "0111":
+                        s_temp = "7";
                         break;
-                    case "1000": s_temp = "8";
+
+                    case "1000":
+                        s_temp = "8";
                         break;
-                    case "1001": s_temp = "9";
+
+                    case "1001":
+                        s_temp = "9";
                         break;
-                    default: s_temp = "0";
+
+                    default:
+                        s_temp = "0";
                         break;
                 }
                 s_out = s_out + s_temp;
@@ -343,9 +435,11 @@ namespace SufeiUtil
             }
             return s_out;
         }//加密
-        #endregion
 
-        #region   访问权限
+        #endregion 用户权限的加密过程
+
+        #region 访问权限
+
         public static bool CheckTrue(string s_admin, int a)
         {
             string s_temp = "";
@@ -358,12 +452,13 @@ namespace SufeiUtil
             {
                 return false;
             }
-
         }
-        #endregion
 
-        #region   检测字符串长度
-        /// <summary>   
+        #endregion 访问权限
+
+        #region 检测字符串长度
+
+        /// <summary>
         /// 计算文本长度，区分中英文字符，中文算两个长度，英文算一个长度
         /// </summary>
         /// <param name="Text">需计算长度的字符串</param>
@@ -376,17 +471,23 @@ namespace SufeiUtil
             {
                 byte[] byte_len = Encoding.Default.GetBytes(Text.Substring(i, 1));
                 if (byte_len.Length > 1)
+                {
                     len += 2;  //如果长度大于1，是中文，占两个字节，+2
+                }
                 else
+                {
                     len += 1;  //如果长度等于1，是英文，占一个字节，+1
+                }
             }
 
             return len;
         }
-        #endregion
 
-        #region   字符串长度区分中英文截取
-        /// <summary>   
+        #endregion 检测字符串长度
+
+        #region 字符串长度区分中英文截取
+
+        /// <summary>
         /// 截取文本，区分中英文字符，中文算两个长度，英文算一个长度
         /// </summary>
         /// <param name="str">待截取的字符串</param>
@@ -418,28 +519,43 @@ namespace SufeiUtil
             }
             return temp;
         }
-        #endregion
+
+        #endregion 字符串长度区分中英文截取
 
         #region 页面HTML格式化
+
         public static string GetHtml(string sDetail)
         {
             Regex r;
             Match m;
+
             #region 处理空格
+
             sDetail = sDetail.Replace(" ", "&nbsp;");
-            #endregion
+
+            #endregion 处理空格
+
             #region 处理单引号
+
             sDetail = sDetail.Replace("'", "’");
-            #endregion
+
+            #endregion 处理单引号
+
             #region 处理双引号
+
             sDetail = sDetail.Replace("\"", "&quot;");
-            #endregion
+
+            #endregion 处理双引号
+
             #region html标记符
+
             sDetail = sDetail.Replace("<", "&lt;");
             sDetail = sDetail.Replace(">", "&gt;");
 
-            #endregion
+            #endregion html标记符
+
             #region 处理换行
+
             //处理换行，在每个新行的前面添加两个全角空格
             r = new Regex(@"(\r\n((&nbsp;)|　)+)(?<正文>\S+)", RegexOptions.IgnoreCase);
             for (m = r.Match(sDetail); m.Success; m = m.NextMatch())
@@ -448,13 +564,16 @@ namespace SufeiUtil
             }
             //处理换行，在每个新行的前面添加两个全角空格
             sDetail = sDetail.Replace("\r\n", "<BR>");
-            #endregion
+
+            #endregion 处理换行
 
             return sDetail;
         }
-        #endregion
+
+        #endregion 页面HTML格式化
 
         #region 分页
+
         //public static string paging(string url, string para, int sumpage, int page)
         //{
         //    string result = string.Empty;
@@ -506,6 +625,7 @@ namespace SufeiUtil
                     case 1:
                         sb.Append(string.Format("<p class=\"next\"><a href=\"{0}?page={1}{2}\">{3}</a> ", new object[] { url, page + 1, para, "下一页" }));
                         break;
+
                     default:
                         if (sumpage == page)
                         {
@@ -548,6 +668,7 @@ namespace SufeiUtil
                     case 1:
                         sb.Append(string.Format("<a href=\"{0}?page={1}{2}\">{3}</a> ", new object[] { url, page + 1, para, "下一页" }));
                         break;
+
                     default:
                         if (sumpage == page)
                         {
@@ -582,6 +703,7 @@ namespace SufeiUtil
                         case 1:
                             sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a> ", new object[] { page + 1, para, "下一页" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -715,6 +837,7 @@ namespace SufeiUtil
                             //后一页图片
                             sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a>", new object[] { page + 1, para, "<img src=\"images/right-icon.gif\" border=\"0\"/>" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -766,6 +889,7 @@ namespace SufeiUtil
                             //后一页图片
                             // sb.Append(string.Format("<a href=\"?page={0}{1}\">{2}</a>", new object[] { page + 1, para, "<img src=\"images/right-icon.gif\" border=\"0\"/>" }));
                             break;
+
                         default:
                             if (sumpage == page)
                             {
@@ -793,9 +917,11 @@ namespace SufeiUtil
             }
             return sb.ToString();
         }
-        #endregion
+
+        #endregion 分页
 
         #region 日期格式判断
+
         /// <summary>
         /// 日期格式字符串判断
         /// </summary>
@@ -820,9 +946,11 @@ namespace SufeiUtil
                 return false;
             }
         }
-        #endregion
+
+        #endregion 日期格式判断
 
         #region 是否由特定字符组成
+
         public static bool isContainSameChar(string strInput)
         {
             string charInput = string.Empty;
@@ -847,9 +975,11 @@ namespace SufeiUtil
                 return m.Success;
             }
         }
-        #endregion
+
+        #endregion 是否由特定字符组成
 
         #region 检查输入的参数是不是某些定义好的特殊字符：这个方法目前用于密码输入的安全检查
+
         /// <summary>
         /// 检查输入的参数是不是某些定义好的特殊字符：这个方法目前用于密码输入的安全检查
         /// </summary>
@@ -867,6 +997,7 @@ namespace SufeiUtil
             }
             return result;
         }
-        #endregion
+
+        #endregion 检查输入的参数是不是某些定义好的特殊字符：这个方法目前用于密码输入的安全检查
     }
 }

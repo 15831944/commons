@@ -1,14 +1,8 @@
-﻿/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading;
 using System.Web;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 文件下载类
@@ -17,6 +11,7 @@ namespace SufeiUtil
     {
         public FileDown()
         { }
+
         /// <summary>
         /// 参数为虚拟路径
         /// </summary>
@@ -62,17 +57,17 @@ namespace SufeiUtil
         public static void DownLoad(string FileName)
         {
             string filePath = MapPathFile(FileName);
-            long chunkSize = 204800;             //指定块大小 
-            byte[] buffer = new byte[chunkSize]; //建立一个200K的缓冲区 
-            long dataToRead = 0;                 //已读的字节数   
+            long chunkSize = 204800;             //指定块大小
+            byte[] buffer = new byte[chunkSize]; //建立一个200K的缓冲区
+            long dataToRead = 0;                 //已读的字节数
             FileStream stream = null;
             try
             {
-                //打开文件   
+                //打开文件
                 stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
                 dataToRead = stream.Length;
 
-                //添加Http头   
+                //添加Http头
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.AddHeader("Content-Disposition", "attachement;filename=" + HttpUtility.UrlEncode(Path.GetFileName(filePath)));
                 HttpContext.Current.Response.AddHeader("Content-Length", dataToRead.ToString());
@@ -89,7 +84,7 @@ namespace SufeiUtil
                     }
                     else
                     {
-                        dataToRead = -1; //防止client失去连接 
+                        dataToRead = -1; //防止client失去连接
                     }
                 }
             }
@@ -99,7 +94,11 @@ namespace SufeiUtil
             }
             finally
             {
-                if (stream != null) stream.Close();
+                if (stream != null)
+                {
+                    stream.Close();
+                }
+
                 HttpContext.Current.Response.Close();
             }
         }

@@ -1,11 +1,6 @@
-/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
 using System.Text;
 
-namespace SufeiUtil
+namespace System
 {
     public class PinYin
     {
@@ -49,53 +44,98 @@ namespace SufeiUtil
                 //一级汉字
                 else if (array[0] >= 176 && array[0] <= 215)
                 {
-
                     if (hz[i].ToString().CompareTo("匝") >= 0)
+                    {
                         return_py += "z";
+                    }
                     else if (hz[i].ToString().CompareTo("压") >= 0)
+                    {
                         return_py += "y";
+                    }
                     else if (hz[i].ToString().CompareTo("昔") >= 0)
+                    {
                         return_py += "x";
+                    }
                     else if (hz[i].ToString().CompareTo("哇") >= 0)
+                    {
                         return_py += "w";
+                    }
                     else if (hz[i].ToString().CompareTo("塌") >= 0)
+                    {
                         return_py += "t";
+                    }
                     else if (hz[i].ToString().CompareTo("撒") >= 0)
+                    {
                         return_py += "s";
+                    }
                     else if (hz[i].ToString().CompareTo("然") >= 0)
+                    {
                         return_py += "r";
+                    }
                     else if (hz[i].ToString().CompareTo("期") >= 0)
+                    {
                         return_py += "q";
+                    }
                     else if (hz[i].ToString().CompareTo("啪") >= 0)
+                    {
                         return_py += "p";
+                    }
                     else if (hz[i].ToString().CompareTo("哦") >= 0)
+                    {
                         return_py += "o";
+                    }
                     else if (hz[i].ToString().CompareTo("拿") >= 0)
+                    {
                         return_py += "n";
+                    }
                     else if (hz[i].ToString().CompareTo("妈") >= 0)
+                    {
                         return_py += "m";
+                    }
                     else if (hz[i].ToString().CompareTo("垃") >= 0)
+                    {
                         return_py += "l";
+                    }
                     else if (hz[i].ToString().CompareTo("喀") >= 0)
+                    {
                         return_py += "k";
+                    }
                     else if (hz[i].ToString().CompareTo("击") >= 0)
+                    {
                         return_py += "j";
+                    }
                     else if (hz[i].ToString().CompareTo("哈") >= 0)
+                    {
                         return_py += "h";
+                    }
                     else if (hz[i].ToString().CompareTo("噶") >= 0)
+                    {
                         return_py += "g";
+                    }
                     else if (hz[i].ToString().CompareTo("发") >= 0)
+                    {
                         return_py += "f";
+                    }
                     else if (hz[i].ToString().CompareTo("蛾") >= 0)
+                    {
                         return_py += "e";
+                    }
                     else if (hz[i].ToString().CompareTo("搭") >= 0)
+                    {
                         return_py += "d";
+                    }
                     else if (hz[i].ToString().CompareTo("擦") >= 0)
+                    {
                         return_py += "c";
+                    }
                     else if (hz[i].ToString().CompareTo("芭") >= 0)
+                    {
                         return_py += "b";
+                    }
                     else if (hz[i].ToString().CompareTo("啊") >= 0)
+                    {
                         return_py += "a";
+                    }
                 }
                 //二级汉字
                 else if (array[0] >= 215)
@@ -124,11 +164,13 @@ namespace SufeiUtil
             while (i < gbkBytes.Length)
             {
                 if (gbkBytes[i] <= 127)
-                { 
+                {
                     strResult = strResult + (char)gbkBytes[i];
                     i++;
                 }
+
                 #region 生成汉字拼音简码,取拼音首字母
+
                 else
                 {
                     key = (ushort)(gbkBytes[i] * 256 + gbkBytes[i + 1]);
@@ -230,7 +272,8 @@ namespace SufeiUtil
                     }
                     i = i + 2;
                 }
-                #endregion
+
+                #endregion 生成汉字拼音简码,取拼音首字母
             }
             return strResult;
         }

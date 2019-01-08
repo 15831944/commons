@@ -1,20 +1,14 @@
-﻿///// <summary>
-///// 类说明：进行作统计图的封装类
-///// 联系方式：361983679  
-///// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-///// </summary>
-//using System;
+﻿//using System;
 //using System.Data;
 //using System.Text;
 
-//namespace SufeiUtil
+//namespace System
 //{
 //    /// <summary>
 //    /// 进行作统计图的封装类。
 //    /// </summary>
 //    public class OWCChart
 //    {
-
 //        #region 属性
 //        private string _phaysicalimagepath;
 //        private string _title;
@@ -84,7 +78,6 @@
 
 //        #endregion
 
-
 //        public OWCChart()
 //        {
 //        }
@@ -95,14 +88,13 @@
 //            _seriesname = SeriesName;
 //        }
 
-
 //        /// <summary>
 //        /// 柱形图
 //        /// </summary>
 //        /// <returns></returns>
 //        public string CreateColumn()
 //        {
-//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表			
+//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表
 //            Microsoft.Office.Interop.Owc11.ChChart objChart = objCSpace.Charts.Add(0);//在ChartSpace对象中添加图表，Add方法返回chart对象
 
 //            //指定图表的类型。类型由OWC.ChartChartTypeEnum枚举值得到//Microsoft.Office.Interop.OWC.ChartChartTypeEnum
@@ -117,7 +109,6 @@
 //            //			objChart.Title.Font.Bold=true;
 //            //			objChart.Title.Font.Color="blue";
 
-
 //            #region 样式设置
 
 //            //			//旋转
@@ -129,7 +120,7 @@
 
 //            //底座颜色
 //            //			objChart.PlotArea.Floor.Interior.Color = "green";
-//            // 
+//            //
 //            //			objChart.Overlap = 50;//单个类别中标志之间的重叠量
 
 //            #endregion
@@ -140,10 +131,8 @@
 //            objChart.Axes[1].HasTitle = true;
 //            objChart.Axes[1].Title.Caption = "Y ： 数量";
 
-
 //            //添加一个series
 //            Microsoft.Office.Interop.Owc11.ChSeries ThisChSeries = objChart.SeriesCollection.Add(0);
-
 
 //            //给定series的名字
 //            ThisChSeries.SetData(Microsoft.Office.Interop.Owc11.ChartDimensionsEnum.chDimSeriesNames,
@@ -159,7 +148,6 @@
 //            dl.HasValue = true;
 //            //			dl.Position=Microsoft.Office.Interop.Owc11.ChartDataLabelPositionEnum.chLabelPositionOutsideEnd;
 
-
 //            string filename = DateTime.Now.ToString("yyyyMMddHHmmssff") + ".gif";
 //            string strAbsolutePath = _phaysicalimagepath + "\\" + filename;
 //            objCSpace.ExportPicture(strAbsolutePath, "GIF", _picwidth, _pichight);//输出成GIF文件.
@@ -168,16 +156,14 @@
 
 //        }
 
-
 //        /// <summary>
 //        /// 饼图
 //        /// </summary>
 //        /// <returns></returns>
 //        public string CreatePie()
 //        {
-//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表			
+//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表
 //            Microsoft.Office.Interop.Owc11.ChChart objChart = objCSpace.Charts.Add(0);//在ChartSpace对象中添加图表，Add方法返回chart对象
-
 
 //            //指定图表的类型
 //            objChart.Type = Microsoft.Office.Interop.Owc11.ChartChartTypeEnum.chChartTypePie;
@@ -188,7 +174,6 @@
 //            //标题
 //            objChart.HasTitle = true;
 //            objChart.Title.Caption = _title;
-
 
 //            //添加一个series
 //            Microsoft.Office.Interop.Owc11.ChSeries ThisChSeries = objChart.SeriesCollection.Add(0);
@@ -202,7 +187,6 @@
 //            //给定值
 //            ThisChSeries.SetData(Microsoft.Office.Interop.Owc11.ChartDimensionsEnum.chDimValues,
 //                Microsoft.Office.Interop.Owc11.ChartSpecialDataSourcesEnum.chDataLiteral.GetHashCode(), strValue);
-
 
 //            //表示系列或趋势线上的单个数据标志
 //            Microsoft.Office.Interop.Owc11.ChDataLabels dl = objChart.SeriesCollection[0].DataLabelsCollection.Add();
@@ -224,7 +208,7 @@
 //        /// <returns></returns>
 //        public string CreateBar()
 //        {
-//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表			
+//            Microsoft.Office.Interop.Owc11.ChartSpace objCSpace = new Microsoft.Office.Interop.Owc11.ChartSpaceClass();//创建ChartSpace对象来放置图表
 //            Microsoft.Office.Interop.Owc11.ChChart objChart = objCSpace.Charts.Add(0);//在ChartSpace对象中添加图表，Add方法返回chart对象
 
 //            //指定图表的类型。类型由OWC.ChartChartTypeEnum枚举值得到//Microsoft.Office.Interop.OWC.ChartChartTypeEnum
@@ -239,7 +223,6 @@
 //            //			objChart.Title.Font.Bold=true;
 //            //			objChart.Title.Font.Color="blue";
 
-
 //            #region 样式设置
 
 //            //			//旋转
@@ -251,7 +234,7 @@
 
 //            //底座颜色
 //            //			objChart.PlotArea.Floor.Interior.Color = "green";
-//            // 
+//            //
 //            //			objChart.Overlap = 50;//单个类别中标志之间的重叠量
 
 //            #endregion
@@ -262,10 +245,8 @@
 //            objChart.Axes[1].HasTitle = true;
 //            objChart.Axes[1].Title.Caption = "Y ： 数量";
 
-
 //            //添加一个series
 //            Microsoft.Office.Interop.Owc11.ChSeries ThisChSeries = objChart.SeriesCollection.Add(0);
-
 
 //            //给定series的名字
 //            ThisChSeries.SetData(Microsoft.Office.Interop.Owc11.ChartDimensionsEnum.chDimSeriesNames,
@@ -280,7 +261,6 @@
 //            Microsoft.Office.Interop.Owc11.ChDataLabels dl = objChart.SeriesCollection[0].DataLabelsCollection.Add();
 //            dl.HasValue = true;
 //            //			dl.Position=Microsoft.Office.Interop.Owc11.ChartDataLabelPositionEnum.chLabelPositionOutsideEnd;
-
 
 //            string filename = DateTime.Now.ToString("yyyyMMddHHmmssff") + ".gif";
 //            string strAbsolutePath = _phaysicalimagepath + "\\" + filename;

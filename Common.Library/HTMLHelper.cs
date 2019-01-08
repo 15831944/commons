@@ -1,35 +1,38 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Text; 
-using System.Net; 
-using System.IO; 
-using System.Threading;
+﻿using System.IO;
+using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
-namespace SufeiUtil
+namespace System
 {
     public class HTMLHelper
     {
         #region 私有字段
+
         private static CookieContainer cc = new CookieContainer();
+
         private static string contentType = "application/x-www-form-urlencoded";
+
         private static string accept = "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/x-silverlight, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, application/x-ms-application, application/x-ms-xbap, application/vnd.ms-xpsdocument, application/xaml+xml, application/x-silverlight-2-b1, */*";
+
         private static string userAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727; .NET CLR 3.0.04506.648; .NET CLR 3.5.21022)";
+
         private static Encoding encoding = Encoding.GetEncoding("utf-8");
+
         private static int delay = 1000;
+
         private static int maxTry = 300;
+
         private static int currentTry = 0;
-        #endregion
+
+        #endregion 私有字段
 
         #region 公有属性
-        /// <summary> 
+
+        /// <summary>
         /// Cookie
-        /// </summary> 
+        /// </summary>
         public static CookieContainer CookieContainer
         {
             get
@@ -38,9 +41,9 @@ namespace SufeiUtil
             }
         }
 
-        /// <summary> 
+        /// <summary>
         /// 语言
-        /// </summary> 
+        /// </summary>
         public static Encoding Encoding
         {
             get
@@ -77,9 +80,11 @@ namespace SufeiUtil
                 maxTry = value;
             }
         }
-        #endregion
+
+        #endregion 公有属性
 
         #region 获取HTML
+
         /// <summary>
         /// 获取HTML
         /// </summary>
@@ -89,7 +94,11 @@ namespace SufeiUtil
         /// <param name="cookieContainer">CookieContainer</param>
         public static string GetHtml(string url, string postData, bool isPost, CookieContainer cookieContainer)
         {
-            if (string.IsNullOrEmpty(postData)) return GetHtml(url, cookieContainer);
+            if (string.IsNullOrEmpty(postData))
+            {
+                return GetHtml(url, cookieContainer);
+            }
+
             Thread.Sleep(NetworkDelay);
             currentTry++;
             HttpWebRequest httpWebRequest = null;
@@ -122,10 +131,22 @@ namespace SufeiUtil
             }
             catch (Exception e)
             {
-                if (currentTry <= maxTry) GetHtml(url, postData, isPost, cookieContainer);
+                if (currentTry <= maxTry)
+                {
+                    GetHtml(url, postData, isPost, cookieContainer);
+                }
+
                 currentTry--;
-                if (httpWebRequest != null) httpWebRequest.Abort();
-                if (httpWebResponse != null) httpWebResponse.Close();
+                if (httpWebRequest != null)
+                {
+                    httpWebRequest.Abort();
+                }
+
+                if (httpWebResponse != null)
+                {
+                    httpWebResponse.Close();
+                }
+
                 return string.Empty;
             }
         }
@@ -164,22 +185,36 @@ namespace SufeiUtil
             }
             catch (Exception e)
             {
-                if (currentTry <= maxTry) GetHtml(url, cookieContainer);
+                if (currentTry <= maxTry)
+                {
+                    GetHtml(url, cookieContainer);
+                }
+
                 currentTry--;
-                if (httpWebRequest != null) httpWebRequest.Abort();
-                if (httpWebResponse != null) httpWebResponse.Close();
+                if (httpWebRequest != null)
+                {
+                    httpWebRequest.Abort();
+                }
+
+                if (httpWebResponse != null)
+                {
+                    httpWebResponse.Close();
+                }
+
                 return string.Empty;
             }
         }
-        #endregion
+
+        #endregion 获取HTML
 
         #region 获取字符流
+
         /// <summary>
         /// 获取字符流
         /// </summary>
         //---------------------------------------------------------------------------------------------------------------
         // 示例:
-        // System.Net.CookieContainer cookie = new System.Net.CookieContainer(); 
+        // System.Net.CookieContainer cookie = new System.Net.CookieContainer();
         // Stream s = HttpHelper.GetStream("http://ptlogin2.qq.com/getimage?aid=15000102&0.43878429697395826", cookie);
         // picVerify.Image = Image.FromStream(s);
         //---------------------------------------------------------------------------------------------------------------
@@ -220,27 +255,30 @@ namespace SufeiUtil
                 if (httpWebRequest != null)
                 {
                     httpWebRequest.Abort();
-                } if (httpWebResponse != null)
+                }
+                if (httpWebResponse != null)
                 {
                     httpWebResponse.Close();
                 }
                 return null;
             }
         }
-        #endregion
+
+        #endregion 获取字符流
 
         #region 清除HTML标记
-        ///<summary>   
-        ///清除HTML标记   
-        ///</summary>   
-        ///<param name="NoHTML">包括HTML的源码</param>   
-        ///<returns>已经去除后的文字</returns>   
+
+        ///<summary>
+        ///清除HTML标记
+        ///</summary>
+        ///<param name="NoHTML">包括HTML的源码</param>
+        ///<returns>已经去除后的文字</returns>
         public static string NoHTML(string Htmlstring)
         {
-            //删除脚本   
+            //删除脚本
             Htmlstring = Regex.Replace(Htmlstring, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
 
-            //删除HTML   
+            //删除HTML
             Regex regex = new Regex("<.+?>", RegexOptions.IgnoreCase);
             Htmlstring = regex.Replace(Htmlstring, "");
             Htmlstring = Regex.Replace(Htmlstring, @"<(.[^>]*)>", "", RegexOptions.IgnoreCase);
@@ -265,9 +303,11 @@ namespace SufeiUtil
 
             return Htmlstring;
         }
-        #endregion
+
+        #endregion 清除HTML标记
 
         #region 匹配页面的链接
+
         /// <summary>
         /// 获取页面的链接正则
         /// </summary>
@@ -281,9 +321,11 @@ namespace SufeiUtil
             }
             return MatchVale;
         }
-        #endregion
+
+        #endregion 匹配页面的链接
 
         #region 匹配页面的图片地址
+
         /// <summary>
         /// 匹配页面的图片地址
         /// </summary>
@@ -294,7 +336,7 @@ namespace SufeiUtil
             string Reg = @"<img.+?>";
             foreach (Match m in Regex.Matches(HtmlCode.ToLower(), Reg))
             {
-                MatchVale += GetImg((m.Value).ToLower().Trim(), imgHttp) + "|";
+                MatchVale += this.GetImg((m.Value).ToLower().Trim(), imgHttp) + "|";
             }
 
             return MatchVale;
@@ -313,13 +355,19 @@ namespace SufeiUtil
                 MatchVale += (m.Value).ToLower().Trim().Replace("src=", "");
             }
             if (MatchVale.IndexOf(".net") != -1 || MatchVale.IndexOf(".com") != -1 || MatchVale.IndexOf(".org") != -1 || MatchVale.IndexOf(".cn") != -1 || MatchVale.IndexOf(".cc") != -1 || MatchVale.IndexOf(".info") != -1 || MatchVale.IndexOf(".biz") != -1 || MatchVale.IndexOf(".tv") != -1)
+            {
                 return (MatchVale);
+            }
             else
+            {
                 return (imgHttp + MatchVale);
+            }
         }
-        #endregion
+
+        #endregion 匹配页面的图片地址
 
         #region 抓取远程页面内容
+
         /// <summary>
         /// 以GET方式抓取远程页面内容
         /// </summary>
@@ -376,9 +424,11 @@ namespace SufeiUtil
             }
             return strResult;
         }
-        #endregion
+
+        #endregion 抓取远程页面内容
 
         #region 压缩HTML输出
+
         /// <summary>
         /// 压缩HTML输出
         /// </summary>
@@ -389,9 +439,11 @@ namespace SufeiUtil
             Html = Regex.Replace(Html, @"<body([\s|\S]*?)>([\s|\S]*?)</body>", @"<body$1>$2</body>", RegexOptions.IgnoreCase);
             return Html;
         }
-        #endregion
+
+        #endregion 压缩HTML输出
 
         #region 过滤指定HTML标签
+
         /// <summary>
         /// 过滤指定HTML标签
         /// </summary>
@@ -407,9 +459,11 @@ namespace SufeiUtil
             }
             return rStr;
         }
-        #endregion
+
+        #endregion 过滤指定HTML标签
 
         #region 加载文件块
+
         /// <summary>
         /// 加载文件块
         /// </summary>
@@ -417,9 +471,11 @@ namespace SufeiUtil
         {
             return @p.ResolveUrl(Path);
         }
-        #endregion
+
+        #endregion 加载文件块
 
         #region 加载CSS样式文件
+
         /// <summary>
         /// 加载CSS样式文件
         /// </summary>
@@ -427,9 +483,11 @@ namespace SufeiUtil
         {
             return @"<link href=""" + p.ResolveUrl(cssPath) + @""" rel=""stylesheet"" type=""text/css"" />" + "\r\n";
         }
-        #endregion
+
+        #endregion 加载CSS样式文件
 
         #region 加载JavaScript脚本文件
+
         /// <summary>
         /// 加载javascript脚本文件
         /// </summary>
@@ -437,6 +495,7 @@ namespace SufeiUtil
         {
             return @"<script type=""text/javascript"" src=""" + p.ResolveUrl(jsPath) + @"""></script>" + "\r\n";
         }
-        #endregion
+
+        #endregion 加载JavaScript脚本文件
     }
 }

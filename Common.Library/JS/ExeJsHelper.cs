@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
 using System.Reflection;
 
-namespace SufeiUtil.JS
+namespace System.JS
 {
     /// <summary>
     /// 用于执行JS的类
     /// </summary>
     public class ExeJsHelper
     {
-
         public object GetMainResult(string js, string mainname)
         {
             CodeDomProvider _provider = new Microsoft.JScript.JScriptCodeProvider();
@@ -29,6 +25,7 @@ namespace SufeiUtil.JS
             null, null, w);
             return js;
         }
+
         ///// <summary>
         ///// 密码加密
         ///// </summary>

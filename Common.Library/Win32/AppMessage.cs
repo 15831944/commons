@@ -1,18 +1,10 @@
-/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-
-using System;
 using System.Globalization;
 
-namespace SufeiUtil
+namespace System.Win32
 {
     /// <summary>
     ///	BUBaseAppMessage
-    /// </author> 
+    /// </author>
     /// </summary>
     public class AppMessage
     {
@@ -262,10 +254,12 @@ namespace SufeiUtil
         public static string MSG0065 = "数据已经改变，不保存数据？";
 
         public static string MSG0048 = "拒绝登录，用户已经在线上。";
-        public static string MSG0049 = "拒绝登录，网卡Mac地址不符限制条件。";
-        public static string MSG0050 = "拒绝登录，IP地址不符限制条件";
-        public static string MSG0051 = "已到在线用户最大数量限制。";
 
+        public static string MSG0049 = "拒绝登录，网卡Mac地址不符限制条件。";
+
+        public static string MSG0050 = "拒绝登录，IP地址不符限制条件";
+
+        public static string MSG0051 = "已到在线用户最大数量限制。";
 
         public static string MSG0060 = "请先创建该职员的登录系统的用户信息。";
 
@@ -282,54 +276,101 @@ namespace SufeiUtil
         public static string MSG0700 = "已经成功连接到目标数据。";
 
         public static string MSG9800 = "值";
+
         public static string MSG9900 = "公司";
+
         public static string MSG9901 = "部门";
+
         public static string MSG9956 = "未找到满足条件的记录。";
+
         public static string MSG9957 = "用户名";
+
         public static string MSG9958 = "数据验证错误。";
+
         public static string MSG9959 = "新密码";
+
         public static string MSG9960 = "确认密码";
+
         public static string MSG9961 = "原密码";
+
         public static string MSG9962 = "修改 {0} 成功。";
+
         public static string MSG9963 = "设置 {0} 成功。";
+
         public static string MSG9964 = "密码";
+
         public static string MSG9965 = "登录成功。";
+
         public static string MSG9966 = "用户没有找到，请注意大小写。";
+
         public static string MSG9967 = "密码错误，请注意大小写。";
+
         public static string MSG9968 = "登录被拒绝，请与管理员联系。";
+
         public static string MSG9969 = "基础编码";
+
         public static string MSG9970 = "职员";
+
         public static string MSG9971 = "组织机构";
+
         public static string MSG9972 = "角色";
+
         public static string MSG9973 = "模块";
+
         public static string MSG9974 = "文件夹";
+
         public static string MSG9975 = "权限";
+
         public static string MSG9976 = "代码";
+
         public static string MSG9977 = "编号";
+
         public static string MSG9978 = "名称";
+
         public static string MSG9979 = "父节点代码";
+
         public static string MSG9980 = "父节点名称";
+
         public static string MSG9981 = "功能分类代码";
+
         public static string MSG9982 = "唯一识别代码";
+
         public static string MSG9983 = "主题";
+
         public static string MSG9984 = "内容";
+
         public static string MSG9985 = "状态码";
+
         public static string MSG9986 = "次数";
+
         public static string MSG9987 = "有效";
+
         public static string MSG9988 = "备注";
+
         public static string MSG9989 = "排序码";
+
         public static string MSG9990 = "创建者代码";
+
         public static string MSG9991 = "创建时间";
+
         public static string MSG9992 = "最后修改者代码";
+
         public static string MSG9993 = "最后修改时间";
+
         public static string MSG9994 = "排序";
+
         public static string MSG9995 = "代码";
+
         public static string MSG9996 = "索引";
+
         public static string MSG9997 = "字段";
+
         public static string MSG9998 = "表";
+
         public static string MSG9999 = "数据库";
 
         #region public static int GetLanguageResource() 从当前指定的语言包读取信息
+
         /// <summary>
         /// 从当前指定的语言包读取信息
         /// </summary>
@@ -339,9 +380,11 @@ namespace SufeiUtil
         //    AppMessage AppMessage = new AppMessage();
         //    return BaseInterfaceLogic.GetLanguageResource(AppMessage);
         //}
-        #endregion
+
+        #endregion public static int GetLanguageResource() 从当前指定的语言包读取信息
 
         #region public static string Format(string value, params string[] messages) 格式化一个资源字符串
+
         /// <summary>
         /// 格式化一个资源字符串
         /// </summary>
@@ -352,9 +395,11 @@ namespace SufeiUtil
         {
             return String.Format(CultureInfo.CurrentCulture, value, messages);
         }
-        #endregion
+
+        #endregion public static string Format(string value, params string[] messages) 格式化一个资源字符串
 
         #region public static string GetMessage(string id) 读取一个资源定义
+
         /// <summary>
         /// 读取一个资源定义
         /// </summary>
@@ -366,9 +411,11 @@ namespace SufeiUtil
             returnValue = ResourceManagerWrapper.Instance.Get(id);
             return returnValue;
         }
-        #endregion
+
+        #endregion public static string GetMessage(string id) 读取一个资源定义
 
         #region public static string GetMessage(string id, params string[] messages)
+
         /// <summary>
         /// 读取一个资源定义
         /// </summary>
@@ -382,6 +429,7 @@ namespace SufeiUtil
             returnValue = String.Format(CultureInfo.CurrentCulture, returnValue, messages);
             return returnValue;
         }
-        #endregion
+
+        #endregion public static string GetMessage(string id, params string[] messages)
     }
 }

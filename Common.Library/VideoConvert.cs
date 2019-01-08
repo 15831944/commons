@@ -1,12 +1,7 @@
-/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Web;
 using System.Configuration;
+using System.Web;
 
-namespace SufeiUtil
+namespace System
 {
     //if (this.fload.HasFile)
     //{
@@ -37,19 +32,28 @@ namespace SufeiUtil
         public VideoConvert()
         { }
 
-        string[] strArrMencoder = new string[] { "wmv", "rmvb", "rm" };
-        string[] strArrFfmpeg = new string[] { "asf", "avi", "mpg", "3gp", "mov" };
+        private string[] strArrMencoder = new string[] { "wmv", "rmvb", "rm" };
+
+        private string[] strArrFfmpeg = new string[] { "asf", "avi", "mpg", "3gp", "mov" };
 
         #region 配置
+
         public static string ffmpegtool = ConfigurationManager.AppSettings["ffmpeg"];
+
         public static string mencodertool = ConfigurationManager.AppSettings["mencoder"];
+
         public static string savefile = ConfigurationManager.AppSettings["savefile"] + "/";
+
         public static string sizeOfImg = ConfigurationManager.AppSettings["CatchFlvImgSize"];
+
         public static string widthOfFile = ConfigurationManager.AppSettings["widthSize"];
+
         public static string heightOfFile = ConfigurationManager.AppSettings["heightSize"];
-        #endregion
+
+        #endregion 配置
 
         #region 获取文件的名字
+
         /// <summary>
         /// 获取文件的名字
         /// </summary>
@@ -59,9 +63,11 @@ namespace SufeiUtil
             string Name = fileName.Substring(i);
             return Name;
         }
-        #endregion
+
+        #endregion 获取文件的名字
 
         #region 获取文件扩展名
+
         /// <summary>
         /// 获取文件扩展名
         /// </summary>
@@ -71,9 +77,11 @@ namespace SufeiUtil
             string Name = fileName.Substring(i);
             return Name;
         }
-        #endregion
+
+        #endregion 获取文件扩展名
 
         #region 获取文件类型
+
         /// <summary>
         /// 获取文件类型
         /// </summary>
@@ -89,7 +97,7 @@ namespace SufeiUtil
             }
             if (m_strReturn == "")
             {
-                foreach (string var in strArrMencoder)
+                foreach (string var in this.strArrMencoder)
                 {
                     if (var == extension)
                     {
@@ -99,9 +107,11 @@ namespace SufeiUtil
             }
             return m_strReturn;
         }
-        #endregion
+
+        #endregion 获取文件类型
 
         #region 视频格式转为Flv
+
         /// <summary>
         /// 视频格式转为Flv
         /// </summary>
@@ -115,7 +125,7 @@ namespace SufeiUtil
             }
             vFileName = HttpContext.Current.Server.MapPath(vFileName);
             ExportName = HttpContext.Current.Server.MapPath(ExportName);
-            string Command = " -i \"" + vFileName + "\" -y -ab 32 -ar 22050 -b 800000 -s  480*360 \"" + ExportName + "\""; //Flv格式     
+            string Command = " -i \"" + vFileName + "\" -y -ab 32 -ar 22050 -b 800000 -s  480*360 \"" + ExportName + "\""; //Flv格式
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = ffmpegtool;
             p.StartInfo.Arguments = Command;
@@ -132,16 +142,22 @@ namespace SufeiUtil
             p.Dispose();
             return true;
         }
-        #endregion
+
+        #endregion 视频格式转为Flv
 
         #region 生成Flv视频的缩略图
+
         /// <summary>
         /// 生成Flv视频的缩略图
         /// </summary>
         /// <param name="vFileName">视频文件地址</param>
         public string CatchImg(string vFileName)
         {
-            if ((!System.IO.File.Exists(ffmpegtool)) || (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(vFileName)))) return "";
+            if ((!System.IO.File.Exists(ffmpegtool)) || (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(vFileName))))
+            {
+                return "";
+            }
+
             try
             {
                 string flv_img_p = vFileName.Substring(0, vFileName.Length - 4) + ".jpg";
@@ -177,9 +193,11 @@ namespace SufeiUtil
                 return "";
             }
         }
-        #endregion
+
+        #endregion 生成Flv视频的缩略图
 
         #region 运行FFMpeg的视频解码(绝对路径)
+
         /// <summary>
         /// 转换文件并保存在指定文件夹下
         /// </summary>
@@ -189,7 +207,7 @@ namespace SufeiUtil
         /// <returns>成功:返回图片虚拟地址;失败:返回空字符串</returns>
         public string ChangeFilePhy(string fileName, string playFile, string imgFile)
         {
-            string ffmpeg = Server.MapPath(VideoConvert.ffmpegtool);
+            string ffmpeg = this.Server.MapPath(VideoConvert.ffmpegtool);
             if ((!System.IO.File.Exists(ffmpeg)) || (!System.IO.File.Exists(fileName)))
             {
                 return "";
@@ -202,7 +220,7 @@ namespace SufeiUtil
             try
             {
                 System.Diagnostics.Process.Start(FilestartInfo);//转换
-                CatchImg(fileName, imgFile); //截图
+                this.CatchImg(fileName, imgFile); //截图
             }
             catch
             {
@@ -213,7 +231,7 @@ namespace SufeiUtil
 
         public string CatchImg(string fileName, string imgFile)
         {
-            string ffmpeg = Server.MapPath(VideoConvert.ffmpegtool);
+            string ffmpeg = this.Server.MapPath(VideoConvert.ffmpegtool);
             string flv_img = imgFile + ".jpg";
             string FlvImgSize = VideoConvert.sizeOfImg;
             System.Diagnostics.ProcessStartInfo ImgstartInfo = new System.Diagnostics.ProcessStartInfo(ffmpeg);
@@ -233,9 +251,11 @@ namespace SufeiUtil
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行FFMpeg的视频解码(绝对路径)
 
         #region 运行FFMpeg的视频解码(相对路径)
+
         /// <summary>
         /// 转换文件并保存在指定文件夹下
         /// </summary>
@@ -245,13 +265,13 @@ namespace SufeiUtil
         /// <returns>成功:返回图片虚拟地址;失败:返回空字符串</returns>
         public string ChangeFileVir(string fileName, string playFile, string imgFile)
         {
-            string ffmpeg = Server.MapPath(VideoConvert.ffmpegtool);
+            string ffmpeg = this.Server.MapPath(VideoConvert.ffmpegtool);
             if ((!System.IO.File.Exists(ffmpeg)) || (!System.IO.File.Exists(fileName)))
             {
                 return "";
             }
-            string flv_img = System.IO.Path.ChangeExtension(Server.MapPath(imgFile), ".jpg");
-            string flv_file = System.IO.Path.ChangeExtension(Server.MapPath(playFile), ".flv");
+            string flv_img = System.IO.Path.ChangeExtension(this.Server.MapPath(imgFile), ".jpg");
+            string flv_file = System.IO.Path.ChangeExtension(this.Server.MapPath(playFile), ".flv");
             string FlvImgSize = VideoConvert.sizeOfImg;
 
             System.Diagnostics.ProcessStartInfo ImgstartInfo = new System.Diagnostics.ProcessStartInfo(ffmpeg);
@@ -271,23 +291,25 @@ namespace SufeiUtil
                 return "";
             }
 
-            ///注意:图片截取成功后,数据由内存缓存写到磁盘需要时间较长,大概在3,4秒甚至更长;   
-            ///这儿需要延时后再检测,我服务器延时8秒,即如果超过8秒图片仍不存在,认为截图失败;    
+            ///注意:图片截取成功后,数据由内存缓存写到磁盘需要时间较长,大概在3,4秒甚至更长;
+            ///这儿需要延时后再检测,我服务器延时8秒,即如果超过8秒图片仍不存在,认为截图失败;
             if (System.IO.File.Exists(flv_img))
             {
                 return flv_img;
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行FFMpeg的视频解码(相对路径)
 
         #region 运行mencoder的视频解码器转换(绝对路径)
+
         /// <summary>
         /// 运行mencoder的视频解码器转换
         /// </summary>
         public string MChangeFilePhy(string vFileName, string playFile, string imgFile)
         {
-            string tool = Server.MapPath(VideoConvert.mencodertool);
+            string tool = this.Server.MapPath(VideoConvert.mencodertool);
             if ((!System.IO.File.Exists(tool)) || (!System.IO.File.Exists(vFileName)))
             {
                 return "";
@@ -300,7 +322,7 @@ namespace SufeiUtil
             try
             {
                 System.Diagnostics.Process.Start(FilestartInfo);
-                CatchImg(flv_file, imgFile);
+                this.CatchImg(flv_file, imgFile);
             }
             catch
             {
@@ -308,6 +330,7 @@ namespace SufeiUtil
             }
             return "";
         }
-        #endregion
+
+        #endregion 运行mencoder的视频解码器转换(绝对路径)
     }
 }

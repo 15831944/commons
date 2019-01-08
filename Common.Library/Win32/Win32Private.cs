@@ -1,12 +1,10 @@
-using System;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-
-namespace SufeiUtil
+namespace System.Win32
 {
     /// <summary>
     /// 执行需要调用 <b>Win32</b> API 的操作辅助类。
@@ -24,58 +22,82 @@ namespace SufeiUtil
         {
             OperatingSystem os = Environment.OSVersion;
             Platform pt;
-            switch(os.Platform)
+            switch (os.Platform)
             {
                 case (PlatformID.Win32Windows): // Win95, Win98 or Me
-                    switch(os.Version.Minor)
+                    switch (os.Version.Minor)
                     {
                         case (0): // 95
                             pt = Platform.Windows95;
                             break;
+
                         case (10): // 98
-                            if(os.Version.Revision.ToString() == "2222A")
+                            if (os.Version.Revision.ToString() == "2222A")
+                            {
                                 pt = Platform.Windows982ndEdition;
+                            }
                             else
+                            {
                                 pt = Platform.Windows98;
+                            }
+
                             break;
+
                         case (90): // winme
                             pt = Platform.WindowsME;
                             break;
+
                         default: // Unknown
                             pt = Platform.UnKnown;
                             break;
                     }
                     break;
+
                 case (PlatformID.Win32NT): //Win2k or Xp or 2003
-                    switch(os.Version.Major)
+                    switch (os.Version.Major)
                     {
                         case (3):
                             pt = Platform.WindowsNT351;
                             break;
+
                         case (4):
                             pt = Platform.WindowsNT40;
                             break;
+
                         case (5):
-                            if(os.Version.Minor == 0)
+                            if (os.Version.Minor == 0)
+                            {
                                 pt = Platform.Windows2000;
-                            else if(os.Version.Minor == 1)
+                            }
+                            else if (os.Version.Minor == 1)
+                            {
                                 pt = Platform.WindowsXP;
-                            else if(os.Version.Minor == 2)
+                            }
+                            else if (os.Version.Minor == 2)
+                            {
                                 pt = Platform.Windows2003;
+                            }
                             else
+                            {
                                 pt = Platform.UnKnown;
+                            }
+
                             break;
+
                         case (6):
                             pt = Platform.WindowsVista;
                             break;
+
                         default:
                             pt = Platform.UnKnown;
                             break;
                     }
                     break;
+
                 case (PlatformID.WinCE): // WinCE
                     pt = Platform.WindowsCE;
                     break;
+
                 case (PlatformID.Win32S):
                 case (PlatformID.Unix):
                 default:
@@ -94,46 +116,57 @@ namespace SufeiUtil
             /// Windows 95 操作系统.
             /// </summary>
             Windows95,
+
             /// <summary>
             /// Windows 98 操作系统.
             /// </summary>
             Windows98,
+
             /// <summary>
             /// Windows 98 第二版操作系统.
             /// </summary>
             Windows982ndEdition,
+
             /// <summary>
             /// Windows ME 操作系统.
             /// </summary>
             WindowsME,
+
             /// <summary>
             /// Windows NT 3.51 操作系统.
             /// </summary>
             WindowsNT351,
+
             /// <summary>
             /// Windows NT 4.0 操作系统.
             /// </summary>
             WindowsNT40,
+
             /// <summary>
             /// Windows 2000 操作系统.
             /// </summary>
             Windows2000,
+
             /// <summary>
             /// Windows XP 操作系统.
             /// </summary>
             WindowsXP,
+
             /// <summary>
             /// Windows 2003 操作系统.
             /// </summary>
             Windows2003,
+
             /// <summary>
             /// Windows Vista 操作系统.
             /// </summary>
             WindowsVista,
+
             /// <summary>
             /// Windows CE 操作系统.
             /// </summary>
             WindowsCE,
+
             /// <summary>
             /// 操作系统版本未知。
             /// </summary>
@@ -150,42 +183,52 @@ namespace SufeiUtil
             /// 设备无错误。
             /// </summary>
             SMART_NO_ERROR = 0, // No error
+
             /// <summary>
             /// 设备IDE控制器错误。
             /// </summary>
             SMART_IDE_ERROR = 1, // Error from IDE controller
+
             /// <summary>
             /// 无效的命令标记。
             /// </summary>
             SMART_INVALID_FLAG = 2, // Invalid command flag
+
             /// <summary>
             /// 无效的命令数据。
             /// </summary>
             SMART_INVALID_COMMAND = 3, // Invalid command byte
+
             /// <summary>
             /// 缓冲区无效（如缓冲区为空或地址错误）。
             /// </summary>
             SMART_INVALID_BUFFER = 4, // Bad buffer (null, invalid addr..)
+
             /// <summary>
             /// 设备编号错误。
             /// </summary>
             SMART_INVALID_DRIVE = 5, // Drive number not valid
+
             /// <summary>
             /// IOCTL错误。
             /// </summary>
             SMART_INVALID_IOCTL = 6, // Invalid IOCTL
+
             /// <summary>
             /// 无法锁定用户的缓冲区。
             /// </summary>
             SMART_ERROR_NO_MEM = 7, // Could not lock user's buffer
+
             /// <summary>
             /// 无效的IDE注册命令。
             /// </summary>
             SMART_INVALID_REGISTER = 8, // Some IDE Register not valid
+
             /// <summary>
             /// 无效的命令设置。
             /// </summary>
             SMART_NOT_SUPPORTED = 9, // Invalid cmd flag set
+
             /// <summary>
             /// 指定要查找的设别索引号无效。
             /// </summary>
@@ -195,7 +238,7 @@ namespace SufeiUtil
         public static void ChangeByteOrder(byte[] charArray)
         {
             byte temp;
-            for(int i = 0; i < charArray.Length; i += 2)
+            for (int i = 0; i < charArray.Length; i += 2)
             {
                 temp = charArray[i];
                 charArray[i] = charArray[i + 1];
@@ -239,9 +282,12 @@ namespace SufeiUtil
                            FILE_SHARE_READ | FILE_SHARE_WRITE, IntPtr.Zero, OPEN_EXISTING, 0, IntPtr.Zero);
 
             // 开始检查
-            if(hDevice == IntPtr.Zero)
+            if (hDevice == IntPtr.Zero)
+            {
                 throw new UnauthorizedAccessException("执行 Win32 API 函数 CreateFile 失败。");
-            if(0 == DeviceIoControl(hDevice, SMART_GET_VERSION, IntPtr.Zero, 0, ref vers,
+            }
+
+            if (0 == DeviceIoControl(hDevice, SMART_GET_VERSION, IntPtr.Zero, 0, ref vers,
                 (uint)Marshal.SizeOf(vers),
                 ref bytesReturned,
                 IntPtr.Zero))
@@ -250,30 +296,38 @@ namespace SufeiUtil
                 throw new IOException(string.Format(ResourcesApi.Win32_DeviceIoControlErr, "SMART_GET_VERSION"));
             }
             // 检测IDE控制命令是否支持
-            if(0 == (vers.fCapabilities & 1))
+            if (0 == (vers.fCapabilities & 1))
             {
                 CloseHandle(hDevice);
                 throw new IOException(ResourcesApi.Win32_DeviceIoControlNotSupport);
             }
             // Identify the IDE drives
-            if(0 != (driveIndex & 1))
+            if (0 != (driveIndex & 1))
+            {
                 inParam.irDriveRegs.bDriveHeadReg = 0xb0;
+            }
             else
+            {
                 inParam.irDriveRegs.bDriveHeadReg = 0xa0;
-            if(0 != (vers.fCapabilities & (16 >> driveIndex)))
+            }
+
+            if (0 != (vers.fCapabilities & (16 >> driveIndex)))
             {
                 // We don't detect a ATAPI device.
                 CloseHandle(hDevice);
                 throw new IOException(ResourcesApi.Win32_DeviceIoControlNotSupport);
             }
             else
+            {
                 inParam.irDriveRegs.bCommandReg = 0xec;
+            }
+
             inParam.bDriveNumber = driveIndex;
             inParam.irDriveRegs.bSectorCountReg = 1;
             inParam.irDriveRegs.bSectorNumberReg = 1;
             inParam.cBufferSize = 512;
 
-            if(0 == DeviceIoControl(
+            if (0 == DeviceIoControl(
                 hDevice,
                 SMART_RCV_DRIVE_DATA,
                 ref inParam,
@@ -295,7 +349,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="driveIndex"></param>
         /// <returns></returns>
@@ -306,38 +360,49 @@ namespace SufeiUtil
             SendCmdOutParams outParam = new SendCmdOutParams();
             uint bytesReturned = 0;
             IntPtr hDevice = CreateFile(@"\\.\Smartvsd", 0, 0, IntPtr.Zero, CREATE_NEW, 0, IntPtr.Zero);
-            if(hDevice == IntPtr.Zero)
+            if (hDevice == IntPtr.Zero)
+            {
                 throw new UnauthorizedAccessException("打开 smartvsd.vxd 文件失败。");
-            if(0 == DeviceIoControl(hDevice, SMART_GET_VERSION, 
-                IntPtr.Zero, 0, 
+            }
+
+            if (0 == DeviceIoControl(hDevice, SMART_GET_VERSION,
+                IntPtr.Zero, 0,
                 ref vers, (uint)Marshal.SizeOf(vers), ref bytesReturned, IntPtr.Zero))
             {
                 CloseHandle(hDevice);
                 throw new IOException(string.Format(ResourcesApi.Win32_DeviceIoControlErr, "SMART_GET_VERSION"));
             }
             // 如果 IDE 的鉴定命令不被识别或失败
-            if(0 == (vers.fCapabilities & 1))
+            if (0 == (vers.fCapabilities & 1))
             {
                 CloseHandle(hDevice);
                 throw new IOException(ResourcesApi.Win32_DeviceIoControlNotSupport);
             }
-            if(0 != (driveIndex & 1))
+            if (0 != (driveIndex & 1))
+            {
                 inParam.irDriveRegs.bDriveHeadReg = 0xb0;
+            }
             else
+            {
                 inParam.irDriveRegs.bDriveHeadReg = 0xa0;
-            if(0 != (vers.fCapabilities & (16 >> driveIndex)))
+            }
+
+            if (0 != (vers.fCapabilities & (16 >> driveIndex)))
             {
                 // 检测出IDE为ATAPI类型，无法处理
                 CloseHandle(hDevice);
                 throw new IOException(ResourcesApi.Win32_DeviceIoControlNotSupport);
             }
             else
+            {
                 inParam.irDriveRegs.bCommandReg = 0xec;
+            }
+
             inParam.bDriveNumber = driveIndex;
             inParam.irDriveRegs.bSectorCountReg = 1;
             inParam.irDriveRegs.bSectorNumberReg = 1;
             inParam.cBufferSize = BUFFER_SIZE;
-            if(0 == DeviceIoControl(hDevice, SMART_RCV_DRIVE_DATA, ref inParam, (uint)Marshal.SizeOf(inParam), ref outParam, (uint)Marshal.SizeOf(outParam), ref bytesReturned, IntPtr.Zero))
+            if (0 == DeviceIoControl(hDevice, SMART_RCV_DRIVE_DATA, ref inParam, (uint)Marshal.SizeOf(inParam), ref outParam, (uint)Marshal.SizeOf(outParam), ref bytesReturned, IntPtr.Zero))
             {
                 CloseHandle(hDevice);
                 throw new IOException(string.Format(ResourcesApi.Win32_DeviceIoControlErr, "SMART_RCV_DRIVE_DATA"));
@@ -350,7 +415,7 @@ namespace SufeiUtil
             return GetHardDiskInfo(outParam.bBuffer);
         }
 
-        #endregion
+        #endregion 方法
 
         #region Win32
 
@@ -444,7 +509,7 @@ namespace SufeiUtil
         /// 对设备执行指定的操作。
         /// </summary>
         /// <param name="hDevice">要执行操作的设备句柄。</param>
-        /// <param name="dwIoControlCode">Win32 API 常数，输入的是以 <b>FSCTL_</b> 为前缀的常数，定义在 
+        /// <param name="dwIoControlCode">Win32 API 常数，输入的是以 <b>FSCTL_</b> 为前缀的常数，定义在
         /// <b>WinIoCtl.h</b> 文件内，执行此重载方法必须输入 <b>SMART_GET_VERSION</b> 。</param>
         /// <param name="lpInBuffer">当参数为指针时，默认的输入值是 <b>0</b> 。</param>
         /// <param name="nInBufferSize">输入缓冲区的字节数量。</param>
@@ -463,7 +528,7 @@ namespace SufeiUtil
         /// 对设备执行指定的操作。
         /// </summary>
         /// <param name="hDevice">要执行操作的设备句柄。</param>
-        /// <param name="dwIoControlCode">Win32 API 常数，输入的是以 <b>FSCTL_</b> 为前缀的常数，定义在 
+        /// <param name="dwIoControlCode">Win32 API 常数，输入的是以 <b>FSCTL_</b> 为前缀的常数，定义在
         /// <b>WinIoCtl.h</b> 文件内，执行此重载方法必须输入 <b>SMART_SEND_DRIVE_COMMAND</b> 或 <b>SMART_RCV_DRIVE_DATA</b> 。</param>
         /// <param name="lpInBuffer">一个 <b>SendCmdInParams</b> 结构，它保存向系统发送的查询要求具体命令的数据结构。</param>
         /// <param name="nInBufferSize">输入缓冲区的字节数量。</param>
@@ -478,7 +543,7 @@ namespace SufeiUtil
                                                   uint nOutBufferSize, ref uint lpBytesReturned,
                                                   [Out] IntPtr lpOverlapped);
 
-        #endregion
+        #endregion Win32
 
         #region 结构
 
@@ -507,7 +572,7 @@ namespace SufeiUtil
             /// 硬盘容量，以M为单位。
             /// </summary>
             public uint Capacity;
-            
+
             /// <summary>
             /// 设备缓存大小（以M为单位）。
             /// </summary>
@@ -895,13 +960,13 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
             /// <param name="left"></param>
             /// <param name="top"></param>
@@ -916,35 +981,39 @@ namespace SufeiUtil
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             /// <param name="r"></param>
             public RECT(Rectangle r)
             {
-                left = r.Left;
-                top = r.Top;
-                right = r.Right;
-                bottom = r.Bottom;
+                this.left = r.Left;
+                this.top = r.Top;
+                this.right = r.Right;
+                this.bottom = r.Bottom;
             }
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public int left;
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public int top;
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public int right;
+
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public int bottom;
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             /// <param name="x"></param>
             /// <param name="y"></param>
@@ -957,16 +1026,16 @@ namespace SufeiUtil
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public Size Size
             {
-                get { return new Size(right - left, bottom - top); }
+                get { return new Size(this.right - this.left, this.bottom - this.top); }
             }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
         public sealed class SCROLLINFO
@@ -987,14 +1056,21 @@ namespace SufeiUtil
             }
 
             public int cbSize;
+
             public int fMask;
+
             public int nMin;
+
             public int nMax;
+
             public int nPage;
+
             public int nPos;
+
             public int nTrackPos;
         }
-        #endregion
+
+        #endregion 结构
 
         #region 常量
 
@@ -1002,19 +1078,31 @@ namespace SufeiUtil
         /// Win32 API 常数，指示在使用 <see cref="RemoveMenu"/> 函数时指定使用索引数而不是使用ID。
         /// </summary>
         private const int MF_BYPOSITION = 0x00000400;
+
         private const uint FILE_SHARE_READ = 0x00000001;
+
         private const uint FILE_SHARE_WRITE = 0x00000002;
+
         private const uint FILE_SHARE_DELETE = 0x00000004;
+
         private const uint SMART_GET_VERSION = 0x00074080; // SMART_GET_VERSION
+
         private const uint SMART_SEND_DRIVE_COMMAND = 0x0007c084; // SMART_SEND_DRIVE_COMMAND
+
         private const uint SMART_RCV_DRIVE_DATA = 0x0007c088; // SMART_RCV_DRIVE_DATA
+
         private const uint GENERIC_READ = 0x80000000;
+
         private const uint GENERIC_WRITE = 0x40000000;
+
         private const uint CREATE_NEW = 1;
+
         private const uint OPEN_EXISTING = 3;
+
         private const uint BUFFER_SIZE = 512;
+
         private static readonly Platform currentOs;
 
-        #endregion
+        #endregion 常量
     }
 }

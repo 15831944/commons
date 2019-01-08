@@ -1,15 +1,8 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
-using System.Web;
+﻿using System.IO;
 using System.Threading;
+using System.Web;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 文件下载帮助类
@@ -17,6 +10,7 @@ namespace SufeiUtil
     public class DownLoadHelper
     {
         #region ResponseFile 输出硬盘文件，提供下载 支持大文件、续传、速度限制、资源占用小
+
         /// <summary>
         ///  输出硬盘文件，提供下载 支持大文件、续传、速度限制、资源占用小
         /// </summary>
@@ -89,6 +83,7 @@ namespace SufeiUtil
             }
             return true;
         }
-        #endregion
+
+        #endregion ResponseFile 输出硬盘文件，提供下载 支持大文件、续传、速度限制、资源占用小
     }
 }

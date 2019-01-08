@@ -1,19 +1,13 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
+﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+//using System.Runtime.Serialization.Json;
+using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-//using System.Runtime.Serialization.Json;
-using System.Runtime.Serialization.Formatters.Soap;
-using System.Runtime.Serialization.Formatters.Binary;
 
-namespace SufeiUtil
+namespace System
 {
     public class SerializeHelper
     {
@@ -21,6 +15,7 @@ namespace SufeiUtil
         { }
 
         #region XML序列化
+
         /// <summary>
         /// 文件化XML序列化
         /// </summary>
@@ -41,7 +36,10 @@ namespace SufeiUtil
             }
             finally
             {
-                if (fs != null) fs.Close();
+                if (fs != null)
+                {
+                    fs.Close();
+                }
             }
         }
 
@@ -65,7 +63,10 @@ namespace SufeiUtil
             }
             finally
             {
-                if (fs != null) fs.Close();
+                if (fs != null)
+                {
+                    fs.Close();
+                }
             }
         }
 
@@ -96,9 +97,11 @@ namespace SufeiUtil
                 return (T)serializer.Deserialize(reader);
             }
         }
-        #endregion
+
+        #endregion XML序列化
 
         #region Json序列化
+
         /// <summary>
         /// JsonSerializer序列化
         /// </summary>
@@ -125,9 +128,11 @@ namespace SufeiUtil
         //        return serializer.ReadObject(ms) as T;
         //    }
         //}
-        #endregion
+
+        #endregion Json序列化
 
         #region SoapFormatter序列化
+
         /// <summary>
         /// SoapFormatter序列化
         /// </summary>
@@ -161,9 +166,11 @@ namespace SufeiUtil
                 return (T)formatter.Deserialize(ms);
             }
         }
-        #endregion
+
+        #endregion SoapFormatter序列化
 
         #region BinaryFormatter序列化
+
         /// <summary>
         /// BinaryFormatter序列化
         /// </summary>
@@ -204,6 +211,7 @@ namespace SufeiUtil
                 return (T)formatter.Deserialize(ms);
             }
         }
-        #endregion
+
+        #endregion BinaryFormatter序列化
     }
 }

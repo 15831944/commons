@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace SufeiUtil.IP
+namespace System.IP
 {
     /// <summary>
     /// IP操作帮助类
@@ -47,11 +47,18 @@ namespace SufeiUtil.IP
             string[] temp;
             bool isErr = false;
             if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_ForWARDED_For"] == null)
+            {
                 ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"].ToString();
+            }
             else
+            {
                 ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_ForWARDED_For"].ToString();
+            }
+
             if (ip.Length > 15)
+            {
                 isErr = true;
+            }
             else
             {
                 temp = ip.Split('.');
@@ -59,17 +66,26 @@ namespace SufeiUtil.IP
                 {
                     for (int i = 0; i < temp.Length; i++)
                     {
-                        if (temp[i].Length > 3) isErr = true;
+                        if (temp[i].Length > 3)
+                        {
+                            isErr = true;
+                        }
                     }
                 }
                 else
+                {
                     isErr = true;
+                }
             }
 
             if (isErr)
+            {
                 return "1.1.1.1";
+            }
             else
+            {
                 return ip;
+            }
         }
 
         #endregion 获得用户IP

@@ -1,13 +1,7 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Collections;
+﻿using System.Collections;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     public class BarCodeToHTML
     {
@@ -16,6 +10,7 @@ namespace SufeiUtil
             Hashtable ht = new Hashtable();
 
             #region 39码 12位
+
             ht.Add('A', "110101001011");
             ht.Add('B', "101101001011");
             ht.Add('C', "110110100101");
@@ -60,9 +55,11 @@ namespace SufeiUtil
             ht.Add('$', "100100100101");
             ht.Add('.', "110010101101");
             ht.Add(' ', "100110101101");
-            #endregion
+
+            #endregion 39码 12位
 
             #region 39码 9位
+
             //ht.Add('0', "000110100");
             //ht.Add('1', "100100001");
             //ht.Add('2', "001100001");
@@ -107,7 +104,8 @@ namespace SufeiUtil
             //ht.Add('/', "010100010");
             //ht.Add('+', "010001010");
             //ht.Add('%', "000101010");
-            #endregion
+
+            #endregion 39码 9位
 
             s = "*" + s.ToUpper() + "*";
 

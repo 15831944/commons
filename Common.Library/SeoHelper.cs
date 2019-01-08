@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Text;
-using System.Net;
 using System.Web.Script.Serialization;
 
-namespace SufeiUtil.seo
+namespace System.seo
 {
     /// <summary>
     /// 专门给各大搜索引擎提供操作帮助的类
@@ -80,7 +77,7 @@ namespace SufeiUtil.seo
             HttpResult result = http.GetHtml(item);
 
             JavaScriptSerializer jss = new JavaScriptSerializer();
-            var model = (OriginalModel)jss.Deserialize<OriginalModel>(result.Html);
+            var model = jss.Deserialize<OriginalModel>(result.Html);
 
             return model;
             //if (result.Html.Contains("\"success\":1"))
@@ -90,9 +87,11 @@ namespace SufeiUtil.seo
 
             //return false;
         }
+
         public class OriginalModel
         {
             public int remain { get; set; }
+
             public int success { get; set; }
         }
     }

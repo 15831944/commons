@@ -29,7 +29,10 @@ namespace System
                     for (int j = 0; j < dt.Columns.Count; j++)
                     {
                         if (j > 0)
+                        {
                             strBufferLine += ",";
+                        }
+
                         strBufferLine += dt.Rows[i][j].ToString();
                     }
                     strmWriterObj.WriteLine(strBufferLine);

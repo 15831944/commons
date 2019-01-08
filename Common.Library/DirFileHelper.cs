@@ -1,13 +1,7 @@
-﻿/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+﻿using System.IO;
 using System.Text;
-using System.IO;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 文件操作夹
@@ -15,6 +9,7 @@ namespace SufeiUtil
     public static class DirFileHelper
     {
         #region 检测指定目录是否存在
+
         /// <summary>
         /// 检测指定目录是否存在
         /// </summary>
@@ -24,24 +19,28 @@ namespace SufeiUtil
         {
             return Directory.Exists(directoryPath);
         }
-        #endregion
+
+        #endregion 检测指定目录是否存在
 
         #region 检测指定文件是否存在,如果存在返回true
+
         /// <summary>
         /// 检测指定文件是否存在,如果存在则返回true。
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static bool IsExistFile(string filePath)
         {
             return File.Exists(filePath);
         }
-        #endregion
+
+        #endregion 检测指定文件是否存在,如果存在返回true
 
         #region 获取指定目录中的文件列表
+
         /// <summary>
         /// 获取指定目录中所有文件列表
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目录的绝对路径</param>
         public static string[] GetFileNames(string directoryPath)
         {
             //如果目录不存在，则抛出异常
@@ -53,13 +52,15 @@ namespace SufeiUtil
             //获取文件列表
             return Directory.GetFiles(directoryPath);
         }
-        #endregion
+
+        #endregion 获取指定目录中的文件列表
 
         #region 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
+
         /// <summary>
         /// 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目录的绝对路径</param>
         public static string[] GetDirectories(string directoryPath)
         {
             try
@@ -71,9 +72,11 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.
 
         #region 获取指定目录及子目录中所有文件列表
+
         /// <summary>
         /// 获取指定目录及子目录中所有文件列表
         /// </summary>
@@ -105,13 +108,15 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 获取指定目录及子目录中所有文件列表
 
         #region 检测指定目录是否为空
+
         /// <summary>
         /// 检测指定目录是否为空
         /// </summary>
-        /// <param name="directoryPath">指定目录的绝对路径</param>        
+        /// <param name="directoryPath">指定目录的绝对路径</param>
         public static bool IsEmptyDirectory(string directoryPath)
         {
             try
@@ -139,15 +144,17 @@ namespace SufeiUtil
                 return true;
             }
         }
-        #endregion
+
+        #endregion 检测指定目录是否为空
 
         #region 检测指定目录中是否存在指定的文件
+
         /// <summary>
         /// 检测指定目录中是否存在指定的文件,若要搜索子目录请使用重载方法.
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
         /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>        
+        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
         public static bool Contains(string directoryPath, string searchPattern)
         {
             try
@@ -177,7 +184,7 @@ namespace SufeiUtil
         /// </summary>
         /// <param name="directoryPath">指定目录的绝对路径</param>
         /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。
-        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param> 
+        /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>
         /// <param name="isSearchChild">是否搜索子目录</param>
         public static bool Contains(string directoryPath, string searchPattern, bool isSearchChild)
         {
@@ -202,35 +209,53 @@ namespace SufeiUtil
                 //LogHelper.WriteTraceLog(TraceLogLevel.Error, ex.Message);
             }
         }
-        #endregion
+
+        #endregion 检测指定目录中是否存在指定的文件
 
         #region 创建目录
+
         /// <summary>
         /// 创建目录
         /// </summary>
         /// <param name="dir">要创建的目录路径包括目录名</param>
         public static void CreateDir(string dir)
         {
-            if (dir.Length == 0) return;
+            if (dir.Length == 0)
+            {
+                return;
+            }
+
             if (!Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
+            {
                 Directory.CreateDirectory(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
+            }
         }
-        #endregion
+
+        #endregion 创建目录
 
         #region 删除目录
+
         /// <summary>
         /// 删除目录
         /// </summary>
         /// <param name="dir">要删除的目录路径和名称</param>
         public static void DeleteDir(string dir)
         {
-            if (dir.Length == 0) return;
+            if (dir.Length == 0)
+            {
+                return;
+            }
+
             if (Directory.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir))
+            {
                 Directory.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir);
+            }
         }
-        #endregion
+
+        #endregion 删除目录
 
         #region 删除文件
+
         /// <summary>
         /// 删除文件
         /// </summary>
@@ -238,11 +263,15 @@ namespace SufeiUtil
         public static void DeleteFile(string file)
         {
             if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file))
+            {
                 File.Delete(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + file);
+            }
         }
-        #endregion
+
+        #endregion 删除文件
 
         #region 创建文件
+
         /// <summary>
         /// 创建文件
         /// </summary>
@@ -252,14 +281,19 @@ namespace SufeiUtil
         {
             dir = dir.Replace("/", "\\");
             if (dir.IndexOf("\\") > -1)
+            {
                 CreateDir(dir.Substring(0, dir.LastIndexOf("\\")));
+            }
+
             System.IO.StreamWriter sw = new System.IO.StreamWriter(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir, false, System.Text.Encoding.GetEncoding("GB2312"));
             sw.Write(pagestr);
             sw.Close();
         }
-        #endregion
+
+        #endregion 创建文件
 
         #region 移动文件(剪贴--粘贴)
+
         /// <summary>
         /// 移动文件(剪贴--粘贴)
         /// </summary>
@@ -270,11 +304,15 @@ namespace SufeiUtil
             dir1 = dir1.Replace("/", "\\");
             dir2 = dir2.Replace("/", "\\");
             if (File.Exists(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1))
+            {
                 File.Move(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2);
+            }
         }
-        #endregion
+
+        #endregion 移动文件(剪贴--粘贴)
 
         #region 复制文件
+
         /// <summary>
         /// 复制文件
         /// </summary>
@@ -289,9 +327,11 @@ namespace SufeiUtil
                 File.Copy(System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir1, System.Web.HttpContext.Current.Request.PhysicalApplicationPath + "\\" + dir2, true);
             }
         }
-        #endregion
+
+        #endregion 复制文件
 
         #region 根据时间得到目录名 / 格式:yyyyMMdd 或者 HHmmssff
+
         /// <summary>
         /// 根据时间得到目录名yyyyMMdd
         /// </summary>
@@ -300,6 +340,7 @@ namespace SufeiUtil
         {
             return DateTime.Now.ToString("yyyyMMdd");
         }
+
         /// <summary>
         /// 根据时间得到文件名HHmmssff
         /// </summary>
@@ -308,9 +349,11 @@ namespace SufeiUtil
         {
             return DateTime.Now.ToString("HHmmssff");
         }
-        #endregion
+
+        #endregion 根据时间得到目录名 / 格式:yyyyMMdd 或者 HHmmssff
 
         #region 复制文件夹
+
         /// <summary>
         /// 复制文件夹(递归)
         /// </summary>
@@ -320,7 +363,10 @@ namespace SufeiUtil
         {
             Directory.CreateDirectory(varToDirectory);
 
-            if (!Directory.Exists(varFromDirectory)) return;
+            if (!Directory.Exists(varFromDirectory))
+            {
+                return;
+            }
 
             string[] directories = Directory.GetDirectories(varFromDirectory);
 
@@ -340,27 +386,31 @@ namespace SufeiUtil
                 }
             }
         }
-        #endregion
+
+        #endregion 复制文件夹
 
         #region 检查文件,如果文件不存在则创建
+
         /// <summary>
-        /// 检查文件,如果文件不存在则创建  
+        /// 检查文件,如果文件不存在则创建
         /// </summary>
         /// <param name="FilePath">路径,包括文件名</param>
         public static void ExistsFile(string FilePath)
         {
-            //if(!File.Exists(FilePath))    
-            //File.Create(FilePath);    
-            //以上写法会报错,详细解释请看下文.........   
+            //if(!File.Exists(FilePath))
+            //File.Create(FilePath);
+            //以上写法会报错,详细解释请看下文.........
             if (!File.Exists(FilePath))
             {
                 FileStream fs = File.Create(FilePath);
                 fs.Close();
             }
         }
-        #endregion
+
+        #endregion 检查文件,如果文件不存在则创建
 
         #region 删除指定文件夹对应其他文件夹里的文件
+
         /// <summary>
         /// 删除指定文件夹对应其他文件夹里的文件
         /// </summary>
@@ -370,7 +420,10 @@ namespace SufeiUtil
         {
             Directory.CreateDirectory(varToDirectory);
 
-            if (!Directory.Exists(varFromDirectory)) return;
+            if (!Directory.Exists(varFromDirectory))
+            {
+                return;
+            }
 
             string[] directories = Directory.GetDirectories(varFromDirectory);
 
@@ -382,7 +435,6 @@ namespace SufeiUtil
                 }
             }
 
-
             string[] files = Directory.GetFiles(varFromDirectory);
 
             if (files.Length > 0)
@@ -393,20 +445,23 @@ namespace SufeiUtil
                 }
             }
         }
-        #endregion
+
+        #endregion 删除指定文件夹对应其他文件夹里的文件
 
         #region 从文件的绝对路径中获取文件名( 包含扩展名 )
+
         /// <summary>
         /// 从文件的绝对路径中获取文件名( 包含扩展名 )
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static string GetFileName(string filePath)
         {
             //获取文件的名称
             FileInfo fi = new FileInfo(filePath);
             return fi.Name;
         }
-        #endregion
+
+        #endregion 从文件的绝对路径中获取文件名( 包含扩展名 )
 
         /// <summary>
         /// 复制文件参考方法,页面中引用
@@ -486,6 +541,7 @@ namespace SufeiUtil
         }
 
         #region 创建一个目录
+
         /// <summary>
         /// 创建一个目录
         /// </summary>
@@ -498,9 +554,11 @@ namespace SufeiUtil
                 Directory.CreateDirectory(directoryPath);
             }
         }
-        #endregion
+
+        #endregion 创建一个目录
 
         #region 创建一个文件
+
         /// <summary>
         /// 创建一个文件。
         /// </summary>
@@ -560,13 +618,15 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 创建一个文件
 
         #region 获取文本文件的行数
+
         /// <summary>
         /// 获取文本文件的行数
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static int GetLineCount(string filePath)
         {
             //将文本文件的各行读到一个字符串数组中
@@ -575,13 +635,15 @@ namespace SufeiUtil
             //返回行数
             return rows.Length;
         }
-        #endregion
+
+        #endregion 获取文本文件的行数
 
         #region 获取一个文件的长度
+
         /// <summary>
         /// 获取一个文件的长度,单位为Byte
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static int GetFileSize(string filePath)
         {
             //创建一个文件对象
@@ -590,9 +652,11 @@ namespace SufeiUtil
             //获取文件的大小
             return (int)fi.Length;
         }
-        #endregion
+
+        #endregion 获取一个文件的长度
 
         #region 获取指定目录中的子目录列表
+
         /// <summary>
         /// 获取指定目录及子目录中所有子目录列表
         /// </summary>
@@ -618,7 +682,8 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 获取指定目录中的子目录列表
 
         #region 向文本文件写入内容
 
@@ -633,9 +698,11 @@ namespace SufeiUtil
             //向文件写入内容
             File.WriteAllText(filePath, text, encoding);
         }
-        #endregion
+
+        #endregion 向文本文件写入内容
 
         #region 向文本文件的尾部追加内容
+
         /// <summary>
         /// 向文本文件的尾部追加内容
         /// </summary>
@@ -645,9 +712,11 @@ namespace SufeiUtil
         {
             File.AppendAllText(filePath, content);
         }
-        #endregion
+
+        #endregion 向文本文件的尾部追加内容
 
         #region 将现有文件的内容复制到新文件中
+
         /// <summary>
         /// 将源文件的内容复制到目标文件中
         /// </summary>
@@ -657,9 +726,11 @@ namespace SufeiUtil
         {
             File.Copy(sourceFilePath, destFilePath, true);
         }
-        #endregion
+
+        #endregion 将现有文件的内容复制到新文件中
 
         #region 将文件移动到指定目录
+
         /// <summary>
         /// 将文件移动到指定目录
         /// </summary>
@@ -681,35 +752,41 @@ namespace SufeiUtil
                 File.Move(sourceFilePath, descDirectoryPath + "\\" + sourceFileName);
             }
         }
-        #endregion
+
+        #endregion 将文件移动到指定目录
 
         #region 从文件的绝对路径中获取文件名( 不包含扩展名 )
+
         /// <summary>
         /// 从文件的绝对路径中获取文件名( 不包含扩展名 )
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static string GetFileNameNoExtension(string filePath)
         {
             //获取文件的名称
             FileInfo fi = new FileInfo(filePath);
             return fi.Name.Split('.')[0];
         }
-        #endregion
+
+        #endregion 从文件的绝对路径中获取文件名( 不包含扩展名 )
 
         #region 从文件的绝对路径中获取扩展名
+
         /// <summary>
         /// 从文件的绝对路径中获取扩展名
         /// </summary>
-        /// <param name="filePath">文件的绝对路径</param>        
+        /// <param name="filePath">文件的绝对路径</param>
         public static string GetExtension(string filePath)
         {
             //获取文件的名称
             FileInfo fi = new FileInfo(filePath);
             return fi.Extension;
         }
-        #endregion
+
+        #endregion 从文件的绝对路径中获取扩展名
 
         #region 清空指定目录
+
         /// <summary>
         /// 清空指定目录下所有文件及子目录,但该目录依然保存.
         /// </summary>
@@ -733,9 +810,11 @@ namespace SufeiUtil
                 }
             }
         }
-        #endregion
+
+        #endregion 清空指定目录
 
         #region 清空文件内容
+
         /// <summary>
         /// 清空文件内容
         /// </summary>
@@ -748,9 +827,11 @@ namespace SufeiUtil
             //重新创建该文件
             CreateFile(filePath);
         }
-        #endregion
+
+        #endregion 清空文件内容
 
         #region 删除指定目录
+
         /// <summary>
         /// 删除指定目录及其所有子目录
         /// </summary>
@@ -762,6 +843,7 @@ namespace SufeiUtil
                 Directory.Delete(directoryPath, true);
             }
         }
-        #endregion
+
+        #endregion 删除指定目录
     }
 }

@@ -1,19 +1,13 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+﻿using System.IO;
 using System.Text;
 using System.Web;
-using System.IO;
 
-namespace SufeiUtil
+namespace System
 {
     public class FileOperateHelper
     {
         #region 写文件
+
         protected void Write_Txt(string FileName, string Content)
         {
             Encoding code = Encoding.GetEncoding("gb2312");
@@ -31,14 +25,14 @@ namespace SufeiUtil
             }
             sw.Close();
             sw.Dispose();
-
         }
-        #endregion
+
+        #endregion 写文件
 
         #region 读文件
+
         protected string Read_Txt(string filename)
         {
-
             Encoding code = Encoding.GetEncoding("gb2312");
             string temp = HttpContext.Current.Server.MapPath("Precious\\" + filename + ".txt");
             string str = "";
@@ -59,20 +53,22 @@ namespace SufeiUtil
                 str = "";
             }
 
-
             return str;
         }
-        #endregion
+
+        #endregion 读文件
 
         #region 取得文件后缀名
+
         /****************************************
          * 函数名称：GetPostfixStr
          * 功能说明：取得文件后缀名
          * 参    数：filename:文件名称
          * 调用示列：
-         *           string filename = "aaa.aspx";        
-         *           string s = SufeiUtil.FileOperate.GetPostfixStr(filename);         
+         *           string filename = "aaa.aspx";
+         *           string s = SufeiUtil.FileOperate.GetPostfixStr(filename);
         *****************************************/
+
         /// <summary>
         /// 取后缀名
         /// </summary>
@@ -85,18 +81,21 @@ namespace SufeiUtil
             string postfix = filename.Substring(start, length - start);
             return postfix;
         }
-        #endregion
+
+        #endregion 取得文件后缀名
 
         #region 写文件
+
         /****************************************
          * 函数名称：WriteFile
          * 功能说明：当文件不存时，则创建文件，并追加文件
          * 参    数：Path:文件路径,Strings:文本内容
          * 调用示列：
-         *           string Path = Server.MapPath("Default2.aspx");       
+         *           string Path = Server.MapPath("Default2.aspx");
          *           string Strings = "这是我写的内容啊";
          *           SufeiUtil.FileOperate.WriteFile(Path,Strings);
         *****************************************/
+
         /// <summary>
         /// 写文件
         /// </summary>
@@ -104,7 +103,6 @@ namespace SufeiUtil
         /// <param name="Strings">文件内容</param>
         public static void WriteFile(string Path, string Strings)
         {
-
             if (!System.IO.File.Exists(Path))
             {
                 System.IO.FileStream f = System.IO.File.Create(Path);
@@ -115,20 +113,21 @@ namespace SufeiUtil
             f2.WriteLine(Strings);
             f2.Close();
             f2.Dispose();
-
-
         }
-        #endregion
+
+        #endregion 写文件
 
         #region 读文件
+
         /****************************************
          * 函数名称：ReadFile
          * 功能说明：读取文本内容
          * 参    数：Path:文件路径
          * 调用示列：
-         *           string Path = Server.MapPath("Default2.aspx");       
+         *           string Path = Server.MapPath("Default2.aspx");
          *           string s = SufeiUtil.FileOperate.ReadFile(Path);
         *****************************************/
+
         /// <summary>
         /// 读文件
         /// </summary>
@@ -138,7 +137,9 @@ namespace SufeiUtil
         {
             string s = "";
             if (!System.IO.File.Exists(Path))
+            {
                 s = "不存在相应的目录";
+            }
             else
             {
                 StreamReader f2 = new StreamReader(Path, System.Text.Encoding.GetEncoding("gb2312"));
@@ -149,18 +150,21 @@ namespace SufeiUtil
 
             return s;
         }
-        #endregion
+
+        #endregion 读文件
 
         #region 追加文件
+
         /****************************************
          * 函数名称：FileAdd
          * 功能说明：追加文件内容
          * 参    数：Path:文件路径,strings:内容
          * 调用示列：
-         *           string Path = Server.MapPath("Default2.aspx");     
+         *           string Path = Server.MapPath("Default2.aspx");
          *           string Strings = "新追加内容";
          *           SufeiUtil.FileOperate.FileAdd(Path, Strings);
         *****************************************/
+
         /// <summary>
         /// 追加文件
         /// </summary>
@@ -174,18 +178,21 @@ namespace SufeiUtil
             sw.Close();
             sw.Dispose();
         }
-        #endregion
+
+        #endregion 追加文件
 
         #region 拷贝文件
+
         /****************************************
          * 函数名称：FileCoppy
          * 功能说明：拷贝文件
          * 参    数：OrignFile:原始文件,NewFile:新文件路径
          * 调用示列：
-         *           string OrignFile = Server.MapPath("Default2.aspx");     
+         *           string OrignFile = Server.MapPath("Default2.aspx");
          *           string NewFile = Server.MapPath("Default3.aspx");
          *           SufeiUtil.FileOperate.FileCoppy(OrignFile, NewFile);
         *****************************************/
+
         /// <summary>
         /// 拷贝文件
         /// </summary>
@@ -196,17 +203,19 @@ namespace SufeiUtil
             File.Copy(OrignFile, NewFile, true);
         }
 
-        #endregion
+        #endregion 拷贝文件
 
         #region 删除文件
+
         /****************************************
          * 函数名称：FileDel
          * 功能说明：删除文件
          * 参    数：Path:文件路径
          * 调用示列：
-         *           string Path = Server.MapPath("Default3.aspx");    
+         *           string Path = Server.MapPath("Default3.aspx");
          *           SufeiUtil.FileOperate.FileDel(Path);
         *****************************************/
+
         /// <summary>
         /// 删除文件
         /// </summary>
@@ -215,18 +224,21 @@ namespace SufeiUtil
         {
             File.Delete(Path);
         }
-        #endregion
+
+        #endregion 删除文件
 
         #region 移动文件
+
         /****************************************
          * 函数名称：FileMove
          * 功能说明：移动文件
          * 参    数：OrignFile:原始路径,NewFile:新文件路径
          * 调用示列：
-         *            string OrignFile = Server.MapPath("../说明.txt");    
+         *            string OrignFile = Server.MapPath("../说明.txt");
          *            string NewFile = Server.MapPath("../../说明.txt");
          *            SufeiUtil.FileOperate.FileMove(OrignFile, NewFile);
         *****************************************/
+
         /// <summary>
         /// 移动文件
         /// </summary>
@@ -236,18 +248,21 @@ namespace SufeiUtil
         {
             File.Move(OrignFile, NewFile);
         }
-        #endregion
+
+        #endregion 移动文件
 
         #region 在当前目录下创建目录
+
         /****************************************
          * 函数名称：FolderCreate
          * 功能说明：在当前目录下创建目录
          * 参    数：OrignFolder:当前目录,NewFloder:新目录
          * 调用示列：
-         *           string OrignFolder = Server.MapPath("test/");    
+         *           string OrignFolder = Server.MapPath("test/");
          *           string NewFloder = "new";
-         *           SufeiUtil.FileOperate.FolderCreate(OrignFolder, NewFloder); 
+         *           SufeiUtil.FileOperate.FolderCreate(OrignFolder, NewFloder);
         *****************************************/
+
         /// <summary>
         /// 在当前目录下创建目录
         /// </summary>
@@ -267,64 +282,76 @@ namespace SufeiUtil
         {
             // 判断目标目录是否存在如果不存在则新建之
             if (!Directory.Exists(Path))
+            {
                 Directory.CreateDirectory(Path);
+            }
         }
 
-        #endregion
+        #endregion 在当前目录下创建目录
 
         #region 创建目录
+
         public static void FileCreate(string Path)
         {
-            FileInfo CreateFile = new FileInfo(Path); //创建文件 
+            FileInfo CreateFile = new FileInfo(Path); //创建文件
             if (!CreateFile.Exists)
             {
                 FileStream FS = CreateFile.Create();
                 FS.Close();
             }
         }
-        #endregion
+
+        #endregion 创建目录
 
         #region 递归删除文件夹目录及文件
+
         /****************************************
          * 函数名称：DeleteFolder
          * 功能说明：递归删除文件夹目录及文件
          * 参    数：dir:文件夹路径
          * 调用示列：
-         *           string dir = Server.MapPath("test/");  
-         *           SufeiUtil.FileOperate.DeleteFolder(dir);       
+         *           string dir = Server.MapPath("test/");
+         *           SufeiUtil.FileOperate.DeleteFolder(dir);
         *****************************************/
+
         /// <summary>
         /// 递归删除文件夹目录及文件
         /// </summary>
-        /// <param name="dir"></param>  
+        /// <param name="dir"></param>
         /// <returns></returns>
         public static void DeleteFolder(string dir)
         {
-            if (Directory.Exists(dir)) //如果存在这个文件夹删除之 
+            if (Directory.Exists(dir)) //如果存在这个文件夹删除之
             {
                 foreach (string d in Directory.GetFileSystemEntries(dir))
                 {
                     if (File.Exists(d))
-                        File.Delete(d); //直接删除其中的文件                        
+                    {
+                        File.Delete(d); //直接删除其中的文件
+                    }
                     else
-                        DeleteFolder(d); //递归删除子文件夹 
+                    {
+                        DeleteFolder(d); //递归删除子文件夹
+                    }
                 }
-                Directory.Delete(dir, true); //删除已空文件夹                 
+                Directory.Delete(dir, true); //删除已空文件夹
             }
         }
 
-        #endregion
+        #endregion 递归删除文件夹目录及文件
 
         #region 将指定文件夹下面的所有内容copy到目标文件夹下面 果目标文件夹为只读属性就会报错。
+
         /****************************************
          * 函数名称：CopyDir
          * 功能说明：将指定文件夹下面的所有内容copy到目标文件夹下面 果目标文件夹为只读属性就会报错。
          * 参    数：srcPath:原始路径,aimPath:目标文件夹
          * 调用示列：
-         *           string srcPath = Server.MapPath("test/");  
+         *           string srcPath = Server.MapPath("test/");
          *           string aimPath = Server.MapPath("test1/");
-         *           SufeiUtil.FileOperate.CopyDir(srcPath,aimPath);   
+         *           SufeiUtil.FileOperate.CopyDir(srcPath,aimPath);
         *****************************************/
+
         /// <summary>
         /// 指定文件夹下面的所有内容copy到目标文件夹下面
         /// </summary>
@@ -336,10 +363,14 @@ namespace SufeiUtil
             {
                 // 检查目标目录是否以目录分割字符结束如果不是则添加之
                 if (aimPath[aimPath.Length - 1] != Path.DirectorySeparatorChar)
+                {
                     aimPath += Path.DirectorySeparatorChar;
+                }
                 // 判断目标目录是否存在如果不存在则新建之
                 if (!Directory.Exists(aimPath))
+                {
                     Directory.CreateDirectory(aimPath);
+                }
                 // 得到源目录的文件列表，该里面是包含文件以及目录路径的一个数组
                 //如果你指向copy目标文件下面的文件而不包含目录请使用下面的方法
                 //string[] fileList = Directory.GetFiles(srcPath);
@@ -350,10 +381,14 @@ namespace SufeiUtil
                     //先当作目录处理如果存在这个目录就递归Copy该目录下面的文件
 
                     if (Directory.Exists(file))
+                    {
                         CopyDir(file, aimPath + Path.GetFileName(file));
+                    }
                     //否则直接Copy文件
                     else
+                    {
                         File.Copy(file, aimPath + Path.GetFileName(file), true);
+                    }
                 }
             }
             catch (Exception ee)
@@ -361,29 +396,30 @@ namespace SufeiUtil
                 throw new Exception(ee.ToString());
             }
         }
-        #endregion
+
+        #endregion 将指定文件夹下面的所有内容copy到目标文件夹下面 果目标文件夹为只读属性就会报错。
 
         #region 获取指定文件夹下所有子目录及文件(树形)
+
         /****************************************
          * 函数名称：GetFoldAll(string Path)
          * 功能说明：获取指定文件夹下所有子目录及文件(树形)
          * 参    数：Path:详细路径
          * 调用示列：
-         *           string strDirlist = Server.MapPath("templates");       
-         *           this.Literal1.Text = SufeiUtil.FileOperate.GetFoldAll(strDirlist);  
+         *           string strDirlist = Server.MapPath("templates");
+         *           this.Literal1.Text = SufeiUtil.FileOperate.GetFoldAll(strDirlist);
         *****************************************/
+
         /// <summary>
         /// 获取指定文件夹下所有子目录及文件
         /// </summary>
         /// <param name="Path">详细路径</param>
         public static string GetFoldAll(string Path)
         {
-
             string str = "";
             DirectoryInfo thisOne = new DirectoryInfo(Path);
             str = ListTreeShow(thisOne, 0, str);
             return str;
-
         }
 
         /// <summary>
@@ -398,7 +434,6 @@ namespace SufeiUtil
             DirectoryInfo[] subDirectories = theDir.GetDirectories();//获得目录
             foreach (DirectoryInfo dirinfo in subDirectories)
             {
-
                 if (nLevel == 0)
                 {
                     Rn += "├";
@@ -432,22 +467,19 @@ namespace SufeiUtil
                     Rn += fInfo.Name.ToString() + " <br />";
                 }
                 Rn = ListTreeShow(dirinfo, nLevel + 1, Rn);
-
-
             }
             return Rn;
         }
-
-
 
         /****************************************
          * 函数名称：GetFoldAll(string Path)
          * 功能说明：获取指定文件夹下所有子目录及文件(下拉框形)
          * 参    数：Path:详细路径
          * 调用示列：
-         *            string strDirlist = Server.MapPath("templates");      
+         *            string strDirlist = Server.MapPath("templates");
          *            this.Literal2.Text = SufeiUtil.FileOperate.GetFoldAll(strDirlist,"tpl","");
         *****************************************/
+
         /// <summary>
         /// 获取指定文件夹下所有子目录及文件(下拉框形)
         /// </summary>
@@ -461,7 +493,6 @@ namespace SufeiUtil
             DirectoryInfo thisOne = new DirectoryInfo(Path);
             str = ListTreeShow(thisOne, 0, str, tplPath);
             return strDrop + str + "</select>";
-
         }
 
         /// <summary>
@@ -478,7 +509,6 @@ namespace SufeiUtil
 
             foreach (DirectoryInfo dirinfo in subDirectories)
             {
-
                 Rn += "<option value=\"" + dirinfo.Name.ToString() + "\"";
                 if (tplPath.ToLower() == dirinfo.Name.ToString().ToLower())
                 {
@@ -500,7 +530,6 @@ namespace SufeiUtil
                     Rn += _s + "┣";
                 }
                 Rn += "" + dirinfo.Name.ToString() + "</option>";
-
 
                 FileInfo[] fileInfo = dirinfo.GetFiles();   //目录下的文件
                 foreach (FileInfo fInfo in fileInfo)
@@ -528,22 +557,23 @@ namespace SufeiUtil
                     Rn += fInfo.Name.ToString() + "</option>";
                 }
                 Rn = ListTreeShow(dirinfo, nLevel + 1, Rn, tplPath);
-
-
             }
             return Rn;
         }
-        #endregion
+
+        #endregion 获取指定文件夹下所有子目录及文件(树形)
 
         #region 获取文件夹大小
+
         /****************************************
          * 函数名称：GetDirectoryLength(string dirPath)
          * 功能说明：获取文件夹大小
          * 参    数：dirPath:文件夹详细路径
          * 调用示列：
-         *           string Path = Server.MapPath("templates"); 
-         *           Response.Write(SufeiUtil.FileOperate.GetDirectoryLength(Path));       
+         *           string Path = Server.MapPath("templates");
+         *           Response.Write(SufeiUtil.FileOperate.GetDirectoryLength(Path));
         *****************************************/
+
         /// <summary>
         /// 获取文件夹大小
         /// </summary>
@@ -552,7 +582,10 @@ namespace SufeiUtil
         public static long GetDirectoryLength(string dirPath)
         {
             if (!Directory.Exists(dirPath))
+            {
                 return 0;
+            }
+
             long len = 0;
             DirectoryInfo di = new DirectoryInfo(dirPath);
             foreach (FileInfo fi in di.GetFiles())
@@ -569,17 +602,20 @@ namespace SufeiUtil
             }
             return len;
         }
-        #endregion
+
+        #endregion 获取文件夹大小
 
         #region 获取指定文件详细属性
+
         /****************************************
          * 函数名称：GetFileAttibe(string filePath)
          * 功能说明：获取指定文件详细属性
          * 参    数：filePath:文件详细路径
          * 调用示列：
-         *           string file = Server.MapPath("robots.txt");  
-         *            Response.Write(SufeiUtil.FileOperate.GetFileAttibe(file));         
+         *           string file = Server.MapPath("robots.txt");
+         *            Response.Write(SufeiUtil.FileOperate.GetFileAttibe(file));
         *****************************************/
+
         /// <summary>
         /// 获取指定文件详细属性
         /// </summary>
@@ -592,6 +628,7 @@ namespace SufeiUtil
             str += "详细路径:" + objFI.FullName + "<br>文件名称:" + objFI.Name + "<br>文件长度:" + objFI.Length.ToString() + "字节<br>创建时间" + objFI.CreationTime.ToString() + "<br>最后访问时间:" + objFI.LastAccessTime.ToString() + "<br>修改时间:" + objFI.LastWriteTime.ToString() + "<br>所在目录:" + objFI.DirectoryName + "<br>扩展名:" + objFI.Extension;
             return str;
         }
-        #endregion
+
+        #endregion 获取指定文件详细属性
     }
 }

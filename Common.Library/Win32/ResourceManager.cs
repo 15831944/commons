@@ -1,25 +1,19 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SufeiUtil
+namespace System.Win32
 {
     /// <summary>
     /// ResourceManager
-    /// </author> 
+    /// </author>
     /// </summary>
     public class ResourceManager
     {
-        private volatile static ResourceManager instance = null;
+        private static volatile ResourceManager instance = null;
+
         private static object locker = new Object();
+
         public static ResourceManager Instance
         {
             get
@@ -39,6 +33,7 @@ namespace SufeiUtil
         }
 
         private string FolderPath = string.Empty;
+
         public SortedList<String, Resources> LanguageResources = new SortedList<String, Resources>();
 
         public void Serialize(Resources resources, string filePath)
@@ -48,9 +43,9 @@ namespace SufeiUtil
 
         public void Init(string filePath)
         {
-            FolderPath = filePath;
+            this.FolderPath = filePath;
             DirectoryInfo directoryInfo = new DirectoryInfo(filePath);
-            LanguageResources.Clear();
+            this.LanguageResources.Clear();
             if (!directoryInfo.Exists)
             {
                 return;
@@ -60,14 +55,14 @@ namespace SufeiUtil
             {
                 Resources resources = ResourcesSerializer.DeSerialize(FileInfo[i].FullName);
                 resources.createIndex();
-                LanguageResources.Add(resources.language, resources);     
+                this.LanguageResources.Add(resources.language, resources);
             }
         }
 
         public Hashtable GetLanguages()
         {
             Hashtable hashtable = new Hashtable();
-            IEnumerator<KeyValuePair<String, Resources>> iEnumerator = LanguageResources.GetEnumerator();
+            IEnumerator<KeyValuePair<String, Resources>> iEnumerator = this.LanguageResources.GetEnumerator();
             while (iEnumerator.MoveNext())
             {
                 hashtable.Add(iEnumerator.Current.Key, iEnumerator.Current.Value.displayName);
@@ -102,14 +97,14 @@ namespace SufeiUtil
             }
             return resources;
         }
-                
+
         public string Get(string language, string key)
         {
-            if (!LanguageResources.ContainsKey(language))
+            if (!this.LanguageResources.ContainsKey(language))
             {
                 return string.Empty;
             }
-            return LanguageResources[language].Get(key);
+            return this.LanguageResources[language].Get(key);
         }
     }
 }

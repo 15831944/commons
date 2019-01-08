@@ -1,34 +1,30 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Xml;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
+using System.Xml;
+using System.Xml.Serialization;
 
-namespace SufeiUtil
+namespace System
 {
-
     #region 序列化
-    public class  Serialize  
-    {   
+
+    public class Serialize
+    {
         /// <summary>
         /// 序列化为对象
         /// </summary>
         /// <param name="objname"></param>
         /// <param name="obj"></param>
-        public static void BinarySerialize(string objname,object obj)
+        public static void BinarySerialize(string objname, object obj)
         {
             try
             {
                 string filename = objname + ".Binary";
-                if(System.IO.File.Exists(filename))
+                if (System.IO.File.Exists(filename))
+                {
                     System.IO.File.Delete(filename);
+                }
+
                 using (FileStream fileStream = new FileStream(filename, FileMode.Create))
                 {
                     // 用二进制格式序列化
@@ -37,7 +33,7 @@ namespace SufeiUtil
                     fileStream.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -54,8 +50,11 @@ namespace SufeiUtil
             //二进制格式反序列化
             object obj;
             string filename = objname + ".Binary";
-            if(!System.IO.File.Exists(filename))
+            if (!System.IO.File.Exists(filename))
+            {
                 throw new Exception("在反序列化之前,请先序列化");
+            }
+
             using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 obj = formatter.Deserialize(stream);
@@ -67,7 +66,6 @@ namespace SufeiUtil
             //    object obj = formatter.Deserialize(fs);
             //}
             return obj;
-
         }
 
         /// <summary>
@@ -75,13 +73,16 @@ namespace SufeiUtil
         /// </summary>
         /// <param name="objname"></param>
         /// <returns></returns>
-        public static void SoapSerialize(string objname,object obj)
+        public static void SoapSerialize(string objname, object obj)
         {
             try
-            {  
-                string filename=objname+".Soap";
-                if(System.IO.File.Exists(filename))
+            {
+                string filename = objname + ".Soap";
+                if (System.IO.File.Exists(filename))
+                {
                     System.IO.File.Delete(filename);
+                }
+
                 using (FileStream fileStream = new FileStream(filename, FileMode.Create))
                 {
                     // 序列化为Soap
@@ -89,14 +90,12 @@ namespace SufeiUtil
                     formatter.Serialize(fileStream, obj);
                     fileStream.Close();
                 }
-
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
 
         /// <summary>
         /// 反序列对象
@@ -106,9 +105,11 @@ namespace SufeiUtil
         {
             object obj;
             System.Runtime.Serialization.IFormatter formatter = new SoapFormatter();
-            string filename=objname+".Soap";
+            string filename = objname + ".Soap";
             if (!System.IO.File.Exists(filename))
+            {
                 throw new Exception("对反序列化之前,请先序列化");
+            }
             //Soap格式反序列化
             using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -118,14 +119,16 @@ namespace SufeiUtil
             return obj;
         }
 
-        public static void XmlSerialize(string objname,object obj)
+        public static void XmlSerialize(string objname, object obj)
         {
-             
             try
             {
-                string filename=objname+".xml";
-                if(System.IO.File.Exists(filename))
+                string filename = objname + ".xml";
+                if (System.IO.File.Exists(filename))
+                {
                     System.IO.File.Delete(filename);
+                }
+
                 using (FileStream fileStream = new FileStream(filename, FileMode.Create))
                 {
                     // 序列化为xml
@@ -134,13 +137,11 @@ namespace SufeiUtil
                     fileStream.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
         }
-
 
         /// <summary>
         /// 从xml序列中反序列化
@@ -149,11 +150,13 @@ namespace SufeiUtil
         /// <returns></returns>
         public static object XmlDeserailize(string objname)
         {
-           // System.Runtime.Serialization.IFormatter formatter = new XmlSerializer(typeof(Car));
-            string filename=objname+".xml";
+            // System.Runtime.Serialization.IFormatter formatter = new XmlSerializer(typeof(Car));
+            string filename = objname + ".xml";
             object obj;
             if (!System.IO.File.Exists(filename))
+            {
                 throw new Exception("对反序列化之前,请先序列化");
+            }
             //Xml格式反序列化
             using (Stream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -161,17 +164,21 @@ namespace SufeiUtil
                 obj = (Car)formatter.Deserialize(stream);
                 stream.Close();
             }
-            return obj; 
+            return obj;
         }
     }
-    #endregion
+
+    #endregion 序列化
 
     #region 要序列化的类
+
     [Serializable]
     public class Car
     {
         private string _Price;
+
         private string _Owner;
+
         private string m_filename;
 
         [XmlElement(ElementName = "Price")]
@@ -192,11 +199,11 @@ namespace SufeiUtil
         {
             get
             {
-                return m_filename;
+                return this.m_filename;
             }
             set
             {
-                m_filename = value;
+                this.m_filename = value;
             }
         }
 
@@ -208,12 +215,13 @@ namespace SufeiUtil
 
         public Car()
         {
-
         }
     }
-    #endregion
+
+    #endregion 要序列化的类
 
     #region 调用示例
+
     public class Demo
     {
         public void DemoFunction()
@@ -229,6 +237,6 @@ namespace SufeiUtil
             car2 = (Car)Serialize.XmlDeserailize("XML序列化");
         }
     }
-    #endregion
-}
 
+    #endregion 调用示例
+}

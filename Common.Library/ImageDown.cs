@@ -1,15 +1,7 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
-using System.Net;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 图片下载
@@ -20,6 +12,7 @@ namespace SufeiUtil
         { }
 
         #region 私有方法
+
         /// <summary>
         /// 获取图片标志
         /// </summary>
@@ -30,7 +23,7 @@ namespace SufeiUtil
             int i = 0;
             foreach (Match matchItem in regObj.Matches(htmlStr))
             {
-                strAry[i] = GetImgUrl(matchItem.Value);
+                strAry[i] = this.GetImgUrl(matchItem.Value);
                 i++;
             }
             return strAry;
@@ -49,7 +42,8 @@ namespace SufeiUtil
             }
             return str;
         }
-        #endregion
+
+        #endregion 私有方法
 
         /// <summary>
         /// 下载图片到本地
@@ -63,9 +57,12 @@ namespace SufeiUtil
             string nowym = DateTime.Now.ToString("yyyy-MM");  //当前年月
             string nowdd = DateTime.Now.ToString("dd");       //当天号数
             path = path + nowym + "/" + nowdd;
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
-            string[] imgurlAry = GetImgTag(strHTML);
+            string[] imgurlAry = this.GetImgTag(strHTML);
             try
             {
                 for (int i = 0; i < imgurlAry.Length; i++)

@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
+﻿using System.IO;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// UpLoadFiles 的摘要说明
@@ -51,7 +44,7 @@ namespace SufeiUtil
                 }
                 if (typeFlag)
                 {
-                    string strFileNameTemp = GetUploadFileName();
+                    string strFileNameTemp = this.GetUploadFileName();
                     string strFilePathTemp = strFilePath;
                     float strFileSize = TargetFile.PostedFile.ContentLength;
                     strOldName = strFileNameTemp + strNewName;
@@ -109,7 +102,7 @@ namespace SufeiUtil
             strNewName = strNewName.ToLower();
             if (TargetFile.PostedFile.ContentLength <= MaxSize)
             {
-                string strFileNameTemp = GetUploadFileName();
+                string strFileNameTemp = this.GetUploadFileName();
                 string strFilePathTemp = strFilePath;
                 strOldName = strFileNameTemp + strNewName;
                 strFilePath = strFilePath + "\\" + strOldName;
@@ -180,7 +173,7 @@ namespace SufeiUtil
         {
             string Result = "";
             DateTime time = DateTime.Now;
-            Result += time.Year.ToString() + FormatNum(time.Month.ToString(), 2) + FormatNum(time.Day.ToString(), 2) + FormatNum(time.Hour.ToString(), 2) + FormatNum(time.Minute.ToString(), 2) + FormatNum(time.Second.ToString(), 2) + FormatNum(time.Millisecond.ToString(), 3);
+            Result += time.Year.ToString() + this.FormatNum(time.Month.ToString(), 2) + this.FormatNum(time.Day.ToString(), 2) + this.FormatNum(time.Hour.ToString(), 2) + this.FormatNum(time.Minute.ToString(), 2) + this.FormatNum(time.Second.ToString(), 2) + this.FormatNum(time.Millisecond.ToString(), 3);
             return (Result);
         }
 
@@ -194,6 +187,5 @@ namespace SufeiUtil
             }
             return (Num);
         }
-
     }
 }

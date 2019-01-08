@@ -1,73 +1,69 @@
-﻿/// <summary>
-/// 类说明：Resources
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SufeiUtil
+namespace System.Win32
 {
     /// <summary>
     /// BUResourceManager
     /// 资源管理器
-    /// </author> 
+    /// </author>
     /// </summary>
     [XmlRoot("resources")]
     public class Resources
     {
         private SortedList<String, String> indexs = new SortedList<String, String>();
-        
+
         [XmlElement("language")]
         public string language = string.Empty;
+
         [XmlElement("displayName")]
         public string displayName = string.Empty;
+
         [XmlElement("version")]
         public string version = string.Empty;
+
         [XmlElement("author")]
         public string author = string.Empty;
+
         [XmlElement("description")]
         public string description = string.Empty;
+
         [XmlElement("items", typeof(Items))]
         public Items items;
 
         public void createIndex()
         {
-            indexs.Clear();
-            if (items == null)
+            this.indexs.Clear();
+            if (this.items == null)
             {
                 return;
             }
-            indexs = new SortedList<String, String>(items.items.Length);
-            for (int i = 0; i < items.items.Length; i++)
+            this.indexs = new SortedList<String, String>(this.items.items.Length);
+            for (int i = 0; i < this.items.items.Length; i++)
             {
-                #if DEBUG
-                    try
-                    {
-                        indexs.Add(items.items[i].key, items.items[i].value);
-                    }
-                    catch
-                    {
-                        throw (new Exception(items.items[i].key + items.items[i].value));
-                    }
-                #else
+#if DEBUG
+                try
+                {
+                    this.indexs.Add(this.items.items[i].key, this.items.items[i].value);
+                }
+                catch
+                {
+                    throw (new Exception(this.items.items[i].key + this.items.items[i].value));
+                }
+#else
                     indexs.Add(items.items[i].key, items.items[i].value);
-                #endif
+#endif
             }
         }
 
         public string Get(string key)
         {
-            if (!indexs.ContainsKey(key))
+            if (!this.indexs.ContainsKey(key))
             {
                 return string.Empty;
             }
-            return indexs[key];
+            return this.indexs[key];
         }
 
         /// <summary>
@@ -78,16 +74,16 @@ namespace SufeiUtil
         /// <returns></returns>
         public bool Set(string key, string value)
         {
-            if (!indexs.ContainsKey(key))
+            if (!this.indexs.ContainsKey(key))
             {
                 return false;
             }
-            indexs[key] = value;
-            for (int i = 0; i < items.items.Length; i++)
+            this.indexs[key] = value;
+            for (int i = 0; i < this.items.items.Length; i++)
             {
-                if (items.items[i].key == key)
+                if (this.items.items[i].key == key)
                 {
-                    items.items[i].value = value;
+                    this.items.items[i].value = value;
                     break;
                 }
             }
@@ -101,15 +97,14 @@ namespace SufeiUtil
         public Item[] items;
     }
 
-
     public class Item
     {
         [XmlAttribute("key")]
         public string key = string.Empty;
+
         [XmlText]
         public string value = string.Empty;
     }
-
 
     internal class ResourcesSerializer
     {

@@ -1,14 +1,8 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Linq;
 using System.Text;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// Assistant 的摘要说明。
@@ -32,7 +26,7 @@ namespace SufeiUtil
                         if ((LinkURL.Trim() != "") && (LinkURL.Trim() != "http://"))//非空
                         {
                             TagStr.Append("<a href=\"");
-                            TagStr.Append(ConfigHelper.GetValue("URL") + "/FormAdHit.aspx?ADID=" + ADID);
+                            TagStr.Append(GetConfigValue("URL") + "/FormAdHit.aspx?ADID=" + ADID);
                             TagStr.Append("&LinkURL=" + LinkURL.Replace("&", "$$$"));
                             TagStr.Append("\"");
                             TagStr.Append(" target=\"_blank\">");
@@ -126,7 +120,7 @@ namespace SufeiUtil
                 case "image/pjpeg":
                     {
                         TagStr.Append("<a href=\"");
-                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(GetConfigValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("&LinkURL=" + LinkURL);
                         TagStr.Append("\"");
                         TagStr.Append(" target=\"_blank\">");
@@ -201,7 +195,7 @@ namespace SufeiUtil
                 case "image/pjpeg":
                     {
                         TagStr.Append("<a href=\"");
-                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(GetConfigValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("&LinkURL=" + LinkURL);
                         TagStr.Append("\"");
                         TagStr.Append(" target=\"_blank\">");
@@ -228,7 +222,7 @@ namespace SufeiUtil
                         TagStr.Append(" <embed  ");
                         //					TagStr.Append(" width="+Width+" height="+High+"  ");
                         TagStr.Append(" src=\"" + filename + "?clickthru=");
-                        TagStr.Append(ConfigHelper.GetValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
+                        TagStr.Append(GetConfigValue("URL") + "\\FormAdHit.aspx?ADID=" + ADID);
                         TagStr.Append("_LinkURL=" + LinkURL);
                         TagStr.Append("\"  ");
                         TagStr.Append(" quality=\"autohigh\" wmode=\"opaque\" type=\"application/x-shockwave-flash\"  ");
@@ -540,5 +534,12 @@ namespace SufeiUtil
         }
 
         #endregion
+
+        private static string GetConfigValue(string key)
+        {
+            return ConfigurationManager.AppSettings.HasKeys()
+                ? ConfigurationManager.AppSettings.AllKeys.Contains(key) ? ConfigurationManager.AppSettings[key].ToString().Trim() : null
+                : null;
+        }
     }
 }

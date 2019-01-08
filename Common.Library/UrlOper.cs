@@ -1,35 +1,31 @@
-/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+using System.Collections.Specialized;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Collections.Specialized;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// URL的操作类
     /// </summary>
     public class UrlOper
     {
-        static System.Text.Encoding encoding = System.Text.Encoding.UTF8;
+        private static System.Text.Encoding encoding = System.Text.Encoding.UTF8;
 
         #region URL的64位编码
+
         public static string Base64Encrypt(string sourthUrl)
         {
             string eurl = HttpUtility.UrlEncode(sourthUrl);
             eurl = Convert.ToBase64String(encoding.GetBytes(eurl));
             return eurl;
         }
-        #endregion
+
+        #endregion URL的64位编码
 
         #region URL的64位解码
+
         public static string Base64Decrypt(string eStr)
-        {        
+        {
             if (!IsBase64(eStr))
             {
                 return eStr;
@@ -39,6 +35,7 @@ namespace SufeiUtil
             sourthUrl = HttpUtility.UrlDecode(sourthUrl);
             return sourthUrl;
         }
+
         /// <summary>
         /// 是否是Base64字符串
         /// </summary>
@@ -56,7 +53,8 @@ namespace SufeiUtil
             }
             return true;
         }
-        #endregion
+
+        #endregion URL的64位解码
 
         /// <summary>
         /// 添加URL参数
@@ -75,13 +73,14 @@ namespace SufeiUtil
                 return String.Concat(url, "&" + paramName + "=" + eval);
             }
         }
+
         /// <summary>
         /// 更新URL参数
         /// </summary>
         public static string UpdateParam(string url, string paramName, string value)
         {
-            string keyWord = paramName+"=";
-            int index = url.IndexOf(keyWord)+keyWord.Length;
+            string keyWord = paramName + "=";
+            int index = url.IndexOf(keyWord) + keyWord.Length;
             int index1 = url.IndexOf("&", index);
             if (index1 == -1)
             {
@@ -89,12 +88,13 @@ namespace SufeiUtil
                 url = string.Concat(url, value);
                 return url;
             }
-            url = url.Remove(index,index1 - index);
+            url = url.Remove(index, index1 - index);
             url = url.Insert(index, value);
             return url;
         }
 
         #region 分析URL所属的域
+
         public static void GetDomain(string fromUrl, out string domain, out string subDomain)
         {
             domain = "";
@@ -118,7 +118,6 @@ namespace SufeiUtil
                     if (u.IsFile)
                     {
                         subDomain = domain = "客户端本地文件路径";
-
                     }
                     else
                     {
@@ -129,8 +128,8 @@ namespace SufeiUtil
                             Authority = "www." + Authority;
                         }
                         int index = Authority.IndexOf('.', 0);
-                        domain = Authority.Substring(index + 1, Authority.Length - index - 1).Replace("comhttp","com");
-                        subDomain = Authority.Replace("comhttp", "com"); 
+                        domain = Authority.Substring(index + 1, Authority.Length - index - 1).Replace("comhttp", "com");
+                        subDomain = Authority.Replace("comhttp", "com");
                         if (ss.Length < 2)
                         {
                             domain = "不明路径";
@@ -165,13 +164,17 @@ namespace SufeiUtil
         public static void ParseUrl(string url, out string baseUrl, out NameValueCollection nvc)
         {
             if (url == null)
+            {
                 throw new ArgumentNullException("url");
+            }
 
             nvc = new NameValueCollection();
             baseUrl = "";
 
             if (url == "")
+            {
                 return;
+            }
 
             int questionMarkIndex = url.IndexOf('?');
 
@@ -182,10 +185,13 @@ namespace SufeiUtil
             }
             baseUrl = url.Substring(0, questionMarkIndex);
             if (questionMarkIndex == url.Length - 1)
+            {
                 return;
+            }
+
             string ps = url.Substring(questionMarkIndex + 1);
 
-            // 开始分析参数对    
+            // 开始分析参数对
             Regex re = new Regex(@"(^|&)?(\w+)=([^&]+)(&|$)?", RegexOptions.Compiled);
             MatchCollection mc = re.Matches(ps);
 
@@ -195,6 +201,6 @@ namespace SufeiUtil
             }
         }
 
-        #endregion
+        #endregion 分析URL所属的域
     }
 }

@@ -1,13 +1,7 @@
-/// <summary>
-/// 类说明：CacheHelper
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Text;
 using System.IO;
+using System.Text;
 
-namespace SufeiUtil
+namespace System.FTP
 {
     /// <summary>
     /// FTP操作类
@@ -15,66 +9,74 @@ namespace SufeiUtil
     public class FTPOperater
     {
         #region 属性
+
         private FTPClient ftp;
+
         /// <summary>
         /// 全局FTP访问变量
         /// </summary>
         public FTPClient Ftp
         {
-            get { return ftp; }
-            set { ftp = value; }
+            get { return this.ftp; }
+            set { this.ftp = value; }
         }
 
         private string _server;
+
         /// <summary>
         /// Ftp服务器
         /// </summary>
         public string Server
         {
-            get { return _server; }
-            set { _server = value; }
+            get { return this._server; }
+            set { this._server = value; }
         }
 
         private string _User;
+
         /// <summary>
         /// Ftp用户
         /// </summary>
         public string User
         {
-            get { return _User; }
-            set { _User = value; }
+            get { return this._User; }
+            set { this._User = value; }
         }
 
         private string _Pass;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
         public string Pass
         {
-            get { return _Pass; }
-            set { _Pass = value; }
+            get { return this._Pass; }
+            set { this._Pass = value; }
         }
 
         private string _FolderZJ;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
         public string FolderZJ
         {
-            get { return _FolderZJ; }
-            set { _FolderZJ = value; }
+            get { return this._FolderZJ; }
+            set { this._FolderZJ = value; }
         }
 
         private string _FolderWX;
+
         /// <summary>
         /// Ftp密码
         /// </summary>
         public string FolderWX
         {
-            get { return _FolderWX; }
-            set { _FolderWX = value; }
+            get { return this._FolderWX; }
+            set { this._FolderWX = value; }
         }
-        #endregion
+
+        #endregion 属性
 
         /// <summary>
         /// 得到文件列表
@@ -82,10 +84,14 @@ namespace SufeiUtil
         /// <returns></returns>
         public string[] GetList(string strPath)
         {
-            if (ftp == null) ftp = this.getFtpClient();
-            ftp.Connect();
-            ftp.ChDir(strPath);
-            return ftp.Dir("*");
+            if (this.ftp == null)
+            {
+                this.ftp = this.getFtpClient();
+            }
+
+            this.ftp.Connect();
+            this.ftp.ChDir(strPath);
+            return this.ftp.Dir("*");
         }
 
         /// <summary>
@@ -99,13 +105,17 @@ namespace SufeiUtil
         {
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                ftp.Get(ftpFileName, localFolder, localFileName);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                this.ftp.Get(ftpFileName, localFolder, localFileName);
 
                 return true;
             }
@@ -113,10 +123,10 @@ namespace SufeiUtil
             {
                 try
                 {
-                    ftp.DisConnect();
-                    ftp = null;
+                    this.ftp.DisConnect();
+                    this.ftp = null;
                 }
-                catch { ftp = null; }
+                catch { this.ftp = null; }
                 return false;
             }
         }
@@ -175,13 +185,17 @@ namespace SufeiUtil
         {
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                ftp.Delete(ftpFileName);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                this.ftp.Delete(ftpFileName);
                 return true;
             }
             catch
@@ -199,13 +213,17 @@ namespace SufeiUtil
         {
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                ftp.Put(ftpFileName);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                this.ftp.Put(ftpFileName);
                 return true;
             }
             catch
@@ -225,25 +243,29 @@ namespace SufeiUtil
         {
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                ftp.GetNoBinary(ftpFileName, localFolder, localFileName);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                this.ftp.GetNoBinary(ftpFileName, localFolder, localFileName);
                 return true;
             }
             catch
             {
                 try
                 {
-                    ftp.DisConnect();
-                    ftp = null;
+                    this.ftp.DisConnect();
+                    this.ftp = null;
                 }
                 catch
                 {
-                    ftp = null;
+                    this.ftp = null;
                 }
                 return false;
             }
@@ -259,11 +281,19 @@ namespace SufeiUtil
             string strResult = "";
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (ftp.Connected) ftp.DisConnect();
-                ftp.Connect();
-                ftp.ChDir(ftpFolder);
-                strResult = ftp.GetFileInfo(ftpFileName);
+                if (this.ftp == null)
+                {
+                    this.ftp = this.getFtpClient();
+                }
+
+                if (this.ftp.Connected)
+                {
+                    this.ftp.DisConnect();
+                }
+
+                this.ftp.Connect();
+                this.ftp.ChDir(ftpFolder);
+                strResult = this.ftp.GetFileInfo(ftpFileName);
                 return strResult;
             }
             catch
@@ -277,11 +307,15 @@ namespace SufeiUtil
         /// </summary>
         public bool CanConnect()
         {
-            if (ftp == null) ftp = this.getFtpClient();
+            if (this.ftp == null)
+            {
+                this.ftp = this.getFtpClient();
+            }
+
             try
             {
-                ftp.Connect();
-                ftp.DisConnect();
+                this.ftp.Connect();
+                this.ftp.DisConnect();
                 return true;
             }
             catch
@@ -300,13 +334,17 @@ namespace SufeiUtil
             string strResult = "";
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                strResult = ftp.GetFileInfo(ftpFileName);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                strResult = this.ftp.GetFileInfo(ftpFileName);
                 return strResult;
             }
             catch
@@ -325,13 +363,17 @@ namespace SufeiUtil
             string[] strResult;
             try
             {
-                if (ftp == null) ftp = this.getFtpClient();
-                if (!ftp.Connected)
+                if (this.ftp == null)
                 {
-                    ftp.Connect();
-                    ftp.ChDir(ftpFolder);
+                    this.ftp = this.getFtpClient();
                 }
-                strResult = ftp.Dir(strMask);
+
+                if (!this.ftp.Connected)
+                {
+                    this.ftp.Connect();
+                    this.ftp.ChDir(ftpFolder);
+                }
+                strResult = this.ftp.Dir(strMask);
                 return strResult;
             }
             catch

@@ -1,11 +1,6 @@
-﻿/// <summary>
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 汉字转拼音类
@@ -106,8 +101,8 @@ namespace SufeiUtil
                 if (reg.IsMatch(mChar[j].ToString()))
                 {
                     arr = System.Text.Encoding.Default.GetBytes(mChar[j].ToString());
-                    M1 = (short)(arr[0]);
-                    M2 = (short)(arr[1]);
+                    M1 = arr[0];
+                    M2 = arr[1];
                     asc = M1 * 256 + M2 - 65536;
                     if (asc > 0 && asc < 160)
                     {

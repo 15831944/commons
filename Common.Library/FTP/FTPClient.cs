@@ -1,16 +1,10 @@
-/// <summary>
-/// 类说明：CacheHelper
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Net;
 using System.IO;
-using System.Text;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
-namespace SufeiUtil
+namespace System.FTP
 {
     /// <summary>
     /// FTP 操作类客户端
@@ -20,17 +14,18 @@ namespace SufeiUtil
         public static object obj = new object();
 
         #region 构造函数
+
         /// <summary>
         /// 缺省构造函数
         /// </summary>
         public FTPClient()
         {
-            strRemoteHost = "";
-            strRemotePath = "";
-            strRemoteUser = "";
-            strRemotePass = "";
-            strRemotePort = 21;
-            bConnected = false;
+            this.strRemoteHost = "";
+            this.strRemotePath = "";
+            this.strRemoteUser = "";
+            this.strRemotePass = "";
+            this.strRemotePort = 21;
+            this.bConnected = false;
         }
 
         /// <summary>
@@ -38,58 +33,74 @@ namespace SufeiUtil
         /// </summary>
         public FTPClient(string remoteHost, string remotePath, string remoteUser, string remotePass, int remotePort)
         {
-            strRemoteHost = remoteHost;
-            strRemotePath = remotePath;
-            strRemoteUser = remoteUser;
-            strRemotePass = remotePass;
-            strRemotePort = remotePort;
-            Connect();
+            this.strRemoteHost = remoteHost;
+            this.strRemotePath = remotePath;
+            this.strRemoteUser = remoteUser;
+            this.strRemotePass = remotePass;
+            this.strRemotePort = remotePort;
+            this.Connect();
         }
-        #endregion
+
+        #endregion 构造函数
 
         #region 字段
+
         private int strRemotePort;
+
         private Boolean bConnected;
+
         private string strRemoteHost;
+
         private string strRemotePass;
+
         private string strRemoteUser;
+
         private string strRemotePath;
 
         /// <summary>
         /// 服务器返回的应答信息(包含应答码)
         /// </summary>
         private string strMsg;
+
         /// <summary>
         /// 服务器返回的应答信息(包含应答码)
         /// </summary>
         private string strReply;
+
         /// <summary>
         /// 服务器返回的应答码
         /// </summary>
         private int iReplyCode;
+
         /// <summary>
         /// 进行控制连接的socket
         /// </summary>
         private Socket socketControl;
+
         /// <summary>
         /// 传输模式
         /// </summary>
         private TransferType trType;
+
         /// <summary>
         /// 接收和发送数据的缓冲区
         /// </summary>
         private static int BLOCK_SIZE = 512;
+
         /// <summary>
         /// 编码方式
         /// </summary>
-        Encoding ASCII = Encoding.ASCII;
+        private Encoding ASCII = Encoding.ASCII;
+
         /// <summary>
         /// 字节数组
         /// </summary>
-        Byte[] buffer = new Byte[BLOCK_SIZE];
-        #endregion
+        private Byte[] buffer = new Byte[BLOCK_SIZE];
+
+        #endregion 字段
 
         #region 属性
+
         /// <summary>
         /// FTP服务器IP地址
         /// </summary>
@@ -97,11 +108,11 @@ namespace SufeiUtil
         {
             get
             {
-                return strRemoteHost;
+                return this.strRemoteHost;
             }
             set
             {
-                strRemoteHost = value;
+                this.strRemoteHost = value;
             }
         }
 
@@ -112,11 +123,11 @@ namespace SufeiUtil
         {
             get
             {
-                return strRemotePort;
+                return this.strRemotePort;
             }
             set
             {
-                strRemotePort = value;
+                this.strRemotePort = value;
             }
         }
 
@@ -127,11 +138,11 @@ namespace SufeiUtil
         {
             get
             {
-                return strRemotePath;
+                return this.strRemotePath;
             }
             set
             {
-                strRemotePath = value;
+                this.strRemotePath = value;
             }
         }
 
@@ -142,7 +153,7 @@ namespace SufeiUtil
         {
             set
             {
-                strRemoteUser = value;
+                this.strRemoteUser = value;
             }
         }
 
@@ -153,7 +164,7 @@ namespace SufeiUtil
         {
             set
             {
-                strRemotePass = value;
+                this.strRemotePass = value;
             }
         }
 
@@ -164,53 +175,55 @@ namespace SufeiUtil
         {
             get
             {
-                return bConnected;
+                return this.bConnected;
             }
         }
-        #endregion
+
+        #endregion 属性
 
         #region 链接
+
         /// <summary>
-        /// 建立连接 
+        /// 建立连接
         /// </summary>
         public void Connect()
         {
             lock (obj)
             {
-                socketControl = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(RemoteHost), strRemotePort);
+                this.socketControl = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint ep = new IPEndPoint(IPAddress.Parse(this.RemoteHost), this.strRemotePort);
                 try
                 {
-                    socketControl.Connect(ep);
+                    this.socketControl.Connect(ep);
                 }
                 catch (Exception)
                 {
                     throw new IOException("不能连接ftp服务器");
                 }
             }
-            ReadReply();
-            if (iReplyCode != 220)
+            this.ReadReply();
+            if (this.iReplyCode != 220)
             {
-                DisConnect();
-                throw new IOException(strReply.Substring(4));
+                this.DisConnect();
+                throw new IOException(this.strReply.Substring(4));
             }
-            SendCommand("USER " + strRemoteUser);
-            if (!(iReplyCode == 331 || iReplyCode == 230))
+            this.SendCommand("USER " + this.strRemoteUser);
+            if (!(this.iReplyCode == 331 || this.iReplyCode == 230))
             {
-                CloseSocketConnect();
-                throw new IOException(strReply.Substring(4));
+                this.CloseSocketConnect();
+                throw new IOException(this.strReply.Substring(4));
             }
-            if (iReplyCode != 230)
+            if (this.iReplyCode != 230)
             {
-                SendCommand("PASS " + strRemotePass);
-                if (!(iReplyCode == 230 || iReplyCode == 202))
+                this.SendCommand("PASS " + this.strRemotePass);
+                if (!(this.iReplyCode == 230 || this.iReplyCode == 202))
                 {
-                    CloseSocketConnect();
-                    throw new IOException(strReply.Substring(4));
+                    this.CloseSocketConnect();
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
-            bConnected = true;
-            ChDir(strRemotePath);
+            this.bConnected = true;
+            this.ChDir(this.strRemotePath);
         }
 
         /// <summary>
@@ -218,15 +231,17 @@ namespace SufeiUtil
         /// </summary>
         public void DisConnect()
         {
-            if (socketControl != null)
+            if (this.socketControl != null)
             {
-                SendCommand("QUIT");
+                this.SendCommand("QUIT");
             }
-            CloseSocketConnect();
+            this.CloseSocketConnect();
         }
-        #endregion
+
+        #endregion 链接
 
         #region 传输模式
+
         /// <summary>
         /// 传输模式:二进制类型、ASCII类型
         /// </summary>
@@ -240,19 +255,19 @@ namespace SufeiUtil
         {
             if (ttType == TransferType.Binary)
             {
-                SendCommand("TYPE I");//binary类型传输
+                this.SendCommand("TYPE I");//binary类型传输
             }
             else
             {
-                SendCommand("TYPE A");//ASCII类型传输
+                this.SendCommand("TYPE A");//ASCII类型传输
             }
-            if (iReplyCode != 200)
+            if (this.iReplyCode != 200)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             else
             {
-                trType = ttType;
+                this.trType = ttType;
             }
         }
 
@@ -262,48 +277,49 @@ namespace SufeiUtil
         /// <returns>传输模式</returns>
         public TransferType GetTransferType()
         {
-            return trType;
+            return this.trType;
         }
-        #endregion
+
+        #endregion 传输模式
 
         #region 文件操作
+
         /// <summary>
         /// 获得文件列表
         /// </summary>
         /// <param name="strMask">文件名的匹配字符串</param>
         public string[] Dir(string strMask)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            Socket socketData = CreateDataSocket();
-            SendCommand("NLST " + strMask);
-            if (!(iReplyCode == 150 || iReplyCode == 125 || iReplyCode == 226))
+            Socket socketData = this.CreateDataSocket();
+            this.SendCommand("NLST " + strMask);
+            if (!(this.iReplyCode == 150 || this.iReplyCode == 125 || this.iReplyCode == 226))
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
-            strMsg = "";
+            this.strMsg = "";
             Thread.Sleep(2000);
             while (true)
             {
-                int iBytes = socketData.Receive(buffer, buffer.Length, 0);
-                strMsg += ASCII.GetString(buffer, 0, iBytes);
-                if (iBytes < buffer.Length)
+                int iBytes = socketData.Receive(this.buffer, this.buffer.Length, 0);
+                this.strMsg += this.ASCII.GetString(this.buffer, 0, iBytes);
+                if (iBytes < this.buffer.Length)
                 {
                     break;
                 }
             }
             char[] seperator = { '\n' };
-            string[] strsFileList = strMsg.Split(seperator);
+            string[] strsFileList = this.strMsg.Split(seperator);
             socketData.Close(); //数据socket关闭时也会有返回码
-            if (iReplyCode != 226)
+            if (this.iReplyCode != 226)
             {
-                ReadReply();
-                if (iReplyCode != 226)
+                this.ReadReply();
+                if (this.iReplyCode != 226)
                 {
-
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
             return strsFileList;
@@ -311,37 +327,37 @@ namespace SufeiUtil
 
         public void newPutByGuid(string strFileName, string strGuid)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
             string str = strFileName.Substring(0, strFileName.LastIndexOf("\\"));
             string strTypeName = strFileName.Substring(strFileName.LastIndexOf("."));
             strGuid = str + "\\" + strGuid;
-            Socket socketData = CreateDataSocket();
-            SendCommand("STOR " + Path.GetFileName(strGuid));
-            if (!(iReplyCode == 125 || iReplyCode == 150))
+            Socket socketData = this.CreateDataSocket();
+            this.SendCommand("STOR " + Path.GetFileName(strGuid));
+            if (!(this.iReplyCode == 125 || this.iReplyCode == 150))
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             FileStream input = new FileStream(strGuid, FileMode.Open);
             input.Flush();
             int iBytes = 0;
-            while ((iBytes = input.Read(buffer, 0, buffer.Length)) > 0)
+            while ((iBytes = input.Read(this.buffer, 0, this.buffer.Length)) > 0)
             {
-                socketData.Send(buffer, iBytes, 0);
+                socketData.Send(this.buffer, iBytes, 0);
             }
             input.Close();
             if (socketData.Connected)
             {
                 socketData.Close();
             }
-            if (!(iReplyCode == 226 || iReplyCode == 250))
+            if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                ReadReply();
-                if (!(iReplyCode == 226 || iReplyCode == 250))
+                this.ReadReply();
+                if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
         }
@@ -353,23 +369,22 @@ namespace SufeiUtil
         /// <returns>文件大小</returns>
         public long GetFileSize(string strFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("SIZE " + Path.GetFileName(strFileName));
+            this.SendCommand("SIZE " + Path.GetFileName(strFileName));
             long lSize = 0;
-            if (iReplyCode == 213)
+            if (this.iReplyCode == 213)
             {
-                lSize = Int64.Parse(strReply.Substring(4));
+                lSize = Int64.Parse(this.strReply.Substring(4));
             }
             else
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             return lSize;
         }
-
 
         /// <summary>
         /// 获取文件信息
@@ -378,17 +393,17 @@ namespace SufeiUtil
         /// <returns>文件大小</returns>
         public string GetFileInfo(string strFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            Socket socketData = CreateDataSocket();
-            SendCommand("LIST " + strFileName);
+            Socket socketData = this.CreateDataSocket();
+            this.SendCommand("LIST " + strFileName);
             string strResult = "";
-            if (!(iReplyCode == 150 || iReplyCode == 125
-                || iReplyCode == 226 || iReplyCode == 250))
+            if (!(this.iReplyCode == 150 || this.iReplyCode == 125
+                || this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             byte[] b = new byte[512];
             MemoryStream ms = new MemoryStream();
@@ -399,7 +414,6 @@ namespace SufeiUtil
                 ms.Write(b, 0, iBytes);
                 if (iBytes <= 0)
                 {
-
                     break;
                 }
             }
@@ -415,14 +429,14 @@ namespace SufeiUtil
         /// <param name="strFileName">待删除文件名</param>
         public void Delete(string strFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("DELE " + strFileName);
-            if (iReplyCode != 250)
+            this.SendCommand("DELE " + strFileName);
+            if (this.iReplyCode != 250)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
         }
 
@@ -433,25 +447,27 @@ namespace SufeiUtil
         /// <param name="strNewFileName">新文件名</param>
         public void Rename(string strOldFileName, string strNewFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("RNFR " + strOldFileName);
-            if (iReplyCode != 350)
+            this.SendCommand("RNFR " + strOldFileName);
+            if (this.iReplyCode != 350)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             //  如果新文件名与原有文件重名,将覆盖原有文件
-            SendCommand("RNTO " + strNewFileName);
-            if (iReplyCode != 250)
+            this.SendCommand("RNTO " + strNewFileName);
+            if (this.iReplyCode != 250)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
         }
-        #endregion
+
+        #endregion 文件操作
 
         #region 上传和下载
+
         /// <summary>
         /// 下载一批文件
         /// </summary>
@@ -459,16 +475,16 @@ namespace SufeiUtil
         /// <param name="strFolder">本地目录(不得以\结束)</param>
         public void Get(string strFileNameMask, string strFolder)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            string[] strFiles = Dir(strFileNameMask);
+            string[] strFiles = this.Dir(strFileNameMask);
             foreach (string strFile in strFiles)
             {
                 if (!strFile.Equals(""))//一般来说strFiles的最后一个元素可能是空字符串
                 {
-                    Get(strFile, strFolder, strFile);
+                    this.Get(strFile, strFolder, strFile);
                 }
             }
         }
@@ -481,28 +497,28 @@ namespace SufeiUtil
         /// <param name="strLocalFileName">保存在本地时的文件名</param>
         public void Get(string strRemoteFileName, string strFolder, string strLocalFileName)
         {
-            Socket socketData = CreateDataSocket();
+            Socket socketData = this.CreateDataSocket();
             try
             {
-                if (!bConnected)
+                if (!this.bConnected)
                 {
-                    Connect();
+                    this.Connect();
                 }
-                SetTransferType(TransferType.Binary);
+                this.SetTransferType(TransferType.Binary);
                 if (strLocalFileName.Equals(""))
                 {
                     strLocalFileName = strRemoteFileName;
                 }
-                SendCommand("RETR " + strRemoteFileName);
-                if (!(iReplyCode == 150 || iReplyCode == 125 || iReplyCode == 226 || iReplyCode == 250))
+                this.SendCommand("RETR " + strRemoteFileName);
+                if (!(this.iReplyCode == 150 || this.iReplyCode == 125 || this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
                 FileStream output = new FileStream(strFolder + "\\" + strLocalFileName, FileMode.Create);
                 while (true)
                 {
-                    int iBytes = socketData.Receive(buffer, buffer.Length, 0);
-                    output.Write(buffer, 0, iBytes);
+                    int iBytes = socketData.Receive(this.buffer, this.buffer.Length, 0);
+                    output.Write(this.buffer, 0, iBytes);
                     if (iBytes <= 0)
                     {
                         break;
@@ -513,12 +529,12 @@ namespace SufeiUtil
                 {
                     socketData.Close();
                 }
-                if (!(iReplyCode == 226 || iReplyCode == 250))
+                if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    ReadReply();
-                    if (!(iReplyCode == 226 || iReplyCode == 250))
+                    this.ReadReply();
+                    if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                     {
-                        throw new IOException(strReply.Substring(4));
+                        throw new IOException(this.strReply.Substring(4));
                     }
                 }
             }
@@ -526,9 +542,9 @@ namespace SufeiUtil
             {
                 socketData.Close();
                 socketData = null;
-                socketControl.Close();
-                bConnected = false;
-                socketControl = null;
+                this.socketControl.Close();
+                this.bConnected = false;
+                this.socketControl = null;
             }
         }
 
@@ -540,26 +556,26 @@ namespace SufeiUtil
         /// <param name="strLocalFileName">保存在本地时的文件名</param>
         public void GetNoBinary(string strRemoteFileName, string strFolder, string strLocalFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
 
             if (strLocalFileName.Equals(""))
             {
                 strLocalFileName = strRemoteFileName;
             }
-            Socket socketData = CreateDataSocket();
-            SendCommand("RETR " + strRemoteFileName);
-            if (!(iReplyCode == 150 || iReplyCode == 125 || iReplyCode == 226 || iReplyCode == 250))
+            Socket socketData = this.CreateDataSocket();
+            this.SendCommand("RETR " + strRemoteFileName);
+            if (!(this.iReplyCode == 150 || this.iReplyCode == 125 || this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             FileStream output = new FileStream(strFolder + "\\" + strLocalFileName, FileMode.Create);
             while (true)
             {
-                int iBytes = socketData.Receive(buffer, buffer.Length, 0);
-                output.Write(buffer, 0, iBytes);
+                int iBytes = socketData.Receive(this.buffer, this.buffer.Length, 0);
+                output.Write(this.buffer, 0, iBytes);
                 if (iBytes <= 0)
                 {
                     break;
@@ -570,12 +586,12 @@ namespace SufeiUtil
             {
                 socketData.Close();
             }
-            if (!(iReplyCode == 226 || iReplyCode == 250))
+            if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                ReadReply();
-                if (!(iReplyCode == 226 || iReplyCode == 250))
+                this.ReadReply();
+                if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
         }
@@ -590,7 +606,7 @@ namespace SufeiUtil
             string[] strFiles = Directory.GetFiles(strFolder, strFileNameMask);
             foreach (string strFile in strFiles)
             {
-                Put(strFile);
+                this.Put(strFile);
             }
         }
 
@@ -600,42 +616,45 @@ namespace SufeiUtil
         /// <param name="strFileName">本地文件名</param>
         public void Put(string strFileName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            Socket socketData = CreateDataSocket();
+            Socket socketData = this.CreateDataSocket();
             if (Path.GetExtension(strFileName) == "")
-                SendCommand("STOR " + Path.GetFileNameWithoutExtension(strFileName));
-            else
-                SendCommand("STOR " + Path.GetFileName(strFileName));
-
-            if (!(iReplyCode == 125 || iReplyCode == 150))
             {
-                throw new IOException(strReply.Substring(4));
+                this.SendCommand("STOR " + Path.GetFileNameWithoutExtension(strFileName));
+            }
+            else
+            {
+                this.SendCommand("STOR " + Path.GetFileName(strFileName));
+            }
+
+            if (!(this.iReplyCode == 125 || this.iReplyCode == 150))
+            {
+                throw new IOException(this.strReply.Substring(4));
             }
 
             FileStream input = new FileStream(strFileName, FileMode.Open);
             int iBytes = 0;
-            while ((iBytes = input.Read(buffer, 0, buffer.Length)) > 0)
+            while ((iBytes = input.Read(this.buffer, 0, this.buffer.Length)) > 0)
             {
-                socketData.Send(buffer, iBytes, 0);
+                socketData.Send(this.buffer, iBytes, 0);
             }
             input.Close();
             if (socketData.Connected)
             {
                 socketData.Close();
             }
-            if (!(iReplyCode == 226 || iReplyCode == 250))
+            if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                ReadReply();
-                if (!(iReplyCode == 226 || iReplyCode == 250))
+                this.ReadReply();
+                if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
         }
-
 
         /// <summary>
         /// 上传一个文件
@@ -643,26 +662,26 @@ namespace SufeiUtil
         /// <param name="strFileName">本地文件名</param>
         public void PutByGuid(string strFileName, string strGuid)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
             string str = strFileName.Substring(0, strFileName.LastIndexOf("\\"));
             string strTypeName = strFileName.Substring(strFileName.LastIndexOf("."));
             strGuid = str + "\\" + strGuid;
             System.IO.File.Copy(strFileName, strGuid);
             System.IO.File.SetAttributes(strGuid, System.IO.FileAttributes.Normal);
-            Socket socketData = CreateDataSocket();
-            SendCommand("STOR " + Path.GetFileName(strGuid));
-            if (!(iReplyCode == 125 || iReplyCode == 150))
+            Socket socketData = this.CreateDataSocket();
+            this.SendCommand("STOR " + Path.GetFileName(strGuid));
+            if (!(this.iReplyCode == 125 || this.iReplyCode == 150))
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             FileStream input = new FileStream(strGuid, FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read);
             int iBytes = 0;
-            while ((iBytes = input.Read(buffer, 0, buffer.Length)) > 0)
+            while ((iBytes = input.Read(this.buffer, 0, this.buffer.Length)) > 0)
             {
-                socketData.Send(buffer, iBytes, 0);
+                socketData.Send(this.buffer, iBytes, 0);
             }
             input.Close();
             File.Delete(strGuid);
@@ -670,32 +689,34 @@ namespace SufeiUtil
             {
                 socketData.Close();
             }
-            if (!(iReplyCode == 226 || iReplyCode == 250))
+            if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
             {
-                ReadReply();
-                if (!(iReplyCode == 226 || iReplyCode == 250))
+                this.ReadReply();
+                if (!(this.iReplyCode == 226 || this.iReplyCode == 250))
                 {
-                    throw new IOException(strReply.Substring(4));
+                    throw new IOException(this.strReply.Substring(4));
                 }
             }
         }
-        #endregion
+
+        #endregion 上传和下载
 
         #region 目录操作
+
         /// <summary>
         /// 创建目录
         /// </summary>
         /// <param name="strDirName">目录名</param>
         public void MkDir(string strDirName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("MKD " + strDirName);
-            if (iReplyCode != 257)
+            this.SendCommand("MKD " + strDirName);
+            if (this.iReplyCode != 257)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
         }
 
@@ -705,14 +726,14 @@ namespace SufeiUtil
         /// <param name="strDirName">目录名</param>
         public void RmDir(string strDirName)
         {
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("RMD " + strDirName);
-            if (iReplyCode != 250)
+            this.SendCommand("RMD " + strDirName);
+            if (this.iReplyCode != 250)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
         }
 
@@ -726,28 +747,30 @@ namespace SufeiUtil
             {
                 return;
             }
-            if (!bConnected)
+            if (!this.bConnected)
             {
-                Connect();
+                this.Connect();
             }
-            SendCommand("CWD " + strDirName);
-            if (iReplyCode != 250)
+            this.SendCommand("CWD " + strDirName);
+            if (this.iReplyCode != 250)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
             this.strRemotePath = strDirName;
         }
-        #endregion
+
+        #endregion 目录操作
 
         #region 内部函数
+
         /// <summary>
         /// 将一行应答字符串记录在strReply和strMsg,应答码记录在iReplyCode
         /// </summary>
         private void ReadReply()
         {
-            strMsg = "";
-            strReply = ReadLine();
-            iReplyCode = Int32.Parse(strReply.Substring(0, 3));
+            this.strMsg = "";
+            this.strReply = this.ReadLine();
+            this.iReplyCode = Int32.Parse(this.strReply.Substring(0, 3));
         }
 
         /// <summary>
@@ -756,14 +779,14 @@ namespace SufeiUtil
         /// <returns>数据连接socket</returns>
         private Socket CreateDataSocket()
         {
-            SendCommand("PASV");
-            if (iReplyCode != 227)
+            this.SendCommand("PASV");
+            if (this.iReplyCode != 227)
             {
-                throw new IOException(strReply.Substring(4));
+                throw new IOException(this.strReply.Substring(4));
             }
-            int index1 = strReply.IndexOf('(');
-            int index2 = strReply.IndexOf(')');
-            string ipData = strReply.Substring(index1 + 1, index2 - index1 - 1);
+            int index1 = this.strReply.IndexOf('(');
+            int index2 = this.strReply.IndexOf(')');
+            string ipData = this.strReply.Substring(index1 + 1, index2 - index1 - 1);
             int[] parts = new int[6];
             int len = ipData.Length;
             int partCount = 0;
@@ -772,10 +795,12 @@ namespace SufeiUtil
             {
                 char ch = Char.Parse(ipData.Substring(i, 1));
                 if (Char.IsDigit(ch))
+                {
                     buf += ch;
+                }
                 else if (ch != ',')
                 {
-                    throw new IOException("Malformed PASV strReply: " + strReply);
+                    throw new IOException("Malformed PASV strReply: " + this.strReply);
                 }
                 if (ch == ',' || i + 1 == len)
                 {
@@ -786,7 +811,7 @@ namespace SufeiUtil
                     }
                     catch (Exception)
                     {
-                        throw new IOException("Malformed PASV strReply: " + strReply);
+                        throw new IOException("Malformed PASV strReply: " + this.strReply);
                     }
                 }
             }
@@ -812,12 +837,12 @@ namespace SufeiUtil
         {
             lock (obj)
             {
-                if (socketControl != null)
+                if (this.socketControl != null)
                 {
-                    socketControl.Close();
-                    socketControl = null;
+                    this.socketControl.Close();
+                    this.socketControl = null;
                 }
-                bConnected = false;
+                this.bConnected = false;
             }
         }
 
@@ -831,29 +856,29 @@ namespace SufeiUtil
             {
                 while (true)
                 {
-                    int iBytes = socketControl.Receive(buffer, buffer.Length, 0);
-                    strMsg += ASCII.GetString(buffer, 0, iBytes);
-                    if (iBytes < buffer.Length)
+                    int iBytes = this.socketControl.Receive(this.buffer, this.buffer.Length, 0);
+                    this.strMsg += this.ASCII.GetString(this.buffer, 0, iBytes);
+                    if (iBytes < this.buffer.Length)
                     {
                         break;
                     }
                 }
             }
             char[] seperator = { '\n' };
-            string[] mess = strMsg.Split(seperator);
-            if (strMsg.Length > 2)
+            string[] mess = this.strMsg.Split(seperator);
+            if (this.strMsg.Length > 2)
             {
-                strMsg = mess[mess.Length - 2];
+                this.strMsg = mess[mess.Length - 2];
             }
             else
             {
-                strMsg = mess[0];
+                this.strMsg = mess[0];
             }
-            if (!strMsg.Substring(3, 1).Equals(" ")) //返回字符串正确的是以应答码(如220开头,后面接一空格,再接问候字符串)
+            if (!this.strMsg.Substring(3, 1).Equals(" ")) //返回字符串正确的是以应答码(如220开头,后面接一空格,再接问候字符串)
             {
-                return ReadLine();
+                return this.ReadLine();
             }
-            return strMsg;
+            return this.strMsg;
         }
 
         /// <summary>
@@ -865,11 +890,12 @@ namespace SufeiUtil
             lock (obj)
             {
                 Byte[] cmdBytes = Encoding.ASCII.GetBytes((strCommand + "\r\n").ToCharArray());
-                socketControl.Send(cmdBytes, cmdBytes.Length, 0);
+                this.socketControl.Send(cmdBytes, cmdBytes.Length, 0);
                 Thread.Sleep(500);
-                ReadReply();
+                this.ReadReply();
             }
         }
-        #endregion
+
+        #endregion 内部函数
     }
 }

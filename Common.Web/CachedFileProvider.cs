@@ -101,21 +101,9 @@ namespace System.Web
         /// <returns></returns>
         private string GetConfigValue(string key)
         {
-            if (ConfigurationManager.AppSettings.HasKeys())
-            {
-                if (ConfigurationManager.AppSettings.AllKeys.Contains(key))
-                {
-                    return ConfigurationManager.AppSettings[key].ToString().Trim();
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
+            return ConfigurationManager.AppSettings.HasKeys()
+                ? ConfigurationManager.AppSettings.AllKeys.Contains(key) ? ConfigurationManager.AppSettings[key].ToString().Trim() : null
+                : null;
         }
 
         private string GetHashID(string s)

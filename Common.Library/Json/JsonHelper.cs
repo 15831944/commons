@@ -1,6 +1,6 @@
 ﻿using System.Web.Script.Serialization;
 
-namespace SufeiUtil.Json
+namespace System.JSON
 {
     public class JsonHelper
     {

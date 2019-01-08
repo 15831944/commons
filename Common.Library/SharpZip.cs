@@ -1,19 +1,13 @@
 ﻿using ICSharpCode.SharpZipLib.Checksum;
 using ICSharpCode.SharpZipLib.Zip;
+
 using Microsoft.Win32;
 
-/// <summary>
-/// 类说明：SharpZip
-/// 编 码 人：苏飞
-/// 联系方式：361983679
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
 using System.Diagnostics;
 using System.IO;
 
 ///压缩、解压缩类
-namespace SufeiUtil
+namespace System
 {
     public class SharpZip
     {
@@ -335,10 +329,15 @@ namespace SufeiUtil
         #region 私有变量
 
         private String the_rar;
+
         private RegistryKey the_Reg;
+
         private Object the_Obj;
+
         private String the_Info;
+
         private ProcessStartInfo the_StartInfo;
+
         private Process the_Process;
 
         #endregion 私有变量
@@ -353,20 +352,20 @@ namespace SufeiUtil
         {
             try
             {
-                the_Reg = Registry.ClassesRoot.OpenSubKey(@"Applications\WinRAR.exe\Shell\Open\Command");
-                the_Obj = the_Reg.GetValue("");
-                the_rar = the_Obj.ToString();
-                the_Reg.Close();
-                the_rar = the_rar.Substring(1, the_rar.Length - 7);
-                the_Info = " a    " + zipname + "  " + zippath;
-                the_StartInfo = new ProcessStartInfo();
-                the_StartInfo.FileName = the_rar;
-                the_StartInfo.Arguments = the_Info;
-                the_StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                the_StartInfo.WorkingDirectory = dirpath;
-                the_Process = new Process();
-                the_Process.StartInfo = the_StartInfo;
-                the_Process.Start();
+                this.the_Reg = Registry.ClassesRoot.OpenSubKey(@"Applications\WinRAR.exe\Shell\Open\Command");
+                this.the_Obj = this.the_Reg.GetValue("");
+                this.the_rar = this.the_Obj.ToString();
+                this.the_Reg.Close();
+                this.the_rar = this.the_rar.Substring(1, this.the_rar.Length - 7);
+                this.the_Info = " a    " + zipname + "  " + zippath;
+                this.the_StartInfo = new ProcessStartInfo();
+                this.the_StartInfo.FileName = this.the_rar;
+                this.the_StartInfo.Arguments = this.the_Info;
+                this.the_StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                this.the_StartInfo.WorkingDirectory = dirpath;
+                this.the_Process = new Process();
+                this.the_Process.StartInfo = this.the_StartInfo;
+                this.the_Process.Start();
             }
             catch (Exception ex)
             {
@@ -383,19 +382,19 @@ namespace SufeiUtil
         {
             try
             {
-                the_Reg = Registry.ClassesRoot.OpenSubKey(@"Applications\WinRar.exe\Shell\Open\Command");
-                the_Obj = the_Reg.GetValue("");
-                the_rar = the_Obj.ToString();
-                the_Reg.Close();
-                the_rar = the_rar.Substring(1, the_rar.Length - 7);
-                the_Info = " X " + zipname + " " + zippath;
-                the_StartInfo = new ProcessStartInfo();
-                the_StartInfo.FileName = the_rar;
-                the_StartInfo.Arguments = the_Info;
-                the_StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                the_Process = new Process();
-                the_Process.StartInfo = the_StartInfo;
-                the_Process.Start();
+                this.the_Reg = Registry.ClassesRoot.OpenSubKey(@"Applications\WinRar.exe\Shell\Open\Command");
+                this.the_Obj = this.the_Reg.GetValue("");
+                this.the_rar = this.the_Obj.ToString();
+                this.the_Reg.Close();
+                this.the_rar = this.the_rar.Substring(1, this.the_rar.Length - 7);
+                this.the_Info = " X " + zipname + " " + zippath;
+                this.the_StartInfo = new ProcessStartInfo();
+                this.the_StartInfo.FileName = this.the_rar;
+                this.the_StartInfo.Arguments = this.the_Info;
+                this.the_StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                this.the_Process = new Process();
+                this.the_Process.StartInfo = this.the_StartInfo;
+                this.the_Process.Start();
             }
             catch (Exception ex)
             {

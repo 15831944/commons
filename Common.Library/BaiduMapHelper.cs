@@ -1,8 +1,9 @@
-﻿using System;
+﻿using SufeiUtil.Json;
+
 using System.Collections.Generic;
 using System.Text;
-using SufeiUtil.Json;
-namespace SufeiUtil.baiduApi
+
+namespace System
 {
     /// <summary>
     /// 百度经纬度转化帮助类
@@ -13,6 +14,7 @@ namespace SufeiUtil.baiduApi
         /// 百度地理位置转化URl
         /// </summary>
         private static string CoordsUrl = "http://api.map.baidu.com/geoconv/v1/";
+
         /// <summary>
         /// 根据输入的经纬度List转化为百度地图的经纬度List，一一对应
         /// </summary>
@@ -24,7 +26,7 @@ namespace SufeiUtil.baiduApi
             string strCoords = ListToString(citem);
             HttpItem item = new HttpItem()
             {
-                URL = string.Format("{0}?coords={1}&from=3&to=5&ak=17bc43866bbd51f7507e0c618f890e64", CoordsUrl, strCoords),//URL     必需项    
+                URL = string.Format("{0}?coords={1}&from=3&to=5&ak=17bc43866bbd51f7507e0c618f890e64", CoordsUrl, strCoords),//URL     必需项
             };
             HttpResult result = http.GetHtml(item);
             string html = result.Html;
@@ -48,6 +50,7 @@ namespace SufeiUtil.baiduApi
             }
             return null;
         }
+
         /// <summary>
         /// 根据List转化为相应的字符串经纬度
         /// </summary>
@@ -69,6 +72,7 @@ namespace SufeiUtil.baiduApi
             }
             return strCoords.ToString();
         }
+
         //{"status":0,"result":[{"x":114.22539195429,"y":29.581585367458},{"x":114.2253919533,"y":29.581585366942}]}
         //{"status":24,"message":"param error:coords format error","result":[]}
         /// <summary>
@@ -86,6 +90,7 @@ namespace SufeiUtil.baiduApi
             return c.result;
         }
     }
+
     /// <summary>
     /// 返回参数类
     /// </summary>
@@ -95,15 +100,18 @@ namespace SufeiUtil.baiduApi
         /// 状态0为成功其他不成功
         /// </summary>
         public int status { get; set; }
+
         /// <summary>
         /// result不为0时才显示
         /// </summary>
         public string message { get; set; }
+
         /// <summary>
         /// 经纬度列表
         /// </summary>
         public List<CoordsItem> result { get; set; }
     }
+
     /// <summary>
     /// 经纬度类
     /// </summary>
@@ -113,6 +121,7 @@ namespace SufeiUtil.baiduApi
         /// 经
         /// </summary>
         public double X { get; set; }
+
         /// <summary>
         /// 纬
         /// </summary>

@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Media;
+﻿using System.Media;
 
-namespace SufeiUtil
+namespace System
 {
     /// <summary>
     /// 处理多媒体的公共类
@@ -15,6 +8,7 @@ namespace SufeiUtil
     public class MediaHandler
     {
         #region 同步播放wav文件
+
         /// <summary>
         /// 以同步方式播放wav文件
         /// </summary>
@@ -24,7 +18,7 @@ namespace SufeiUtil
         {
             try
             {
-                //设置wav文件的路径 
+                //设置wav文件的路径
                 sp.SoundLocation = wavFilePath;
 
                 //使用异步方式加载wav文件
@@ -69,9 +63,11 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 同步播放wav文件
 
         #region 异步播放wav文件
+
         /// <summary>
         /// 以异步方式播放wav文件
         /// </summary>
@@ -81,7 +77,7 @@ namespace SufeiUtil
         {
             try
             {
-                //设置wav文件的路径 
+                //设置wav文件的路径
                 sp.SoundLocation = wavFilePath;
 
                 //使用异步方式加载wav文件
@@ -126,17 +122,20 @@ namespace SufeiUtil
                 throw ex;
             }
         }
-        #endregion
+
+        #endregion 异步播放wav文件
 
         #region 停止播放wav文件
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sp">SoundPlayer对象</param>
         public static void StopWAV(SoundPlayer sp)
         {
             sp.Stop();
         }
-        #endregion
+
+        #endregion 停止播放wav文件
     }
 }

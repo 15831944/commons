@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System
 {
-     /// <summary>
+    /// <summary>
     /// Cookie操作帮助类
     /// </summary>
     public static class HttpCookieHelper
@@ -40,10 +38,13 @@ namespace SufeiUtil
             foreach (CookieItem item in GetCookieList(cookie))
             {
                 if (item.Key == Key)
+                {
                     return item.Value;
+                }
             }
             return "";
         }
+
         /// <summary>
         /// 格式化Cookie为标准格式
         /// </summary>
@@ -65,6 +66,7 @@ namespace SufeiUtil
         /// 键
         /// </summary>
         public string Key { get; set; }
+
         /// <summary>
         /// 值
         /// </summary>

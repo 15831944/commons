@@ -1,13 +1,8 @@
-/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
+
 using System; 
 using System.Text; 
 using System.Security.Cryptography;
-namespace SufeiUtil
+namespace System.DEncrypt
 { 
 	/// <summary> 
 	/// RSA加密解密及RSA签名和验证
