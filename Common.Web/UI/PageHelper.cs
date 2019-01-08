@@ -1,16 +1,7 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Web;
-using System.Web.UI;
+﻿using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
-namespace SufeiUtil
+namespace System.Web.UI
 {
     public class PageHelper
     {
@@ -104,13 +95,7 @@ namespace SufeiUtil
                     }
                 }
 
-                #endregion
-
-                #region 时间控件禁用时不显示图片
-
-
-
-                #endregion
+                #endregion 多行文本框不能禁用，应设为只读，不然滚动条不能使用
             }
 
             //HtmlControl
@@ -178,7 +163,7 @@ namespace SufeiUtil
             return false;
         }
 
-        #endregion
+        #endregion 控件状态设置
 
         #region 页面处理其它辅助方法
 
@@ -267,12 +252,10 @@ namespace SufeiUtil
             // NDGridViewScriptFirst(page.Form.Controls, page);
 
             //ScriptManager.RegisterStartupScript(page, page.GetType(), System.Guid.NewGuid().ToString(), script, true);
-
         }
 
         //private void NDGridViewScriptFirst(ControlCollection ctls, Page page)
         //{
-
         //    foreach (Control ctl in ctls)
         //    {
         //        if (ctl is NDGridView)
@@ -305,6 +288,6 @@ namespace SufeiUtil
             return Convert.ToInt32(version);
         }
 
-        #endregion
+        #endregion 页面处理其它辅助方法
     }
 }

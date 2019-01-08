@@ -1,17 +1,8 @@
-﻿/// <summary>
-/// 类说明：GridViewExport
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Data;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System.Data;
 using System.IO;
 using System.Text;
 
-namespace SufeiUtil
+namespace System.Web.UI.WebControls
 {
     /// <summary>
     /// Summary description for GridViewExport
@@ -32,7 +23,6 @@ namespace SufeiUtil
                 "content-disposition", string.Format("attachment; filename={0}", fileName));
             HttpContext.Current.Response.ContentType = "application/ms-excel";
             //HttpContext.Current.Response.Charset = "utf-8";
-
 
             using (StringWriter sw = new StringWriter())
             {
@@ -114,7 +104,6 @@ namespace SufeiUtil
             }
         }
 
-
         /// <summary>
         /// 导出Grid的数据(全部)到Excel
         /// 字段全部为BoundField类型时可用
@@ -141,12 +130,10 @@ namespace SufeiUtil
             s.AppendLine("<tr>");
             for (int i = 0; i < count; i++)
             {
-
                 if (grid.Columns[i].GetType() == typeof(BoundField))
                     s.Append("<td>" + grid.Columns[i].HeaderText + "</td>");
 
                 //s.Append("<td>" + grid.Columns[i].HeaderText + "</td>");
-
             }
             s.Append("</tr>");
 
@@ -157,7 +144,6 @@ namespace SufeiUtil
                 {
                     if (grid.Columns[n].Visible && grid.Columns[n].GetType() == typeof(BoundField))
                         s.Append("<td>" + dr[((BoundField)grid.Columns[n]).DataField].ToString() + "</td>");
-
                 }
                 s.AppendLine("</tr>");
             }

@@ -66,20 +66,6 @@
     <Compile Include="WeChatUserResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common.Web.Mvc\Common.Web.Mvc.csproj">
-      <Project>{30f7a5a6-28bd-4596-89e5-688f9077e2d3}</Project>
-      <Name>Common.Web.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common.Web\Common.Web.csproj">
-      <Project>{797168fa-da8d-4d3f-8639-1ff4b2c90b4c}</Project>
-      <Name>Common.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{d164891a-aeb0-4a28-9bc3-b2de2b6705c0}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="LitJson">
       <Version>0.13.0</Version>
     </PackageReference>

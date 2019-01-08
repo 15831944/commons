@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Drawing;
+﻿using System.Drawing;
 
-namespace SufeiUtil
+namespace System.Web.UI
 {
     /// <summary>
     /// 验证码 继承 System.Web.UI.Page ，Session["xk_validate_code"]
@@ -33,6 +26,7 @@ namespace SufeiUtil
             Session["xk_validate_code"] = validateCode;
             CreateImage(validateCode);
         }
+
         /// <summary>
         /// 创建图片
         /// </summary>

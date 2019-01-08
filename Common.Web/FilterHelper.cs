@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 
-namespace SufeiUtil.Web
+namespace System.Web
 {
     /// <summary>
     /// 编码人：苏飞
@@ -55,6 +51,7 @@ namespace SufeiUtil.Web
             }
             return false;
         }
+
         /// <summary>
         /// 对Html进行解码
         /// </summary>

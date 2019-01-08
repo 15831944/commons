@@ -1,17 +1,9 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+﻿using System.IO;
 using System.Web.UI.WebControls;
-using System.IO;
-using System.Web.UI;
 
-namespace SufeiUtil
+namespace System.Web.UI
 {
-    public class BasePage :System.Web.UI.Page
+    public class BasePage : System.Web.UI.Page
     {
         public BasePage()
         {
@@ -21,7 +13,9 @@ namespace SufeiUtil
         }
 
         public static string Title = "标题";
+
         public static string keywords = "关键字";
+
         public static string description = "网站描述";
 
         protected override void OnInit(EventArgs e)
@@ -35,21 +29,20 @@ namespace SufeiUtil
 
         protected void ExportData(string strContent, string FileName)
         {
-
             FileName = FileName + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + DateTime.Now.Millisecond.ToString();
 
             Response.Clear();
             Response.Charset = "gb2312";
             Response.ContentType = "application/ms-excel";
             Response.ContentEncoding = System.Text.Encoding.UTF8;
-            //this.Page.EnableViewState = false; 
-            // 添加头信息，为"文件下载/另存为"对话框指定默认文件名 
+            //this.Page.EnableViewState = false;
+            // 添加头信息，为"文件下载/另存为"对话框指定默认文件名
             Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".xls");
-            // 把文件流发送到客户端 
+            // 把文件流发送到客户端
             Response.Write("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
             Response.Write(strContent);
             Response.Write("</body></html>");
-            // 停止页面的执行 
+            // 停止页面的执行
             //Response.End();
         }
 

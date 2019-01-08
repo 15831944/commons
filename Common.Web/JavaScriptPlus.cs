@@ -1,12 +1,4 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Web;
-
-namespace SufeiUtil
+﻿namespace System.Web
 {
     /// <summary>
     /// JavaScript 操作类
@@ -15,6 +7,7 @@ namespace SufeiUtil
     {
         public JavaScriptPlus()
         { }
+
         /// <summary>
         /// 输出自定义脚本信息
         /// </summary>
@@ -24,7 +17,9 @@ namespace SufeiUtil
         {
             page.ClientScript.RegisterStartupScript(page.GetType(), "message", "<script language='javascript' defer>" + script + "</script>");
         }
+
         #region 回到历史页面
+
         /// <summary>
         /// 回到历史页面
         /// </summary>
@@ -33,13 +28,15 @@ namespace SufeiUtil
         {
             #region
             string js = @"<Script language='JavaScript'>
-                    history.go({0});  
+                    history.go({0});
                   </Script>";
             HttpContext.Current.Response.Write(string.Format(js, value));
-            #endregion
+            #endregion 回到历史页面
         }
+
         #endregion
         #region 关闭当前窗口
+
         /// <summary>
         /// 关闭当前窗口
         /// </summary>
@@ -47,14 +44,16 @@ namespace SufeiUtil
         {
             #region
             string js = @"<Script language='JavaScript'>
-                    parent.opener=null;window.close();  
+                    parent.opener=null;window.close();
                   </Script>";
             HttpContext.Current.Response.Write(js);
             HttpContext.Current.Response.End();
             #endregion
         }
+
         #endregion
         #region 刷新父窗口
+
         /// <summary>
         /// 刷新父窗口
         /// </summary>
@@ -65,8 +64,10 @@ namespace SufeiUtil
             HttpContext.Current.Response.Write(js);
             #endregion
         }
+
         #endregion
         #region 刷新打开窗口
+
         /// <summary>
         /// 刷新打开窗口
         /// </summary>
@@ -79,8 +80,10 @@ namespace SufeiUtil
             HttpContext.Current.Response.Write(js);
             #endregion
         }
+
         #endregion
         #region 转向Url指定的页面
+
         /// <summary>
         /// 转向Url指定的页面
         /// </summary>
@@ -95,8 +98,10 @@ namespace SufeiUtil
             HttpContext.Current.Response.Write(js);
             #endregion
         }
+
         #endregion
         #region 打开指定大小位置的模式对话框
+
         /// <summary>
         /// 打开指定大小位置的模式对话框
         /// </summary>
@@ -116,8 +121,10 @@ namespace SufeiUtil
             ShowModalDialogWindow(webFormUrl, features);
             #endregion
         }
+
         #endregion
         #region 打开模式对话框
+
         /// <summary>
         /// 打开模式对话框
         /// </summary>
@@ -138,13 +145,15 @@ namespace SufeiUtil
         public static string ShowModalDialogJavascript(string webFormUrl, string features)
         {
             #region
-            string js = @"<script language=javascript>							
+            string js = @"<script language=javascript>
 							showModalDialog('" + webFormUrl + "','','" + features + "');</script>";
             return js;
             #endregion
         }
+
         #endregion
         #region 打开指定大小的新窗体
+
         /// <summary>
         /// 打开指定大小的新窗体
         /// </summary>
@@ -161,7 +170,9 @@ namespace SufeiUtil
             HttpContext.Current.Response.Write(js);
             #endregion
         }
+
         #endregion
+
         /// <summary>
         /// 页面跳转（跳出框架）
         /// </summary>

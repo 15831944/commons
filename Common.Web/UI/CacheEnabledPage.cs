@@ -1,20 +1,12 @@
-﻿/// <summary>
-/// 类说明：CacheEnabledPage
-/// 编 码 人：苏飞
-/// 联系方式：361983679
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Web.UI;
 
-namespace SufeiUtil
+namespace System.Web.UI
 {
     /// <summary>
     /// 启用缓存的Asp.net页 拥有一系列缓存方案的基础页的类定义，需要应用缓存技术的Asp.net页面可以继

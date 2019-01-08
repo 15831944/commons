@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-
-namespace SufeiUtil.Web
+﻿namespace System.Web
 {
     /// <summary>
     /// 处理web端请求的一些处理方法
@@ -217,6 +211,7 @@ namespace SufeiUtil.Web
             HttpContext.Current.Response.ExpiresAbsolute = DateTime.Today.AddDays(-1);
             HttpContext.Current.Response.CacheControl = "no-cache";
         }
+
         public static string GetClientIp()
         {
             string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
@@ -233,7 +228,6 @@ namespace SufeiUtil.Web
 
         public static void RedirectError()
         {
-
             System.Web.HttpContext.Current.Response.Redirect("http://www.jjoobb.cn/Error.html");
         }
 
@@ -249,6 +243,7 @@ namespace SufeiUtil.Web
                 return isAllowUrl(reqDomain);
             }
         }
+
         /// <summary>
         /// 判断请求来源是否允许
         /// </summary>
@@ -265,6 +260,7 @@ namespace SufeiUtil.Web
             }
             return false;
         }
+
         /// <summary>
         /// 判断请求来源是否在排除之列(总站)
         /// </summary>
@@ -284,6 +280,7 @@ namespace SufeiUtil.Web
         {
             return true;
         }
+
         /// <summary>
         /// 判断请求来源是否允许，允许则返回true
         /// </summary>
@@ -296,6 +293,5 @@ namespace SufeiUtil.Web
                 return isAllowUrl(reqDomain);
             }
         }
-
     }
 }

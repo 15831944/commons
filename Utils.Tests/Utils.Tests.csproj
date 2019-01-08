@@ -81,6 +81,30 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.Cloud\Common.Cloud.csproj">
+      <Project>{ad3de724-fff5-4be9-86f2-c66d91c60bc6}</Project>
+      <Name>Common.Cloud</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.Data\Common.Data.csproj">
+      <Project>{1d4ffdfe-0df5-44f0-8098-49ef411b3e3f}</Project>
+      <Name>Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.Library\Common.Library.csproj">
+      <Project>{89523e46-ff39-40af-8613-be2ea6588170}</Project>
+      <Name>Common.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.Web.Mvc\Common.Web.Mvc.csproj">
+      <Project>{30f7a5a6-28bd-4596-89e5-688f9077e2d3}</Project>
+      <Name>Common.Web.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.Web\Common.Web.csproj">
+      <Project>{797168fa-da8d-4d3f-8639-1ff4b2c90b4c}</Project>
+      <Name>Common.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common.WeChat\Common.WeChat.csproj">
+      <Project>{c03d9f6d-21da-4d1b-b3e5-ced7e669ffcb}</Project>
+      <Name>Common.WeChat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{d164891a-aeb0-4a28-9bc3-b2de2b6705c0}</Project>
       <Name>Common</Name>

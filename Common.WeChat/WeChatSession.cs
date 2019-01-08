@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Web.Mvc;
 
 namespace System.WeChat
 {
-    public class WeChatSession : ClaimInfo<string>
+    public class WeChatSession
     {
         public string OpenID { get; set; }
         public string NickName { get; set; }

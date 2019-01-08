@@ -1,19 +1,9 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.IO;
+﻿using System.Collections;
 using System.Data;
-using System.Collections;
 using System.Data.OleDb;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.IO;
 
-namespace SufeiUtil
+namespace System.Web.UI.WebControls
 {
     /// <summary>
     /// Excel操作类
@@ -22,9 +12,10 @@ namespace SufeiUtil
     public class ExcelHelper
     {
         #region 数据导出至Excel文件
-        /// </summary> 
-        /// 导出Excel文件，自动返回可下载的文件流 
-        /// </summary> 
+
+        /// </summary>
+        /// 导出Excel文件，自动返回可下载的文件流
+        /// </summary>
         public static void DataTable1Excel(System.Data.DataTable dtData)
         {
             GridView gvExport = null;
@@ -447,7 +438,8 @@ namespace SufeiUtil
             }
             return true;
         }
-        #endregion
+
+        #endregion 数据导出至Excel文件
 
         /// <summary>
         /// 获取Excel文件数据表列表

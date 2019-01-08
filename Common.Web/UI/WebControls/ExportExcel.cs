@@ -1,16 +1,6 @@
-﻿/// <summary>
-/// 类说明：ExportExcel
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Web;
-using System.Web.UI;
-using System.IO;
-using System.Web.UI.WebControls;
+﻿using System.IO;
 
-namespace SufeiUtil
+namespace System.Web.UI.WebControls
 {
     public class ExportExcel
     {
@@ -26,15 +16,15 @@ namespace SufeiUtil
             HttpContext.Current.Response.Charset = "gb2312";
             HttpContext.Current.Response.ContentType = "application/ms-excel";
             HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.UTF8;
-            //this.Page.EnableViewState = false; 
-            // 添加头信息，为"文件下载/另存为"对话框指定默认文件名 
+            //this.Page.EnableViewState = false;
+            // 添加头信息，为"文件下载/另存为"对话框指定默认文件名
             HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".xls");
-            // 把文件流发送到客户端 
+            // 把文件流发送到客户端
             HttpContext.Current.Response.Write("<html><head><meta http-equiv=Content-Type content=\"text/html; charset=utf-8\">");
             HttpContext.Current.Response.Write(strContent);
 
             HttpContext.Current.Response.Write("</body></html>");
-            // 停止页面的执行 
+            // 停止页面的执行
             //Response.End();
         }
 
@@ -72,7 +62,6 @@ namespace SufeiUtil
             }
             catch
             {
-
             }
         }
     }

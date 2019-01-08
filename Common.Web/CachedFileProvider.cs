@@ -1,16 +1,9 @@
-﻿/// <summary>
-/// 类说明：ConfigHelper
-/// 编 码 人：苏飞
-/// 联系方式：361983679
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading;
-using System.Web;
 
-namespace SufeiUtil
+namespace System.Web
 {
     /// <summary>
     /// 缓存文件服务提供程序 缓存文件与文件系统的相关操作的服务提供程序定义
@@ -27,9 +20,11 @@ namespace SufeiUtil
         /// </summary>
         public CachedFileProvider()
         {
-            var cachedPagePath = ConfigHelper.GetValue("cachedPagePath");
+            var cachedPagePath = this.GetConfigValue("cachedPagePath");
             if (string.IsNullOrWhiteSpace(cachedPagePath))
+            {
                 throw new ConfigurationErrorsException("缓存文件路径未正确配置。");
+            }
 
             this.CachedPagePath = cachedPagePath;
         }
@@ -54,7 +49,7 @@ namespace SufeiUtil
         /// <returns></returns>
         public string CreateCachedFolderPath(string fileName)
         {
-            var folderName = fileName.GetHashID();
+            var folderName = this.GetHashID(fileName);
             var folderPath = string.Concat(this.CachedPagePath, "\\", folderName, "\\");
 
             return folderPath;
@@ -67,7 +62,9 @@ namespace SufeiUtil
         public void RemoveCachedFile(params string[] fileNames)
         {
             if (fileNames == null || fileNames.Length == 0)
+            {
                 return;
+            }
 
             foreach (var fileName in fileNames)
             {
@@ -95,6 +92,50 @@ namespace SufeiUtil
                     }
                 }, cachedFileFullName);
             }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private string GetConfigValue(string key)
+        {
+            if (ConfigurationManager.AppSettings.HasKeys())
+            {
+                if (ConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    return ConfigurationManager.AppSettings[key].ToString().Trim();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private string GetHashID(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return "default";
+            }
+            s = s.ToLower();
+            int hash;
+            int i;
+            for (hash = 0, i = 0; i < s.Length; ++i)
+            {
+                hash += s[i];
+                hash += (hash << 10);
+                hash ^= (hash >> 6);
+            }
+            hash += (hash << 3);
+            hash ^= (hash >> 11);
+            return (Math.Abs(hash) % 10000).ToString();
         }
     }
 }

@@ -1,13 +1,6 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System.Web;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace SufeiUtil
+namespace System.Web
 {
     /// <summary>
     /// QueryString 地址栏参数
@@ -15,6 +8,7 @@ namespace SufeiUtil
     public class QueryString
     {
         #region 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
+
         /// <summary>
         /// 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
         /// </summary>
@@ -24,7 +18,9 @@ namespace SufeiUtil
         {
             return Request.QueryString[name] == null ? "" : Request.QueryString[name];
         }
-        #endregion
+
+        #endregion 等于Request.QueryString;如果为null 返回 空“” ，否则返回Request.QueryString[name]
+
         /// <summary>
         /// 等于  Request.Form  如果为null 返回 空“” ，否则返回 Request.Form[name]
         /// </summary>
@@ -34,7 +30,9 @@ namespace SufeiUtil
         {
             return Request.Form[name] == null ? "" : Request.Form[name].ToString();
         }
+
         #region 获取url中的id
+
         /// <summary>
         /// 获取url中的id
         /// </summary>
@@ -44,8 +42,11 @@ namespace SufeiUtil
         {
             return StrToId(Q(name));
         }
-        #endregion
+
+        #endregion 获取url中的id
+
         #region 获取正确的Id，如果不是正整数，返回0
+
         /// <summary>
         /// 获取正确的Id，如果不是正整数，返回0
         /// </summary>
@@ -58,8 +59,11 @@ namespace SufeiUtil
             else
                 return 0;
         }
-        #endregion
+
+        #endregion 获取正确的Id，如果不是正整数，返回0
+
         #region 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
         /// <summary>
         /// 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
         /// </summary>
@@ -69,8 +73,11 @@ namespace SufeiUtil
         {
             return QuickValidate("^[1-9]*[0-9]*$", _value);
         }
-        #endregion
+
+        #endregion 检查一个字符串是否是纯数字构成的，一般用于查询字符串参数的有效性验证。
+
         #region 快速验证一个字符串是否符合指定的正则表达式。
+
         /// <summary>
         /// 快速验证一个字符串是否符合指定的正则表达式。
         /// </summary>
@@ -87,9 +94,11 @@ namespace SufeiUtil
             }
             return myRegex.IsMatch(_value);
         }
-        #endregion
+
+        #endregion 快速验证一个字符串是否符合指定的正则表达式。
 
         #region 类内部调用
+
         /// <summary>
         /// HttpContext Current
         /// </summary>
@@ -97,6 +106,7 @@ namespace SufeiUtil
         {
             get { return HttpContext.Current; }
         }
+
         /// <summary>
         /// HttpContext Current  HttpRequest Request   get { return Current.Request;
         /// </summary>
@@ -104,6 +114,7 @@ namespace SufeiUtil
         {
             get { return Current.Request; }
         }
+
         /// <summary>
         ///  HttpContext Current  HttpRequest Request   get { return Current.Request; HttpResponse Response  return Current.Response;
         /// </summary>
@@ -111,6 +122,7 @@ namespace SufeiUtil
         {
             get { return Current.Response; }
         }
-        #endregion
+
+        #endregion 类内部调用
     }
 }

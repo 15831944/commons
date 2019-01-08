@@ -1,16 +1,8 @@
-﻿/// <summary>
-/// 类说明：Assistant
-/// 编 码 人：苏飞
-/// 联系方式：361983679  
-/// 更新网站：http://www.sufeinet.com/thread-655-1-1.html
-/// </summary>
-using System;
+﻿using System.Drawing;
 using System.IO;
-using System.Web;
 using System.Web.UI.HtmlControls;
-using System.Drawing;
 
-namespace SufeiUtil
+namespace System.Web
 {
     /// <summary>
     /// 文件类型
@@ -18,18 +10,31 @@ namespace SufeiUtil
     public enum FileExtension
     {
         JPG = 255216,
+
         GIF = 7173,
+
         BMP = 6677,
+
         PNG = 13780,
+
         RAR = 8297,
+
         jpg = 255216,
+
         exe = 7790,
+
         xml = 6063,
+
         html = 6033,
+
         aspx = 239187,
+
         cs = 117115,
+
         js = 119105,
+
         txt = 210187,
+
         sql = 255254
     }
 
@@ -39,6 +44,7 @@ namespace SufeiUtil
     public static class FileValidation
     {
         #region 上传图片检测类
+
         /// <summary>
         /// 是否允许
         /// </summary>
@@ -134,7 +140,8 @@ namespace SufeiUtil
             }
             return (Img == "Yes");
         }
-        #endregion
+
+        #endregion 上传图片检测类
     }
 
     /// <summary>
@@ -163,39 +170,64 @@ namespace SufeiUtil
     public class ImageUpload
     {
         #region 私有成员
-        private int _Error = 0;//返回上传状态。 
+
+        private int _Error = 0;//返回上传状态。
+
         private int _MaxSize = 1024 * 1024;//最大单个上传文件 (默认)
-        private string _FileType = "jpg;gif;bmp;png";//所支持的上传类型用"/"隔开 
-        private string _SavePath = System.Web.HttpContext.Current.Server.MapPath(".") + "\\";//保存文件的实际路径 
-        private int _SaveType = 0;//上传文件的类型，0代表自动生成文件名 
-        private HtmlInputFile _FormFile;//上传控件。 
-        private string _InFileName = "";//非自动生成文件名设置。 
-        private string _OutFileName = "";//输出文件名。 
-        private bool _IsCreateImg = true;//是否生成缩略图。 
+
+        private string _FileType = "jpg;gif;bmp;png";//所支持的上传类型用"/"隔开
+
+        private string _SavePath = System.Web.HttpContext.Current.Server.MapPath(".") + "\\";//保存文件的实际路径
+
+        private int _SaveType = 0;//上传文件的类型，0代表自动生成文件名
+
+        private HtmlInputFile _FormFile;//上传控件。
+
+        private string _InFileName = "";//非自动生成文件名设置。
+
+        private string _OutFileName = "";//输出文件名。
+
+        private bool _IsCreateImg = true;//是否生成缩略图。
+
         private bool _Iss = false;//是否有缩略图生成.
-        private int _Height = 0;//获取上传图片的高度 
-        private int _Width = 0;//获取上传图片的宽度 
-        private int _sHeight = 120;//设置生成缩略图的高度 
+
+        private int _Height = 0;//获取上传图片的高度
+
+        private int _Width = 0;//获取上传图片的宽度
+
+        private int _sHeight = 120;//设置生成缩略图的高度
+
         private int _sWidth = 120;//设置生成缩略图的宽度
+
         private bool _IsDraw = false;//设置是否加水印
+
         private int _DrawStyle = 0;//设置加水印的方式０：文字水印模式，１：图片水印模式,2:不加
+
         private int _DrawString_x = 10;//绘制文本的Ｘ坐标（左上角）
+
         private int _DrawString_y = 10;//绘制文本的Ｙ坐标（左上角）
+
         private string _AddText = "GlobalNatureCrafts";//设置水印内容
+
         private string _Font = "宋体";//设置水印字体
+
         private int _FontSize = 12;//设置水印字大小
+
         private int _FileSize = 0;//获取已经上传文件的大小
+
         private string _CopyIamgePath = System.Web.HttpContext.Current.Server.MapPath(".") + "/images/5dm_new.jpg";//图片水印模式下的覆盖图片的实际地址
-        #endregion
+
+        #endregion 私有成员
 
         #region 公有属性
+
         /// <summary>
         /// Error返回值
         /// 1、没有上传的文件
         /// 2、类型不允许
         /// 3、大小超限
         /// 4、未知错误
-        /// 0、上传成功。 
+        /// 0、上传成功。
         /// </summary>
         public int Error
         {
@@ -211,7 +243,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 所支持的上传类型用";"隔开 
+        /// 所支持的上传类型用";"隔开
         /// </summary>
         public string FileType
         {
@@ -219,7 +251,7 @@ namespace SufeiUtil
         }
 
         /// <summary>
-        /// 保存文件的实际路径 
+        /// 保存文件的实际路径
         /// </summary>
         public string SavePath
         {
@@ -403,11 +435,12 @@ namespace SufeiUtil
             set { _CopyIamgePath = System.Web.HttpContext.Current.Server.MapPath(value); }
         }
 
-        #endregion
+        #endregion 公有属性
 
         #region 私有方法
+
         /// <summary>
-        /// 获取文件的后缀名 
+        /// 获取文件的后缀名
         /// </summary>
         private string GetExt(string path)
         {
@@ -443,9 +476,11 @@ namespace SufeiUtil
             }
             return b;
         }
-        #endregion
+
+        #endregion 私有方法
 
         #region 上传图片
+
         public void Upload()
         {
             HttpPostedFile hpFile = _FormFile.PostedFile;
@@ -520,10 +555,11 @@ namespace SufeiUtil
                 _Width = Img.Width;
                 _Height = Img.Height;
 
-                //生成缩略图部分 
+                //生成缩略图部分
                 if (_IsCreateImg)
                 {
                     #region 缩略图大小只设置了最大范围，并不是实际大小
+
                     float realbili = (float)_Width / (float)_Height;
                     float wishbili = (float)_sWidth / (float)_sHeight;
 
@@ -537,7 +573,8 @@ namespace SufeiUtil
                     {
                         _sWidth = (int)((float)_sHeight * realbili);
                     }
-                    #endregion
+
+                    #endregion 缩略图大小只设置了最大范围，并不是实际大小
 
                     this.OutThumbFileName = FName.Split('.').GetValue(0).ToString() + "_s." + FName.Split('.').GetValue(1).ToString();
                     string ImgFilePath = _SavePath + this.OutThumbFileName;
@@ -569,6 +606,7 @@ namespace SufeiUtil
                 return;
             }
         }
-        #endregion
+
+        #endregion 上传图片
     }
 }
