@@ -1,4 +1,5 @@
 using Microsoft.Practices.EnterpriseLibrary.Data;
+
 using System.Collections;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -12,75 +13,59 @@ namespace System.Data.ADO
     /// </summary>
     public abstract class DbHelperSQLEnterprise
     {
-        public DbHelperSQLEnterprise()
+        /// <summary>
+        ///
+        /// </summary>
+        private DbHelperSQLEnterprise()
         {
+            throw new NotSupportedException();
         }
 
         #region 公用方法
 
-        public static int GetMaxID(string FieldName, string TableName)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        public static int GetMaxID(string fieldName, string tableName)
         {
-            string strSql = "select max(" + FieldName + ")+1 from " + TableName;
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
-            object obj = db.ExecuteScalar(dbCommand);
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                return 1;
-            }
-            else
-            {
-                return int.Parse(obj.ToString());
-            }
+            var strSql = "select max(" + fieldName + ")+1 from " + tableName;
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
+            var obj = db.ExecuteScalar(dbCommand);
+            return Equals(obj, null) || Equals(obj, DBNull.Value) ? 1 : int.Parse(obj.ToString());
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="strSql"></param>
+        /// <returns></returns>
         public static bool Exists(string strSql)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
-            object obj = db.ExecuteScalar(dbCommand);
-            int cmdresult;
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                cmdresult = 0;
-            }
-            else
-            {
-                cmdresult = int.Parse(obj.ToString());
-            }
-            if (cmdresult == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
+            var obj = db.ExecuteScalar(dbCommand);
+            var cmdresult = Equals(obj, null) || Equals(obj, DBNull.Value) ? 0 : int.Parse(obj.ToString());
+            return cmdresult != 0 ? true : false;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="strSql"></param>
+        /// <param name="cmdParms"></param>
+        /// <returns></returns>
         public static bool Exists(string strSql, params SqlParameter[] cmdParms)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             BuildDBParameter(db, dbCommand, cmdParms);
-            object obj = db.ExecuteScalar(dbCommand);
-            int cmdresult;
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                cmdresult = 0;
-            }
-            else
-            {
-                cmdresult = int.Parse(obj.ToString());
-            }
-            if (cmdresult == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            var obj = db.ExecuteScalar(dbCommand);
+            var cmdresult = Equals(obj, null) || Equals(obj, DBNull.Value) ? 0 : int.Parse(obj.ToString());
+            return cmdresult != 0 ? true : false;
         }
 
         /// <summary>
@@ -88,7 +73,7 @@ namespace System.Data.ADO
         /// </summary>
         public static void BuildDBParameter(Database db, DbCommand dbCommand, params SqlParameter[] cmdParms)
         {
-            foreach (SqlParameter sp in cmdParms)
+            foreach (var sp in cmdParms)
             {
                 db.AddInParameter(dbCommand, sp.ParameterName, sp.DbType, sp.Value);
             }
@@ -105,15 +90,21 @@ namespace System.Data.ADO
         /// <returns>影响的记录数</returns>
         public static int ExecuteSql(string strSql)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             return db.ExecuteNonQuery(dbCommand);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="strSql"></param>
+        /// <param name="Times"></param>
+        /// <returns></returns>
         public static int ExecuteSqlByTime(string strSql, int Times)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             dbCommand.CommandTimeout = Times;
             return db.ExecuteNonQuery(dbCommand);
         }
@@ -121,23 +112,23 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>
-        public static void ExecuteSqlTran(ArrayList SQLStringList)
+        /// <param name="sqlStringList">多条SQL语句</param>
+        public static void ExecuteSqlTran(ArrayList sqlStringList)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            using (DbConnection dbconn = db.CreateConnection())
+            var db = DatabaseFactory.CreateDatabase();
+            using (var dbconn = db.CreateConnection())
             {
                 dbconn.Open();
-                DbTransaction dbtran = dbconn.BeginTransaction();
+                var dbtran = dbconn.BeginTransaction();
                 try
                 {
                     //执行语句
-                    for (int n = 0; n < SQLStringList.Count; n++)
+                    for (var n = 0; n < sqlStringList.Count; n++)
                     {
-                        string strsql = SQLStringList[n].ToString();
+                        var strsql = sqlStringList[n].ToString();
                         if (strsql.Trim().Length > 1)
                         {
-                            DbCommand dbCommand = db.GetSqlStringCommand(strsql);
+                            var dbCommand = db.GetSqlStringCommand(strsql);
                             db.ExecuteNonQuery(dbCommand);
                         }
                     }
@@ -167,8 +158,8 @@ namespace System.Data.ADO
         /// <returns>影响的记录数</returns>
         public static int ExecuteSql(string strSql, string content)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             db.AddInParameter(dbCommand, "@content", DbType.String, content);
             return db.ExecuteNonQuery(dbCommand);
         }
@@ -181,18 +172,11 @@ namespace System.Data.ADO
         /// <returns>返回语句里的查询结果</returns>
         public static object ExecuteSqlGet(string strSql, string content)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             db.AddInParameter(dbCommand, "@content", DbType.String, content);
             object obj = db.ExecuteNonQuery(dbCommand);
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                return null;
-            }
-            else
-            {
-                return obj;
-            }
+            return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
         }
 
         /// <summary>
@@ -203,8 +187,8 @@ namespace System.Data.ADO
         /// <returns>影响的记录数</returns>
         public static int ExecuteSqlInsertImg(string strSql, byte[] fs)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             db.AddInParameter(dbCommand, "@fs", DbType.Byte, fs);
             return db.ExecuteNonQuery(dbCommand);
         }
@@ -218,17 +202,10 @@ namespace System.Data.ADO
         /// <returns>查询结果（object）</returns>
         public static object GetSingle(string strSql)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
-            object obj = db.ExecuteScalar(dbCommand);
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                return null;
-            }
-            else
-            {
-                return obj;
-            }
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
+            var obj = db.ExecuteScalar(dbCommand);
+            return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
         }
 
         /// <summary>
@@ -238,9 +215,9 @@ namespace System.Data.ADO
         /// <returns>SqlDataReader</returns>
         public static SqlDataReader ExecuteReader(string strSql)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
-            SqlDataReader dr = (SqlDataReader)db.ExecuteReader(dbCommand);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
+            var dr = (SqlDataReader)db.ExecuteReader(dbCommand);
             return dr;
         }
 
@@ -251,15 +228,21 @@ namespace System.Data.ADO
         /// <returns>DataSet</returns>
         public static DataSet Query(string strSql)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             return db.ExecuteDataSet(dbCommand);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="strSql"></param>
+        /// <param name="Times"></param>
+        /// <returns></returns>
         public static DataSet Query(string strSql, int Times)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             dbCommand.CommandTimeout = Times;
             return db.ExecuteDataSet(dbCommand);
         }
@@ -275,8 +258,8 @@ namespace System.Data.ADO
         /// <returns>影响的记录数</returns>
         public static int ExecuteSql(string strSql, params SqlParameter[] cmdParms)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             BuildDBParameter(db, dbCommand, cmdParms);
             return db.ExecuteNonQuery(dbCommand);
         }
@@ -284,24 +267,24 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public static void ExecuteSqlTran(Hashtable SQLStringList)
+        /// <param name="sqlStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        public static void ExecuteSqlTran(Hashtable sqlStringList)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            using (DbConnection dbconn = db.CreateConnection())
+            var db = DatabaseFactory.CreateDatabase();
+            using (var dbconn = db.CreateConnection())
             {
                 dbconn.Open();
-                DbTransaction dbtran = dbconn.BeginTransaction();
+                var dbtran = dbconn.BeginTransaction();
                 try
                 {
                     //执行语句
-                    foreach (DictionaryEntry myDE in SQLStringList)
+                    foreach (DictionaryEntry myDE in sqlStringList)
                     {
-                        string strsql = myDE.Key.ToString();
-                        SqlParameter[] cmdParms = (SqlParameter[])myDE.Value;
+                        var strsql = myDE.Key.ToString();
+                        var cmdParms = (SqlParameter[])myDE.Value;
                         if (strsql.Trim().Length > 1)
                         {
-                            DbCommand dbCommand = db.GetSqlStringCommand(strsql);
+                            var dbCommand = db.GetSqlStringCommand(strsql);
                             BuildDBParameter(db, dbCommand, cmdParms);
                             db.ExecuteNonQuery(dbCommand);
                         }
@@ -326,18 +309,11 @@ namespace System.Data.ADO
         /// <returns>查询结果（object）</returns>
         public static object GetSingle(string strSql, params SqlParameter[] cmdParms)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             BuildDBParameter(db, dbCommand, cmdParms);
-            object obj = db.ExecuteScalar(dbCommand);
-            if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
-            {
-                return null;
-            }
-            else
-            {
-                return obj;
-            }
+            var obj = db.ExecuteScalar(dbCommand);
+            return Equals(obj, null) || Equals(obj, DBNull.Value) ? null : obj;
         }
 
         /// <summary>
@@ -347,10 +323,10 @@ namespace System.Data.ADO
         /// <returns>SqlDataReader</returns>
         public static SqlDataReader ExecuteReader(string strSql, params SqlParameter[] cmdParms)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             BuildDBParameter(db, dbCommand, cmdParms);
-            SqlDataReader dr = (SqlDataReader)db.ExecuteReader(dbCommand);
+            var dr = (SqlDataReader)db.ExecuteReader(dbCommand);
             return dr;
         }
 
@@ -361,24 +337,38 @@ namespace System.Data.ADO
         /// <returns>DataSet</returns>
         public static DataSet Query(string strSql, params SqlParameter[] cmdParms)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetSqlStringCommand(strSql);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetSqlStringCommand(strSql);
             BuildDBParameter(db, dbCommand, cmdParms);
             return db.ExecuteDataSet(dbCommand);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="conn"></param>
+        /// <param name="trans"></param>
+        /// <param name="cmdText"></param>
+        /// <param name="cmdParms"></param>
         private static void PrepareCommand(SqlCommand cmd, SqlConnection conn, SqlTransaction trans, string cmdText, SqlParameter[] cmdParms)
         {
             if (conn.State != ConnectionState.Open)
+            {
                 conn.Open();
+            }
+
             cmd.Connection = conn;
             cmd.CommandText = cmdText;
             if (trans != null)
+            {
                 cmd.Transaction = trans;
+            }
+
             cmd.CommandType = CommandType.Text;//cmdType;
             if (cmdParms != null)
             {
-                foreach (SqlParameter parameter in cmdParms)
+                foreach (var parameter in cmdParms)
                 {
                     if ((parameter.Direction == ParameterDirection.InputOutput || parameter.Direction == ParameterDirection.Input) &&
                         (parameter.Value == null))
@@ -399,8 +389,8 @@ namespace System.Data.ADO
         /// </summary>
         public static int RunProcedure(string storedProcName)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand(storedProcName);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetStoredProcCommand(storedProcName);
             return db.ExecuteNonQuery(dbCommand);
         }
 
@@ -414,8 +404,8 @@ namespace System.Data.ADO
         /// <returns></returns>
         public static object RunProcedure(string storedProcName, IDataParameter[] InParameters, SqlParameter OutParameter, int rowsAffected)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand(storedProcName);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetStoredProcCommand(storedProcName);
             BuildDBParameter(db, dbCommand, (SqlParameter[])InParameters);
             db.AddOutParameter(dbCommand, OutParameter.ParameterName, OutParameter.DbType, OutParameter.Size);
             rowsAffected = db.ExecuteNonQuery(dbCommand);
@@ -430,8 +420,8 @@ namespace System.Data.ADO
         /// <returns>SqlDataReader</returns>
         public static SqlDataReader RunProcedure(string storedProcName, IDataParameter[] parameters)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
             //BuildDBParameter(db, dbCommand, parameters);
             return (SqlDataReader)db.ExecuteReader(dbCommand);
         }
@@ -445,8 +435,8 @@ namespace System.Data.ADO
         /// <returns>DataSet</returns>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
             //BuildDBParameter(db, dbCommand, parameters);
             return db.ExecuteDataSet(dbCommand);
         }
@@ -456,8 +446,8 @@ namespace System.Data.ADO
         /// </summary>
         public static DataSet RunProcedure(string storedProcName, IDataParameter[] parameters, string tableName, int Times)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            DbCommand dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
+            var db = DatabaseFactory.CreateDatabase();
+            var dbCommand = db.GetStoredProcCommand(storedProcName, parameters);
             dbCommand.CommandTimeout = Times;
             //BuildDBParameter(db, dbCommand, parameters);
             return db.ExecuteDataSet(dbCommand);
@@ -472,8 +462,10 @@ namespace System.Data.ADO
         /// <returns>SqlCommand</returns>
         private static SqlCommand BuildQueryCommand(SqlConnection connection, string storedProcName, IDataParameter[] parameters)
         {
-            SqlCommand command = new SqlCommand(storedProcName, connection);
-            command.CommandType = CommandType.StoredProcedure;
+            var command = new SqlCommand(storedProcName, connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
             foreach (SqlParameter parameter in parameters)
             {
                 if (parameter != null)
@@ -498,7 +490,7 @@ namespace System.Data.ADO
         /// <returns>SqlCommand 对象实例</returns>
         private static SqlCommand BuildIntCommand(SqlConnection connection, string storedProcName, IDataParameter[] parameters)
         {
-            SqlCommand command = BuildQueryCommand(connection, storedProcName, parameters);
+            var command = BuildQueryCommand(connection, storedProcName, parameters);
             command.Parameters.Add(new SqlParameter("ReturnValue",
                 SqlDbType.Int, 4, ParameterDirection.ReturnValue,
                 false, 0, 0, string.Empty, DataRowVersion.Default, null));

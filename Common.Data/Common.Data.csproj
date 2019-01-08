@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="CommandInfo.cs" />
     <Compile Include="ADO\DbHelperSQLDataPithy.cs" />
-    <Compile Include="ADO\SqlHelper2.cs" />
+    <Compile Include="ADO\SQLHelper2.cs" />
     <Compile Include="AutoMapper\Demo.cs" />
     <Compile Include="Chloe\DBBase.cs" />
     <Compile Include="Chloe\DBBase`.cs" />

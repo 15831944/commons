@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Data;
+﻿using System.Collections;
 using System.Data.SqlClient;
 
 namespace System.Data.ADO
@@ -10,7 +8,7 @@ namespace System.Data.ADO
     /// 此类为抽象类，
     /// 不允许实例化，在应用时直接调用即可
     /// </summary>
-    public abstract class SqlHelper2
+    public abstract class SQLHelper2
     {
         /// <summary>
         /// 数据库连接字符串
@@ -120,7 +118,7 @@ namespace System.Data.ADO
         /// <returns>返回一个表集合(DataTableCollection)表示查询得到的数据集</returns>
         public static DataTableCollection GetTable(CommandType cmdTye, string cmdText, SqlParameter[] commandParameters)
         {
-            return GetTable(SqlHelper2.ConnectionString, cmdTye, cmdText, commandParameters);
+            return GetTable(ConnectionString, cmdTye, cmdText, commandParameters);
         }
 
         /// <summary>
@@ -429,14 +427,7 @@ namespace System.Data.ADO
         public static bool Exists(string strSql, params SqlParameter[] cmdParms)
         {
             var cmdresult = Convert.ToInt32(ExecuteScalar(ConnectionString, CommandType.Text, strSql, cmdParms));
-            if (cmdresult == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return cmdresult != 0 ? true : false;
         }
     }
 }

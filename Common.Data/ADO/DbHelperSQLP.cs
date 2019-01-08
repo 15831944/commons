@@ -137,13 +137,13 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行SQL语句，返回影响的记录数
         /// </summary>
-        /// <param name="SQLString">SQL语句</param>
+        /// <param name="sqlString">SQL语句</param>
         /// <returns>影响的记录数</returns>
-        public int ExecuteSql(string SQLString)
+        public int ExecuteSql(string sqlString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(SQLString, connection))
+                using (SqlCommand cmd = new SqlCommand(sqlString, connection))
                 {
                     try
                     {
@@ -160,11 +160,11 @@ namespace System.Data.ADO
             }
         }
 
-        public int ExecuteSqlByTime(string SQLString, int Times)
+        public int ExecuteSqlByTime(string sqlString, int Times)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(SQLString, connection))
+                using (SqlCommand cmd = new SqlCommand(sqlString, connection))
                 {
                     try
                     {
@@ -292,8 +292,8 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>
-        public int ExecuteSqlTran(List<String> SQLStringList)
+        /// <param name="sqlStringList">多条SQL语句</param>
+        public int ExecuteSqlTran(List<String> sqlStringList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -305,9 +305,9 @@ namespace System.Data.ADO
                 try
                 {
                     int count = 0;
-                    for (int n = 0; n < SQLStringList.Count; n++)
+                    for (int n = 0; n < sqlStringList.Count; n++)
                     {
-                        string strsql = SQLStringList[n];
+                        string strsql = sqlStringList[n];
                         if (strsql.Trim().Length > 1)
                         {
                             cmd.CommandText = strsql;
@@ -328,14 +328,14 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行带一个存储过程参数的的SQL语句。
         /// </summary>
-        /// <param name="SQLString">SQL语句</param>
+        /// <param name="sqlString">SQL语句</param>
         /// <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
         /// <returns>影响的记录数</returns>
-        public int ExecuteSql(string SQLString, string content)
+        public int ExecuteSql(string sqlString, string content)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(SQLString, connection);
+                SqlCommand cmd = new SqlCommand(sqlString, connection);
                 System.Data.SqlClient.SqlParameter myParameter = new System.Data.SqlClient.SqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
@@ -360,14 +360,14 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行带一个存储过程参数的的SQL语句。
         /// </summary>
-        /// <param name="SQLString">SQL语句</param>
+        /// <param name="sqlString">SQL语句</param>
         /// <param name="content">参数内容,比如一个字段是格式复杂的文章，有特殊符号，可以通过这个方式添加</param>
         /// <returns>影响的记录数</returns>
-        public object ExecuteSqlGet(string SQLString, string content)
+        public object ExecuteSqlGet(string sqlString, string content)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand(SQLString, connection);
+                SqlCommand cmd = new SqlCommand(sqlString, connection);
                 System.Data.SqlClient.SqlParameter myParameter = new System.Data.SqlClient.SqlParameter("@content", SqlDbType.NText);
                 myParameter.Value = content;
                 cmd.Parameters.Add(myParameter);
@@ -431,13 +431,13 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
-        /// <param name="SQLString">计算查询结果语句</param>
+        /// <param name="sqlString">计算查询结果语句</param>
         /// <returns>查询结果（object）</returns>
-        public object GetSingle(string SQLString)
+        public object GetSingle(string sqlString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(SQLString, connection))
+                using (SqlCommand cmd = new SqlCommand(sqlString, connection))
                 {
                     try
                     {
@@ -461,11 +461,11 @@ namespace System.Data.ADO
             }
         }
 
-        public object GetSingle(string SQLString, int Times)
+        public object GetSingle(string sqlString, int Times)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(SQLString, connection))
+                using (SqlCommand cmd = new SqlCommand(sqlString, connection))
                 {
                     try
                     {
@@ -514,9 +514,9 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行查询语句，返回DataSet
         /// </summary>
-        /// <param name="SQLString">查询语句</param>
+        /// <param name="sqlString">查询语句</param>
         /// <returns>DataSet</returns>
-        public DataSet Query(string SQLString)
+        public DataSet Query(string sqlString)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -524,7 +524,7 @@ namespace System.Data.ADO
                 try
                 {
                     connection.Open();
-                    SqlDataAdapter command = new SqlDataAdapter(SQLString, connection);
+                    SqlDataAdapter command = new SqlDataAdapter(sqlString, connection);
                     command.Fill(ds, "ds");
                 }
                 catch (System.Data.SqlClient.SqlException ex)
@@ -535,7 +535,7 @@ namespace System.Data.ADO
             }
         }
 
-        public DataSet Query(string SQLString, int Times)
+        public DataSet Query(string sqlString, int Times)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -543,7 +543,7 @@ namespace System.Data.ADO
                 try
                 {
                     connection.Open();
-                    SqlDataAdapter command = new SqlDataAdapter(SQLString, connection);
+                    SqlDataAdapter command = new SqlDataAdapter(sqlString, connection);
                     command.SelectCommand.CommandTimeout = Times;
                     command.Fill(ds, "ds");
                 }
@@ -562,9 +562,9 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行SQL语句，返回影响的记录数
         /// </summary>
-        /// <param name="SQLString">SQL语句</param>
+        /// <param name="sqlString">SQL语句</param>
         /// <returns>影响的记录数</returns>
-        public int ExecuteSql(string SQLString, params SqlParameter[] cmdParms)
+        public int ExecuteSql(string sqlString, params SqlParameter[] cmdParms)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -572,7 +572,7 @@ namespace System.Data.ADO
                 {
                     try
                     {
-                        PrepareCommand(cmd, connection, null, SQLString, cmdParms);
+                        PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                         int rows = cmd.ExecuteNonQuery();
                         cmd.Parameters.Clear();
                         return rows;
@@ -588,8 +588,8 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public void ExecuteSqlTran(Hashtable SQLStringList)
+        /// <param name="sqlStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        public void ExecuteSqlTran(Hashtable sqlStringList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -600,7 +600,7 @@ namespace System.Data.ADO
                     try
                     {
                         //循环
-                        foreach (DictionaryEntry myDE in SQLStringList)
+                        foreach (DictionaryEntry myDE in sqlStringList)
                         {
                             string cmdText = myDE.Key.ToString();
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Value;
@@ -622,7 +622,7 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        /// <param name="sqlStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
         public int ExecuteSqlTran(System.Collections.Generic.List<CommandInfo> cmdList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -693,8 +693,8 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public void ExecuteSqlTranWithIndentity(System.Collections.Generic.List<CommandInfo> SQLStringList)
+        /// <param name="sqlStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        public void ExecuteSqlTranWithIndentity(System.Collections.Generic.List<CommandInfo> sqlStringList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -706,7 +706,7 @@ namespace System.Data.ADO
                     {
                         int indentity = 0;
                         //循环
-                        foreach (CommandInfo myDE in SQLStringList)
+                        foreach (CommandInfo myDE in sqlStringList)
                         {
                             string cmdText = myDE.CommandText;
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Parameters;
@@ -742,8 +742,8 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
-        public void ExecuteSqlTranWithIndentity(Hashtable SQLStringList)
+        /// <param name="sqlStringList">SQL语句的哈希表（key为sql语句，value是该语句的SqlParameter[]）</param>
+        public void ExecuteSqlTranWithIndentity(Hashtable sqlStringList)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -755,7 +755,7 @@ namespace System.Data.ADO
                     {
                         int indentity = 0;
                         //循环
-                        foreach (DictionaryEntry myDE in SQLStringList)
+                        foreach (DictionaryEntry myDE in sqlStringList)
                         {
                             string cmdText = myDE.Key.ToString();
                             SqlParameter[] cmdParms = (SqlParameter[])myDE.Value;
@@ -791,9 +791,9 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
-        /// <param name="SQLString">计算查询结果语句</param>
+        /// <param name="sqlString">计算查询结果语句</param>
         /// <returns>查询结果（object）</returns>
-        public object GetSingle(string SQLString, params SqlParameter[] cmdParms)
+        public object GetSingle(string sqlString, params SqlParameter[] cmdParms)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -801,7 +801,7 @@ namespace System.Data.ADO
                 {
                     try
                     {
-                        PrepareCommand(cmd, connection, null, SQLString, cmdParms);
+                        PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                         object obj = cmd.ExecuteScalar();
                         cmd.Parameters.Clear();
                         if ((Object.Equals(obj, null)) || (Object.Equals(obj, System.DBNull.Value)))
@@ -826,13 +826,13 @@ namespace System.Data.ADO
         /// </summary>
         /// <param name="strSQL">查询语句</param>
         /// <returns>SqlDataReader</returns>
-        public SqlDataReader ExecuteReader(string SQLString, params SqlParameter[] cmdParms)
+        public SqlDataReader ExecuteReader(string sqlString, params SqlParameter[] cmdParms)
         {
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand cmd = new SqlCommand();
             try
             {
-                PrepareCommand(cmd, connection, null, SQLString, cmdParms);
+                PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                 SqlDataReader myReader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                 cmd.Parameters.Clear();
                 return myReader;
@@ -851,14 +851,14 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行查询语句，返回DataSet
         /// </summary>
-        /// <param name="SQLString">查询语句</param>
+        /// <param name="sqlString">查询语句</param>
         /// <returns>DataSet</returns>
-        public DataSet Query(string SQLString, params SqlParameter[] cmdParms)
+        public DataSet Query(string sqlString, params SqlParameter[] cmdParms)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand();
-                PrepareCommand(cmd, connection, null, SQLString, cmdParms);
+                PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                 using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                 {
                     DataSet ds = new DataSet();

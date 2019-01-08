@@ -42,9 +42,9 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行查询语句，返回DataSet
         /// </summary>
-        /// <param name="SQLString">查询语句</param>
+        /// <param name="sqlString">查询语句</param>
         /// <returns>DataSet</returns>
-        public static DataSet Query(string connectionString, string SQLString)
+        public static DataSet Query(string connectionString, string sqlString)
         {
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
@@ -52,7 +52,7 @@ namespace System.Data.ADO
                 try
                 {
                     connection.Open();
-                    OracleDataAdapter command = new OracleDataAdapter(SQLString, connection);
+                    OracleDataAdapter command = new OracleDataAdapter(sqlString, connection);
                     command.Fill(ds, "ds");
                 }
                 catch (OracleException ex)
@@ -70,12 +70,12 @@ namespace System.Data.ADO
             }
         }
 
-        public static DataSet Query(string connectionString, string SQLString, params OracleParameter[] cmdParms)
+        public static DataSet Query(string connectionString, string sqlString, params OracleParameter[] cmdParms)
         {
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 OracleCommand cmd = new OracleCommand();
-                PrepareCommand(cmd, connection, null, SQLString, cmdParms);
+                PrepareCommand(cmd, connection, null, sqlString, cmdParms);
                 using (OracleDataAdapter da = new OracleDataAdapter(cmd))
                 {
                     DataSet ds = new DataSet();
@@ -126,13 +126,13 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行一条计算查询结果语句，返回查询结果（object）。
         /// </summary>
-        /// <param name="SQLString">计算查询结果语句</param>
+        /// <param name="sqlString">计算查询结果语句</param>
         /// <returns>查询结果（object）</returns>
-        public static object GetSingle(string connectionString, string SQLString)
+        public static object GetSingle(string connectionString, string sqlString)
         {
             using (OracleConnection connection = new OracleConnection(connectionString))
             {
-                using (OracleCommand cmd = new OracleCommand(SQLString, connection))
+                using (OracleCommand cmd = new OracleCommand(sqlString, connection))
                 {
                     try
                     {
@@ -448,7 +448,7 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>
+        /// <param name="sqlStringList">多条SQL语句</param>
         public static bool ExecuteSqlTran(string conStr, List<CommandInfo> cmdList)
         {
             using (OracleConnection conn = new OracleConnection(conStr))
@@ -526,8 +526,8 @@ namespace System.Data.ADO
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
-        /// <param name="SQLStringList">多条SQL语句</param>
-        public static void ExecuteSqlTran(string conStr, List<String> SQLStringList)
+        /// <param name="sqlStringList">多条SQL语句</param>
+        public static void ExecuteSqlTran(string conStr, List<String> sqlStringList)
         {
             using (OracleConnection conn = new OracleConnection(conStr))
             {
@@ -538,7 +538,7 @@ namespace System.Data.ADO
                 cmd.Transaction = tx;
                 try
                 {
-                    foreach (string sql in SQLStringList)
+                    foreach (string sql in sqlStringList)
                     {
                         if (!String.IsNullOrEmpty(sql))
                         {
