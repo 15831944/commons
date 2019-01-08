@@ -182,19 +182,12 @@ namespace System.Web.UI
         /// <returns>页面名称</returns>
         public static string GetPageName()
         {
-            int start = 0;
-            int end = 0;
-            string Url = HttpContext.Current.Request.RawUrl;
+            var start = 0;
+            var end = 0;
+            var Url = HttpContext.Current.Request.RawUrl;
             start = Url.LastIndexOf("/") + 1;
             end = Url.IndexOf("?");
-            if (end <= 0)
-            {
-                return Url.Substring(start, Url.Length - start);
-            }
-            else
-            {
-                return Url.Substring(start, end - start);
-            }
+            return end <= 0 ? Url.Substring(start, Url.Length - start) : Url.Substring(start, end - start);
         }
 
         /// <summary>
@@ -204,15 +197,10 @@ namespace System.Web.UI
         /// <returns>QueryString值</returns>
         public static string GetQueryString(string queryStringName)
         {
-            if ((HttpContext.Current.Request.QueryString[queryStringName] != null) &&
-                (HttpContext.Current.Request.QueryString[queryStringName] != "undefined"))
-            {
-                return HttpContext.Current.Request.QueryString[queryStringName].Trim();
-            }
-            else
-            {
-                return "";
-            }
+            return (HttpContext.Current.Request.QueryString[queryStringName] != null) &&
+                (HttpContext.Current.Request.QueryString[queryStringName] != "undefined")
+                ? HttpContext.Current.Request.QueryString[queryStringName].Trim()
+                : "";
         }
 
         /// <summary>
@@ -221,7 +209,7 @@ namespace System.Web.UI
         /// <param name="url">URL地址</param>
         public void Redirect(string url)
         {
-            Page page = GetCurrentPage();
+            var page = GetCurrentPage();
             page.Response.Redirect(url);
         }
 
@@ -231,13 +219,13 @@ namespace System.Web.UI
         /// <returns></returns>
         public static string GetRelativeLevel()
         {
-            string ApplicationPath = HttpContext.Current.Request.ApplicationPath;
+            var ApplicationPath = HttpContext.Current.Request.ApplicationPath;
             if (ApplicationPath.Trim() == "/")
             {
                 ApplicationPath = "";
             }
 
-            int i = ApplicationPath == "" ? 1 : 2;
+            var i = ApplicationPath == "" ? 1 : 2;
             return "";//Nandasoft.Helper.NDHelperString.Repeat("../", Nandasoft.Helper.NDHelperString.RepeatTime(HttpContext.Current.Request.Path, "/") - i);
         }
 
@@ -247,7 +235,7 @@ namespace System.Web.UI
         /// <param name="script">脚本内容</param>
         public static void WriteScript(string script)
         {
-            Page page = GetCurrentPage();
+            var page = GetCurrentPage();
 
             // NDGridViewScriptFirst(page.Form.Controls, page);
 
@@ -278,14 +266,15 @@ namespace System.Web.UI
         /// <returns>一位数字版本号</returns>
         public static int GetClientBrowserVersion()
         {
-            string USER_AGENT = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
+            var USER_AGENT = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
 
-            if (USER_AGENT.IndexOf("MSIE") < 0) return -1;
+            if (USER_AGENT.IndexOf("MSIE") < 0)
+            {
+                return -1;
+            }
 
-            string version = USER_AGENT.Substring(USER_AGENT.IndexOf("MSIE") + 5, 1);
-            if (!Utility.IsInt(version)) return -1;
-
-            return Convert.ToInt32(version);
+            var version = USER_AGENT.Substring(USER_AGENT.IndexOf("MSIE") + 5, 1);
+            return !Utility.IsInt(version) ? -1 : Convert.ToInt32(version);
         }
 
         #endregion 页面处理其它辅助方法

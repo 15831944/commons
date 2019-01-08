@@ -5,13 +5,17 @@ namespace System.Data
     public static class DBLog
     {
         private static readonly object locker = new object();
+
         public static string path = AppDomain.CurrentDomain.BaseDirectory + "/Logs/DB";
 
         private enum LogLevel
         {
             Debug,
+
             Info,
+
             Warn,
+
             Error,
         }
 

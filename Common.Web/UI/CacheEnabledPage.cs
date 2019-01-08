@@ -10,7 +10,7 @@ namespace System.Web.UI
 {
     /// <summary>
     /// 启用缓存的Asp.net页 拥有一系列缓存方案的基础页的类定义，需要应用缓存技术的Asp.net页面可以继
-    //               承该类以达到构建缓存的目的
+    ///               承该类以达到构建缓存的目的
     /// </summary>
     public class CacheEnabledPage : Page
     {
@@ -62,9 +62,11 @@ namespace System.Web.UI
         /// </summary>
         public CacheEnabledPage()
         {
-            var cacheEnabled = ConfigHelper.GetValue("cacheEnabled");
+            var cacheEnabled = GetConfigValue("cacheEnabled");
             if (string.IsNullOrWhiteSpace(cacheEnabled))
+            {
                 throw new ConfigurationErrorsException("是否启用缓存策略未能正确配置。");
+            }
 
             this._cachedFileProvider = new CachedFileProvider();
 
@@ -81,12 +83,16 @@ namespace System.Web.UI
         /// <param name="cachedFileNames">需要清除的文件名称</param>
         public static void FlushCache(params string[] cachedFileNames)
         {
-            var cacheManageUrl = ConfigHelper.GetValue("cacheManageUrl");
+            var cacheManageUrl = GetConfigValue("cacheManageUrl");
             if (string.IsNullOrWhiteSpace(cacheManageUrl))
+            {
                 throw new ConfigurationErrorsException("缓存管理地址配置未能正确读取。");
+            }
 
             if (cachedFileNames == null || cachedFileNames.Length == 0)
+            {
                 return;
+            }
 
             var postData = string.Concat("action=flushcache&page=", string.Join("||", cachedFileNames));
             ThreadPool.QueueUserWorkItem(state =>
@@ -187,7 +193,9 @@ namespace System.Web.UI
                 try
                 {
                     if (!Directory.Exists(this.CachedPageFileFolderPath))
+                    {
                         Directory.CreateDirectory(this.CachedPageFileFolderPath);
+                    }
 
                     using (var fs = File.Open(this.CachedPageFileFullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read))
                     {
@@ -252,6 +260,23 @@ namespace System.Web.UI
             var filter = this.CheckFilter();
 
             return enabled && isGuest && !this.IsPostBack && !filter;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private static string GetConfigValue(string key)
+        {
+            if (ConfigurationManager.AppSettings.HasKeys())
+            {
+                return ConfigurationManager.AppSettings.AllKeys.Contains(key) ? ConfigurationManager.AppSettings[key].ToString().Trim() : null;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

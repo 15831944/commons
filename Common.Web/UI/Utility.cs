@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -19,7 +20,7 @@ namespace System.Web.UI
         /// <returns>字符串。</returns>
         public static string ToObjectString(object obj)
         {
-            return null == obj ? String.Empty : obj.ToString();
+            return null == obj ? string.Empty : obj.ToString();
         }
 
         /// <summary>
@@ -186,10 +187,8 @@ namespace System.Web.UI
         {
             try
             {
-                DateTime dt = DateTime.Parse(ToObjectString(obj));
-                if (dt > DateTime.MinValue && DateTime.MaxValue > dt)
-                    return dt;
-                return DateTime.Now;
+                var dt = DateTime.Parse(ToObjectString(obj));
+                return dt > DateTime.MinValue && DateTime.MaxValue > dt ? dt : DateTime.Now;
             }
             catch
             { return DateTime.Now; }
@@ -205,10 +204,8 @@ namespace System.Web.UI
         {
             try
             {
-                DateTime dt = DateTime.Parse(ToObjectString(obj));
-                if (dt > DateTime.MinValue && DateTime.MaxValue > dt)
-                    return dt;
-                return returnValue;
+                var dt = DateTime.Parse(ToObjectString(obj));
+                return dt > DateTime.MinValue && DateTime.MaxValue > dt ? dt : returnValue;
             }
             catch
             { return returnValue; }
@@ -221,9 +218,11 @@ namespace System.Web.UI
         /// <returns>Byte值。</returns>
         public static byte ToByteByBool(object obj)
         {
-            string text = ToObjectString(obj).Trim();
+            var text = ToObjectString(obj).Trim();
             if (text == string.Empty)
+            {
                 return 0;
+            }
             else
             {
                 try
@@ -245,9 +244,11 @@ namespace System.Web.UI
         /// <returns>Byte值。</returns>
         public static byte ToByteByBool(object obj, byte returnValue)
         {
-            string text = ToObjectString(obj).Trim();
+            var text = ToObjectString(obj).Trim();
             if (text == string.Empty)
+            {
                 return returnValue;
+            }
             else
             {
                 try
@@ -270,7 +271,7 @@ namespace System.Web.UI
         {
             try
             {
-                string s = ToObjectString(obj).ToLower();
+                var s = ToObjectString(obj).ToLower();
                 return s == "1" || s == "true" ? true : false;
             }
             catch
@@ -289,7 +290,7 @@ namespace System.Web.UI
         {
             try
             {
-                string s = ToObjectString(obj).ToLower();
+                var s = ToObjectString(obj).ToLower();
                 return s == "1" || s == "true" ? true : false;
             }
             catch
@@ -309,7 +310,7 @@ namespace System.Web.UI
         /// <returns>Boolean值。</returns>
         public static bool IsEmpty(string obj)
         {
-            return ToObjectString(obj).Trim() == String.Empty ? true : false;
+            return ToObjectString(obj).Trim() == string.Empty ? true : false;
         }
 
         /// <summary>
@@ -321,10 +322,8 @@ namespace System.Web.UI
         {
             try
             {
-                DateTime dt = DateTime.Parse(ToObjectString(obj));
-                if (dt > DateTime.MinValue && DateTime.MaxValue > dt)
-                    return true;
-                return false;
+                var dt = DateTime.Parse(ToObjectString(obj));
+                return dt > DateTime.MinValue && DateTime.MaxValue > dt ? true : false;
             }
             catch
             { return false; }
@@ -421,13 +420,15 @@ namespace System.Web.UI
         /// <returns>字符串</returns>
         public static string StringTrimAll(string text)
         {
-            string _text = ToObjectString(text);
-            string returnText = String.Empty;
-            char[] chars = _text.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
+            var _text = ToObjectString(text);
+            var returnText = string.Empty;
+            var chars = _text.ToCharArray();
+            for (var i = 0; i < chars.Length; i++)
             {
                 if (chars[i].ToString() != string.Empty)
+                {
                     returnText += chars[i].ToString();
+                }
             }
             return returnText;
         }
@@ -439,13 +440,15 @@ namespace System.Web.UI
         /// <returns>String</returns>
         public static string NumricTrimAll(string numricString)
         {
-            string text = ToObjectString(numricString).Trim();
-            string returnText = String.Empty;
-            char[] chars = text.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
+            var text = ToObjectString(numricString).Trim();
+            var returnText = string.Empty;
+            var chars = text.ToCharArray();
+            for (var i = 0; i < chars.Length; i++)
             {
                 if (chars[i].ToString() == "+" || chars[i].ToString() == "-" || IsDouble(chars[i].ToString()))
+                {
                     returnText += chars[i].ToString();
+                }
             }
             return returnText;
         }
@@ -458,8 +461,8 @@ namespace System.Web.UI
         /// <returns>Boolean</returns>
         public static bool ArrayFind(Array array, object obj)
         {
-            bool b = false;
-            foreach (object obj1 in array)
+            var b = false;
+            foreach (var obj1 in array)
             {
                 if (obj.Equals(obj1))
                 {
@@ -479,7 +482,7 @@ namespace System.Web.UI
         /// <returns>Boolean</returns>
         public static bool ArrayFind(Array array, string obj, bool unUpLower)
         {
-            bool b = false;
+            var b = false;
             foreach (string obj1 in array)
             {
                 if (!unUpLower)
@@ -526,14 +529,16 @@ namespace System.Web.UI
             }
             else
             {
-                int aLength = bytea.Length;
-                int bLength = byteb.Length;
+                var aLength = bytea.Length;
+                var bLength = byteb.Length;
                 if (aLength != bLength)
+                {
                     return false;
+                }
                 else
                 {
-                    bool compare = true;
-                    for (int index = 0; index < aLength; index++)
+                    var compare = true;
+                    for (var index = 0; index < aLength; index++)
                     {
                         if (bytea[index].CompareTo(byteb[index]) != 0)
                         {
@@ -559,17 +564,21 @@ namespace System.Web.UI
             }
             catch
             {
-                string text = NumricTrimAll(inputText);
-                string year = DateTime.Now.Year.ToString();
-                string month = DateTime.Now.Month.ToString();
-                string day = DateTime.Now.Day.ToString();
-                int length = text.Length;
+                var text = NumricTrimAll(inputText);
+                var year = DateTime.Now.Year.ToString();
+                var month = DateTime.Now.Month.ToString();
+                var day = DateTime.Now.Day.ToString();
+                var length = text.Length;
                 if (length == 0)
-                    return String.Empty;
+                {
+                    return string.Empty;
+                }
                 else
                 {
                     if (length <= 2)
+                    {
                         day = text;
+                    }
                     else if (length <= 4)
                     {
                         month = text.Substring(0, 2);
@@ -592,7 +601,7 @@ namespace System.Web.UI
                     }
                     catch
                     {
-                        return String.Empty;
+                        return string.Empty;
                     }
                 }
             }
@@ -637,13 +646,13 @@ namespace System.Web.UI
         /// <returns>Boolean</returns>
         public static bool FindLineTextFromFile(FileInfo fi, string lineText, bool lowerUpper)
         {
-            bool b = false;
+            var b = false;
             try
             {
                 if (fi.Exists)
                 {
-                    StreamReader sr = new StreamReader(fi.FullName);
-                    string g = "";
+                    var sr = new StreamReader(fi.FullName);
+                    var g = "";
                     do
                     {
                         g = sr.ReadLine();
@@ -684,7 +693,7 @@ namespace System.Web.UI
         /// <returns></returns>
         public static bool IsRightParent(DataTable table, string columnName, string parentColumnName, string inputString, string compareString)
         {
-            ArrayList array = new ArrayList();
+            var array = new ArrayList();
             SearchChild(array, table, columnName, parentColumnName, inputString, compareString);
             return array.Count == 0;
         }
@@ -692,19 +701,21 @@ namespace System.Web.UI
         // 内部方法
         private static void SearchChild(ArrayList array, DataTable table, string columnName, string parentColumnName, string inputString, string compareString)
         {
-            DataView view = new DataView(table);
-            view.RowFilter = parentColumnName + "='" + ReplaceInvertedComma(inputString.Trim()) + "'";//找出所有的子类。
-                                                                                                      //查找表中的数据的ID是否与compareString相等，相等返回 false;不相等继续迭代。
-            for (int index = 0; index < view.Count; index++)
+            var view = new DataView(table)
             {
-                if (Utility.ToObjectString(view[index][columnName]).ToLower() == compareString.Trim().ToLower())
+                RowFilter = parentColumnName + "='" + ReplaceInvertedComma(inputString.Trim()) + "'"//找出所有的子类。
+            };
+            //查找表中的数据的ID是否与compareString相等，相等返回 false;不相等继续迭代。
+            for (var index = 0; index < view.Count; index++)
+            {
+                if (ToObjectString(view[index][columnName]).ToLower() == compareString.Trim().ToLower())
                 {
                     array.Add("1");
                     break;
                 }
                 else
                 {
-                    SearchChild(array, table, columnName, parentColumnName, Utility.ToObjectString(view[index][columnName]), compareString);
+                    SearchChild(array, table, columnName, parentColumnName, ToObjectString(view[index][columnName]), compareString);
                 }
             }
         }
@@ -719,9 +730,9 @@ namespace System.Web.UI
         /// <param name="dtime">日期</param>
         /// <param name="s">日期年月日间隔符号</param>
         /// <returns></returns>
-        public static String Fomatdate(DateTime dtime, String s)
+        public static string Fomatdate(DateTime dtime, string s)
         {
-            String datestr = "";
+            var datestr = "";
             datestr = dtime.Year.ToString() + s + dtime.Month.ToString().PadLeft(2, '0') + s + dtime.Day.ToString().PadLeft(2, '0');
             return datestr;
         }
@@ -741,7 +752,7 @@ namespace System.Web.UI
                 {
                     i++;
                 }
-                return Utility.ToInt(i);
+                return ToInt(i);
             }
             catch
             {
@@ -755,7 +766,7 @@ namespace System.Web.UI
         /// <param name="sdmin">开始日期</param>
         /// <param name="sdmax">结束日期</param>
         /// <returns>日期差：负数为失败</returns>
-		public static int Datediff(String sdmin, String sdmax)
+		public static int Datediff(string sdmin, string sdmax)
         {
             try
             {
@@ -768,7 +779,7 @@ namespace System.Web.UI
                 {
                     i++;
                 }
-                return Utility.ToInt(i);
+                return ToInt(i);
             }
             catch
             {
@@ -786,7 +797,7 @@ namespace System.Web.UI
         /// <param name="inputString">用户输入字符串</param>
         public static string ConvertStr(string inputString)
         {
-            string retVal = inputString;
+            var retVal = inputString;
             //retVal=retVal.Replace("&","&amp;");
             retVal = retVal.Replace("\"", "&quot;");
             retVal = retVal.Replace("<", "&lt;");
@@ -800,7 +811,7 @@ namespace System.Web.UI
 
         public static string InputText(string inputString)
         {
-            string retVal = inputString;
+            var retVal = inputString;
             retVal = ConvertStr(retVal);
             retVal = retVal.Replace("[url]", "");
             retVal = retVal.Replace("[/url]", "");
@@ -814,7 +825,7 @@ namespace System.Web.UI
         /// <returns></returns>
 		public static string OutputText(string inputString)
         {
-            string retVal = System.Web.HttpUtility.HtmlDecode(inputString);
+            var retVal = HttpUtility.HtmlDecode(inputString);
             retVal = retVal.Replace("<br>", "");
             retVal = retVal.Replace("&amp", "&;");
             retVal = retVal.Replace("&quot;", "\"");
@@ -827,7 +838,7 @@ namespace System.Web.UI
 
         public static string ToUrl(string inputString)
         {
-            string retVal = inputString;
+            var retVal = inputString;
             retVal = ConvertStr(retVal);
             return Regex.Replace(retVal, @"\[url](?<x>[^\]]*)\[/url]", @"<a href=""$1"" target=""_blank"">$1</a>", RegexOptions.IgnoreCase);
         }
@@ -896,12 +907,12 @@ namespace System.Web.UI
         {
             try
             {
-                int intTemp = myDataTable.Rows.Count % intPageCount;
+                var intTemp = myDataTable.Rows.Count % intPageCount;
                 if ((myDataTable.Rows.Count == 0) || (intTemp != 0))
                 {
-                    for (int i = 0; i < (intPageCount - intTemp); i++)
+                    for (var i = 0; i < (intPageCount - intTemp); i++)
                     {
-                        DataRow myDataRow = myDataTable.NewRow();
+                        var myDataRow = myDataTable.NewRow();
                         myDataTable.Rows.Add(myDataRow);
                     }
                 }
@@ -919,7 +930,7 @@ namespace System.Web.UI
 
         public static string ReadConfig(string filePath)
         {
-            return System.Configuration.ConfigurationManager.AppSettings[filePath];
+            return ConfigurationManager.AppSettings[filePath];
         }
 
         #region 字符串长度区分中英文截取
@@ -932,10 +943,10 @@ namespace System.Web.UI
         /// <returns>string</returns>
         public static string GetSubString(string str, int length)
         {
-            string temp = str;
-            int j = 0;
-            int k = 0;
-            for (int i = 0; i < temp.Length; i++)
+            var temp = str;
+            var j = 0;
+            var k = 0;
+            for (var i = 0; i < temp.Length; i++)
             {
                 if (Regex.IsMatch(temp.Substring(i, 1), @"[\u4e00-\u9fa5]+"))
                 {

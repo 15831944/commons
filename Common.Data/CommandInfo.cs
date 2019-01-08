@@ -6,6 +6,7 @@ namespace System.Data
     public class CommandInfo
     {
         public object ShareObject = null;
+
         public object OriginalData = null;
 
         private event EventHandler _solicitationEvent;
@@ -28,7 +29,9 @@ namespace System.Data
         }
 
         public string CommandText;
+
         public DbParameter[] Parameters;
+
         public EffentNextType EffentNextType = EffentNextType.None;
 
         public CommandInfo()
