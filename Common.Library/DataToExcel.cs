@@ -6,7 +6,7 @@
 /// </summary>
 using System;
 using System.Diagnostics;
-//using Excel;
+using Microsoft.Office.Interop.Excel;
 namespace SufeiUtil
 {
     /// <summary>
@@ -39,7 +39,7 @@ namespace SufeiUtil
         /// </summary>
         public void CreateExcel()
         {
-            //Excel.Application excel = new Excel.Application();
+            var excel = new Application();
             //excel.Application.Workbooks.Add(true);
             //excel.Cells[1, 1] = "第1行第1列";
             //excel.Cells[1, 2] = "第1行第2列";

@@ -116,6 +116,7 @@
     <Compile Include="Reflection\MemberInfoExtension.cs" />
     <Compile Include="Reflection\ReflectionExtension.cs" />
     <Compile Include="ResultStatus.cs" />
+    <Compile Include="Runtime\Caching\CachedFileProvider.cs" />
     <Compile Include="Runtime\Caching\CacheHelper.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="StringHashExtension.cs" />
