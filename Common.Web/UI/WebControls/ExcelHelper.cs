@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using System.Text;
 
 namespace System.Web.UI.WebControls
 {
@@ -16,22 +17,24 @@ namespace System.Web.UI.WebControls
         /// </summary>
         /// 导出Excel文件，自动返回可下载的文件流
         /// </summary>
-        public static void DataTable1Excel(System.Data.DataTable dtData)
+        public static void DataTable1Excel(DataTable dtData)
         {
             GridView gvExport = null;
-            HttpContext curContext = HttpContext.Current;
+            var curContext = HttpContext.Current;
             StringWriter strWriter = null;
             HtmlTextWriter htmlWriter = null;
             if (dtData != null)
             {
                 curContext.Response.ContentType = "application/vnd.ms-excel";
-                curContext.Response.ContentEncoding = System.Text.Encoding.GetEncoding("gb2312");
+                curContext.Response.ContentEncoding = Encoding.GetEncoding("gb2312");
                 curContext.Response.Charset = "utf-8";
                 strWriter = new StringWriter();
                 htmlWriter = new HtmlTextWriter(strWriter);
-                gvExport = new GridView();
-                gvExport.DataSource = dtData.DefaultView;
-                gvExport.AllowPaging = false;
+                gvExport = new GridView
+                {
+                    DataSource = dtData.DefaultView,
+                    AllowPaging = false
+                };
                 gvExport.DataBind();
                 gvExport.RenderControl(htmlWriter);
                 curContext.Response.Write("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=gb2312\"/>" + strWriter.ToString());
@@ -42,23 +45,25 @@ namespace System.Web.UI.WebControls
         /// <summary>
         /// 导出Excel文件，转换为可读模式
         /// </summary>
-        public static void DataTable2Excel(System.Data.DataTable dtData)
+        public static void DataTable2Excel(DataTable dtData)
         {
             DataGrid dgExport = null;
-            HttpContext curContext = HttpContext.Current;
+            var curContext = HttpContext.Current;
             StringWriter strWriter = null;
             HtmlTextWriter htmlWriter = null;
 
             if (dtData != null)
             {
                 curContext.Response.ContentType = "application/vnd.ms-excel";
-                curContext.Response.ContentEncoding = System.Text.Encoding.UTF8;
+                curContext.Response.ContentEncoding = Encoding.UTF8;
                 curContext.Response.Charset = "";
                 strWriter = new StringWriter();
                 htmlWriter = new HtmlTextWriter(strWriter);
-                dgExport = new DataGrid();
-                dgExport.DataSource = dtData.DefaultView;
-                dgExport.AllowPaging = false;
+                dgExport = new DataGrid
+                {
+                    DataSource = dtData.DefaultView,
+                    AllowPaging = false
+                };
                 dgExport.DataBind();
                 dgExport.RenderControl(htmlWriter);
                 curContext.Response.Write(strWriter.ToString());
@@ -69,25 +74,27 @@ namespace System.Web.UI.WebControls
         /// <summary>
         /// 导出Excel文件，并自定义文件名
         /// </summary>
-        public static void DataTable3Excel(System.Data.DataTable dtData, String FileName)
+        public static void DataTable3Excel(DataTable dtData, string FileName)
         {
             GridView dgExport = null;
-            HttpContext curContext = HttpContext.Current;
+            var curContext = HttpContext.Current;
             StringWriter strWriter = null;
             HtmlTextWriter htmlWriter = null;
 
             if (dtData != null)
             {
-                HttpUtility.UrlEncode(FileName, System.Text.Encoding.UTF8);
+                HttpUtility.UrlEncode(FileName, Encoding.UTF8);
                 curContext.Response.AddHeader("content-disposition", "attachment;filename=" + HttpUtility.UrlEncode(FileName, System.Text.Encoding.UTF8) + ".xls");
                 curContext.Response.ContentType = "application nd.ms-excel";
-                curContext.Response.ContentEncoding = System.Text.Encoding.UTF8;
+                curContext.Response.ContentEncoding = Encoding.UTF8;
                 curContext.Response.Charset = "GB2312";
                 strWriter = new StringWriter();
                 htmlWriter = new HtmlTextWriter(strWriter);
-                dgExport = new GridView();
-                dgExport.DataSource = dtData.DefaultView;
-                dgExport.AllowPaging = false;
+                dgExport = new GridView
+                {
+                    DataSource = dtData.DefaultView,
+                    AllowPaging = false
+                };
                 dgExport.DataBind();
                 dgExport.RenderControl(htmlWriter);
                 curContext.Response.Write(strWriter.ToString());
@@ -113,32 +120,34 @@ namespace System.Web.UI.WebControls
             }
 
             //数据表的列数
-            int ColCount = Table.Columns.Count;
+            var ColCount = Table.Columns.Count;
 
             //用于记数，实例化参数时的序号
-            int i = 0;
+            var i = 0;
 
             //创建参数
-            OleDbParameter[] para = new OleDbParameter[ColCount];
+            var para = new OleDbParameter[ColCount];
 
             //创建表结构的SQL语句
-            string TableStructStr = @"Create Table " + Table.TableName + "(";
+            var TableStructStr = @"Create Table " + Table.TableName + "(";
 
             //连接字符串
-            string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
-            OleDbConnection objConn = new OleDbConnection(connString);
+            var connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
+            var objConn = new OleDbConnection(connString);
 
             //创建表结构
-            OleDbCommand objCmd = new OleDbCommand();
+            var objCmd = new OleDbCommand();
 
             //数据类型集合
-            ArrayList DataTypeList = new ArrayList();
-            DataTypeList.Add("System.Decimal");
-            DataTypeList.Add("System.Double");
-            DataTypeList.Add("System.Int16");
-            DataTypeList.Add("System.Int32");
-            DataTypeList.Add("System.Int64");
-            DataTypeList.Add("System.Single");
+            var DataTypeList = new ArrayList
+            {
+                "System.Decimal",
+                "System.Double",
+                "System.Int16",
+                "System.Int32",
+                "System.Int64",
+                "System.Single"
+            };
 
             //遍历数据表的所有列，用于创建表结构
             foreach (DataColumn col in Table.Columns)
@@ -195,12 +204,12 @@ namespace System.Web.UI.WebControls
             }
 
             //插入记录的SQL语句
-            string InsertSql_1 = "Insert into " + Table.TableName + " (";
-            string InsertSql_2 = " Values (";
-            string InsertSql = "";
+            var InsertSql_1 = "Insert into " + Table.TableName + " (";
+            var InsertSql_2 = " Values (";
+            var InsertSql = "";
 
             //遍历所有列，用于插入记录，在此创建插入记录的SQL语句
-            for (int colID = 0; colID < ColCount; colID++)
+            for (var colID = 0; colID < ColCount; colID++)
             {
                 if (colID + 1 == ColCount)  //最后一列
                 {
@@ -217,27 +226,22 @@ namespace System.Web.UI.WebControls
             InsertSql = InsertSql_1 + InsertSql_2;
 
             //遍历数据表的所有数据行
-            for (int rowID = 0; rowID < Table.Rows.Count; rowID++)
+            for (var rowID = 0; rowID < Table.Rows.Count; rowID++)
             {
-                for (int colID = 0; colID < ColCount; colID++)
+                for (var colID = 0; colID < ColCount; colID++)
                 {
-                    if (para[colID].DbType == DbType.Double && Table.Rows[rowID][colID].ToString().Trim() == "")
-                    {
-                        para[colID].Value = 0;
-                    }
-                    else
-                    {
-                        para[colID].Value = Table.Rows[rowID][colID].ToString().Trim();
-                    }
+                    para[colID].Value = para[colID].DbType == DbType.Double && Table.Rows[rowID][colID].ToString().Trim() == ""
+                        ? 0
+                        : (object)Table.Rows[rowID][colID].ToString().Trim();
                 }
                 try
                 {
                     objCmd.CommandText = InsertSql;
                     objCmd.ExecuteNonQuery();
                 }
-                catch (Exception exp)
+                catch (Exception e)
                 {
-                    string str = exp.Message;
+                    var str = e.Message;
                 }
             }
             try
@@ -270,15 +274,15 @@ namespace System.Web.UI.WebControls
             //如果数据列数大于表的列数，取数据表的所有列
             if (Columns.Count > Table.Columns.Count)
             {
-                for (int s = Table.Columns.Count + 1; s <= Columns.Count; s++)
+                for (var s = Table.Columns.Count + 1; s <= Columns.Count; s++)
                 {
                     Columns.RemoveAt(s);   //移除数据表列数后的所有列
                 }
             }
 
             //遍历所有的数据列，如果有数据列的数据类型不是 DataColumn，则将它移除
-            DataColumn column = new DataColumn();
-            for (int j = 0; j < Columns.Count; j++)
+            var column = new DataColumn();
+            for (var j = 0; j < Columns.Count; j++)
             {
                 try
                 {
@@ -295,34 +299,36 @@ namespace System.Web.UI.WebControls
             }
 
             //数据表的列数
-            int ColCount = Columns.Count;
+            var ColCount = Columns.Count;
 
             //创建参数
-            OleDbParameter[] para = new OleDbParameter[ColCount];
+            var para = new OleDbParameter[ColCount];
 
             //创建表结构的SQL语句
-            string TableStructStr = @"Create Table " + Table.TableName + "(";
+            var TableStructStr = @"Create Table " + Table.TableName + "(";
 
             //连接字符串
-            string connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
-            OleDbConnection objConn = new OleDbConnection(connString);
+            var connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0;";
+            var objConn = new OleDbConnection(connString);
 
             //创建表结构
-            OleDbCommand objCmd = new OleDbCommand();
+            var objCmd = new OleDbCommand();
 
             //数据类型集合
-            ArrayList DataTypeList = new ArrayList();
-            DataTypeList.Add("System.Decimal");
-            DataTypeList.Add("System.Double");
-            DataTypeList.Add("System.Int16");
-            DataTypeList.Add("System.Int32");
-            DataTypeList.Add("System.Int64");
-            DataTypeList.Add("System.Single");
+            var DataTypeList = new ArrayList
+            {
+                "System.Decimal",
+                "System.Double",
+                "System.Int16",
+                "System.Int32",
+                "System.Int64",
+                "System.Single"
+            };
 
-            DataColumn col = new DataColumn();
+            var col = new DataColumn();
 
             //遍历数据表的所有列，用于创建表结构
-            for (int k = 0; k < ColCount; k++)
+            for (var k = 0; k < ColCount; k++)
             {
                 col = (DataColumn)Columns[k];
 
@@ -377,12 +383,12 @@ namespace System.Web.UI.WebControls
             }
 
             //插入记录的SQL语句
-            string InsertSql_1 = "Insert into " + Table.TableName + " (";
-            string InsertSql_2 = " Values (";
-            string InsertSql = "";
+            var InsertSql_1 = "Insert into " + Table.TableName + " (";
+            var InsertSql_2 = " Values (";
+            var InsertSql = "";
 
             //遍历所有列，用于插入记录，在此创建插入记录的SQL语句
-            for (int colID = 0; colID < ColCount; colID++)
+            for (var colID = 0; colID < ColCount; colID++)
             {
                 if (colID + 1 == ColCount)  //最后一列
                 {
@@ -399,21 +405,16 @@ namespace System.Web.UI.WebControls
             InsertSql = InsertSql_1 + InsertSql_2;
 
             //遍历数据表的所有数据行
-            DataColumn DataCol = new DataColumn();
-            for (int rowID = 0; rowID < Table.Rows.Count; rowID++)
+            var DataCol = new DataColumn();
+            for (var rowID = 0; rowID < Table.Rows.Count; rowID++)
             {
-                for (int colID = 0; colID < ColCount; colID++)
+                for (var colID = 0; colID < ColCount; colID++)
                 {
                     //因为列不连续，所以在取得单元格时不能用行列编号，列需得用列的名称
                     DataCol = (DataColumn)Columns[colID];
-                    if (para[colID].DbType == DbType.Double && Table.Rows[rowID][DataCol.Caption].ToString().Trim() == "")
-                    {
-                        para[colID].Value = 0;
-                    }
-                    else
-                    {
-                        para[colID].Value = Table.Rows[rowID][DataCol.Caption].ToString().Trim();
-                    }
+                    para[colID].Value = para[colID].DbType == DbType.Double && Table.Rows[rowID][DataCol.Caption].ToString().Trim() == ""
+                        ? 0
+                        : (object)Table.Rows[rowID][DataCol.Caption].ToString().Trim();
                 }
                 try
                 {
@@ -422,7 +423,7 @@ namespace System.Web.UI.WebControls
                 }
                 catch (Exception exp)
                 {
-                    string str = exp.Message;
+                    var str = exp.Message;
                 }
             }
             try
@@ -446,11 +447,11 @@ namespace System.Web.UI.WebControls
         /// </summary>
         public static ArrayList GetExcelTables(string ExcelFileName)
         {
-            DataTable dt = new DataTable();
-            ArrayList TablesList = new ArrayList();
+            var dt = new DataTable();
+            var TablesList = new ArrayList();
             if (File.Exists(ExcelFileName))
             {
-                using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
+                using (var conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
                 {
                     try
                     {
@@ -463,10 +464,10 @@ namespace System.Web.UI.WebControls
                     }
 
                     //获取数据表个数
-                    int tablecount = dt.Rows.Count;
-                    for (int i = 0; i < tablecount; i++)
+                    var tablecount = dt.Rows.Count;
+                    for (var i = 0; i < tablecount; i++)
                     {
-                        string tablename = dt.Rows[i][2].ToString().Trim().TrimEnd('$');
+                        var tablename = dt.Rows[i][2].ToString().Trim().TrimEnd('$');
                         if (TablesList.IndexOf(tablename) < 0)
                         {
                             TablesList.Add(tablename);
@@ -490,7 +491,7 @@ namespace System.Web.UI.WebControls
             }
 
             //如果数据表名不存在，则数据表名为Excel文件的第一个数据表
-            ArrayList TableList = new ArrayList();
+            var TableList = new ArrayList();
             TableList = GetExcelTables(ExcelFilePath);
 
             if (TableList.IndexOf(TableName) < 0)
@@ -498,10 +499,10 @@ namespace System.Web.UI.WebControls
                 TableName = TableList[0].ToString().Trim();
             }
 
-            DataTable table = new DataTable();
-            OleDbConnection dbcon = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0");
-            OleDbCommand cmd = new OleDbCommand("select * from [" + TableName + "$]", dbcon);
-            OleDbDataAdapter adapter = new OleDbDataAdapter(cmd);
+            var table = new DataTable();
+            var dbcon = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + ExcelFilePath + ";Extended Properties=Excel 8.0");
+            var cmd = new OleDbCommand("select * from [" + TableName + "$]", dbcon);
+            var adapter = new OleDbDataAdapter(cmd);
 
             try
             {
@@ -511,9 +512,9 @@ namespace System.Web.UI.WebControls
                 }
                 adapter.Fill(table);
             }
-            catch (Exception exp)
+            catch (Exception e)
             {
-                throw exp;
+                throw e;
             }
             finally
             {
@@ -532,20 +533,20 @@ namespace System.Web.UI.WebControls
         /// <param name="TableName">数据表名</param>
         public static ArrayList GetExcelTableColumns(string ExcelFileName, string TableName)
         {
-            DataTable dt = new DataTable();
-            ArrayList ColsList = new ArrayList();
+            var dt = new DataTable();
+            var ColsList = new ArrayList();
             if (File.Exists(ExcelFileName))
             {
-                using (OleDbConnection conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
+                using (var conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Extended Properties=Excel 8.0;Data Source=" + ExcelFileName))
                 {
                     conn.Open();
                     dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, TableName, null });
 
                     //获取列个数
-                    int colcount = dt.Rows.Count;
-                    for (int i = 0; i < colcount; i++)
+                    var colcount = dt.Rows.Count;
+                    for (var i = 0; i < colcount; i++)
                     {
-                        string colname = dt.Rows[i]["Column_Name"].ToString().Trim();
+                        var colname = dt.Rows[i]["Column_Name"].ToString().Trim();
                         ColsList.Add(colname);
                     }
                 }

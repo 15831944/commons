@@ -36,25 +36,16 @@ namespace System.Web.UI.WebControls
         {
             try
             {
-                string style = "";
-                if (obj.Rows.Count > 0)
-                {
-                    style = @"<style> .text { mso-number-format:\@; } </script> ";
-                }
-                else
-                {
-                    style = "no data.";
-                }
-
+                var style = obj.Rows.Count > 0 ? @"<style> .text { mso-number-format:\@; } </script> " : "no data.";
                 HttpContext.Current.Response.ClearContent();
-                DateTime dt = DateTime.Now;
-                string filename = dt.Year.ToString() + dt.Month.ToString() + dt.Day.ToString() + dt.Hour.ToString() + dt.Minute.ToString() + dt.Second.ToString();
+                var dt = DateTime.Now;
+                var filename = dt.Year.ToString() + dt.Month.ToString() + dt.Day.ToString() + dt.Hour.ToString() + dt.Minute.ToString() + dt.Second.ToString();
                 HttpContext.Current.Response.AddHeader("content-disposition", "attachment; filename=ExportData" + filename + ".xls");
                 HttpContext.Current.Response.ContentType = "application/ms-excel";
                 HttpContext.Current.Response.Charset = "GB2312";
                 HttpContext.Current.Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                var sw = new StringWriter();
+                var htw = new HtmlTextWriter(sw);
                 obj.RenderControl(htw);
                 HttpContext.Current.Response.Write(style);
                 HttpContext.Current.Response.Write(sw.ToString());

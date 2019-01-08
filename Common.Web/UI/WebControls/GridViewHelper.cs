@@ -2,7 +2,6 @@ using System.Collections;
 
 using System.Collections.Generic;
 using System.Data;
-using System.Reflection;
 
 namespace System.Web.UI.WebControls
 {
@@ -18,21 +17,7 @@ namespace System.Web.UI.WebControls
         /// <returns>截取后字符串</returns>
         private static string GetStrPartly(string o_Str, int len)
         {
-            if (len == 0)
-            {
-                return o_Str;
-            }
-            else
-            {
-                if (o_Str.Length > len)
-                {
-                    return o_Str.Substring(0, len) + "..";
-                }
-                else
-                {
-                    return o_Str;
-                }
-            }
+            return len == 0 ? o_Str : o_Str.Length > len ? o_Str.Substring(0, len) + ".." : o_Str;
         }
 
         /// <summary>
@@ -42,7 +27,7 @@ namespace System.Web.UI.WebControls
         /// <returns>内容</returns>
         private static string GetCellText(TableCell cell)
         {
-            string text = cell.Text;
+            var text = cell.Text;
             if (!string.IsNullOrEmpty(text))
             {
                 return text;
@@ -51,18 +36,17 @@ namespace System.Web.UI.WebControls
             {
                 if (control != null && control is IButtonControl)
                 {
-                    IButtonControl btn = control as IButtonControl;
+                    var btn = control as IButtonControl;
                     text = btn.Text.Replace("\r\n", "").Trim();
                     break;
                 }
                 if (control != null && control is ITextControl)
                 {
-                    LiteralControl lc = control as LiteralControl;
-                    if (lc != null)
+                    if (control is LiteralControl)
                     {
                         continue;
                     }
-                    ITextControl l = control as ITextControl;
+                    var l = control as ITextControl;
                     text = l.Text.Replace("\r\n", "").Trim();
                     break;
                 }
@@ -77,7 +61,7 @@ namespace System.Web.UI.WebControls
         /// <param name="maxLen">最大长度</param>
         private static void SetCellText(TableCell cell, int maxLen)
         {
-            string text = cell.Text;
+            var text = cell.Text;
             if (!string.IsNullOrEmpty(text))
             {
                 cell.Text = GetStrPartly(text, maxLen);
@@ -86,19 +70,18 @@ namespace System.Web.UI.WebControls
             {
                 if (control != null && control is IButtonControl)
                 {
-                    IButtonControl btn = control as IButtonControl;
+                    var btn = control as IButtonControl;
                     text = btn.Text.Replace("\r\n", "").Trim();
                     btn.Text = GetStrPartly(text, maxLen);
                     break;
                 }
                 if (control != null && control is ITextControl)
                 {
-                    LiteralControl lc = control as LiteralControl;
-                    if (lc != null)
+                    if (control is LiteralControl lc)
                     {
                         continue;
                     }
-                    ITextControl l = control as ITextControl;
+                    var l = control as ITextControl;
                     text = l.Text.Replace("\r\n", "").Trim();
                     if (l is DataBoundLiteralControl)
                     {
@@ -124,35 +107,35 @@ namespace System.Web.UI.WebControls
         /// <param name="gv">GridView对象</param>
         public static DataTable GridView2DataTable(GridView gv)
         {
-            DataTable table = new DataTable();
-            int rowIndex = 0;
-            List<string> cols = new List<string>();
+            var table = new DataTable();
+            var rowIndex = 0;
+            var cols = new List<string>();
             if (!gv.ShowHeader && gv.Columns.Count == 0)
             {
                 return table;
             }
-            GridViewRow headerRow = gv.HeaderRow;
-            int columnCount = headerRow.Cells.Count;
-            for (int i = 0; i < columnCount; i++)
+            var headerRow = gv.HeaderRow;
+            var columnCount = headerRow.Cells.Count;
+            for (var i = 0; i < columnCount; i++)
             {
-                string text = GetCellText(headerRow.Cells[i]);
+                var text = GetCellText(headerRow.Cells[i]);
                 cols.Add(text);
             }
             foreach (GridViewRow r in gv.Rows)
             {
                 if (r.RowType == DataControlRowType.DataRow)
                 {
-                    DataRow row = table.NewRow();
-                    int j = 0;
-                    for (int i = 0; i < columnCount; i++)
+                    var row = table.NewRow();
+                    var j = 0;
+                    for (var i = 0; i < columnCount; i++)
                     {
-                        string text = GetCellText(r.Cells[i]);
-                        if (!String.IsNullOrEmpty(text))
+                        var text = GetCellText(r.Cells[i]);
+                        if (!string.IsNullOrEmpty(text))
                         {
                             if (rowIndex == 0)
                             {
-                                string columnName = cols[i];
-                                if (String.IsNullOrEmpty(columnName))
+                                var columnName = cols[i];
+                                if (string.IsNullOrEmpty(columnName))
                                 {
                                     continue;
                                 }
@@ -160,7 +143,7 @@ namespace System.Web.UI.WebControls
                                 {
                                     continue;
                                 }
-                                DataColumn dc = table.Columns.Add();
+                                var dc = table.Columns.Add();
                                 dc.ColumnName = columnName;
                                 dc.DataType = typeof(string);
                             }
@@ -181,24 +164,24 @@ namespace System.Web.UI.WebControls
         /// <param name="list">集合</param>
         public static DataTable ToDataTable(IList list)
         {
-            DataTable result = new DataTable();
+            var result = new DataTable();
             if (list.Count > 0)
             {
-                PropertyInfo[] propertys = list[0].GetType().GetProperties();
-                foreach (PropertyInfo pi in propertys)
+                var propertys = list[0].GetType().GetProperties();
+                foreach (var pi in propertys)
                 {
                     result.Columns.Add(pi.Name, pi.PropertyType);
                 }
 
-                for (int i = 0; i < list.Count; i++)
+                for (var i = 0; i < list.Count; i++)
                 {
-                    ArrayList tempList = new ArrayList();
-                    foreach (PropertyInfo pi in propertys)
+                    var tempList = new ArrayList();
+                    foreach (var pi in propertys)
                     {
-                        object obj = pi.GetValue(list[i], null);
+                        var obj = pi.GetValue(list[i], null);
                         tempList.Add(obj);
                     }
-                    object[] array = tempList.ToArray();
+                    var array = tempList.ToArray();
                     result.LoadDataRow(array, true);
                 }
             }
@@ -214,14 +197,17 @@ namespace System.Web.UI.WebControls
         /// <returns>数据集(表)</returns>
         public static DataTable ToDataTable<T>(IList<T> list, params string[] propertyName)
         {
-            List<string> propertyNameList = new List<string>();
-            if (propertyName != null) propertyNameList.AddRange(propertyName);
+            var propertyNameList = new List<string>();
+            if (propertyName != null)
+            {
+                propertyNameList.AddRange(propertyName);
+            }
 
-            DataTable result = new DataTable();
+            var result = new DataTable();
             if (list.Count > 0)
             {
-                PropertyInfo[] propertys = list[0].GetType().GetProperties();
-                foreach (PropertyInfo pi in propertys)
+                var propertys = list[0].GetType().GetProperties();
+                foreach (var pi in propertys)
                 {
                     if (propertyNameList.Count == 0)
                     {
@@ -229,30 +215,33 @@ namespace System.Web.UI.WebControls
                     }
                     else
                     {
-                        if (propertyNameList.Contains(pi.Name)) result.Columns.Add(pi.Name, pi.PropertyType);
+                        if (propertyNameList.Contains(pi.Name))
+                        {
+                            result.Columns.Add(pi.Name, pi.PropertyType);
+                        }
                     }
                 }
 
-                for (int i = 0; i < list.Count; i++)
+                for (var i = 0; i < list.Count; i++)
                 {
-                    ArrayList tempList = new ArrayList();
-                    foreach (PropertyInfo pi in propertys)
+                    var tempList = new ArrayList();
+                    foreach (var pi in propertys)
                     {
                         if (propertyNameList.Count == 0)
                         {
-                            object obj = pi.GetValue(list[i], null);
+                            var obj = pi.GetValue(list[i], null);
                             tempList.Add(obj);
                         }
                         else
                         {
                             if (propertyNameList.Contains(pi.Name))
                             {
-                                object obj = pi.GetValue(list[i], null);
+                                var obj = pi.GetValue(list[i], null);
                                 tempList.Add(obj);
                             }
                         }
                     }
-                    object[] array = tempList.ToArray();
+                    var array = tempList.ToArray();
                     result.LoadDataRow(array, true);
                 }
             }

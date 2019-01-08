@@ -45,15 +45,15 @@ namespace System.Web.UI.WebControls
         /// </summary>
         /// <param name="theStream">流</param>
         /// <returns>字节数组</returns>
-        public byte[] ConvertStreamToByteBuffer(System.IO.Stream theStream)
+        public byte[] ConvertStreamToByteBuffer(Stream theStream)
         {
             int bi;
-            MemoryStream tempStream = new System.IO.MemoryStream();
+            var tempStream = new MemoryStream();
             try
             {
                 while ((bi = theStream.ReadByte()) != -1)
                 {
-                    tempStream.WriteByte(((byte)bi));
+                    tempStream.WriteByte((byte)bi);
                 }
                 return tempStream.ToArray();
             }
@@ -75,15 +75,15 @@ namespace System.Web.UI.WebControls
         /// <param name="imagePath">保存的文件路径</param>
         public string FileSc(FileUpload PosPhotoUpload, string saveFileName, string imagePath)
         {
-            string state = "";
+            var state = "";
             if (PosPhotoUpload.HasFile)
             {
                 if (PosPhotoUpload.PostedFile.ContentLength / 1024 < 10240)
                 {
-                    string MimeType = PosPhotoUpload.PostedFile.ContentType;
-                    if (String.Equals(MimeType, "image/gif") || String.Equals(MimeType, "image/pjpeg"))
+                    var MimeType = PosPhotoUpload.PostedFile.ContentType;
+                    if (string.Equals(MimeType, "image/gif") || string.Equals(MimeType, "image/pjpeg"))
                     {
-                        string extFileString = System.IO.Path.GetExtension(PosPhotoUpload.PostedFile.FileName);
+                        var extFileString = Path.GetExtension(PosPhotoUpload.PostedFile.FileName);
                         PosPhotoUpload.PostedFile.SaveAs(HttpContext.Current.Server.MapPath(imagePath));
                     }
                     else
@@ -116,15 +116,15 @@ namespace System.Web.UI.WebControls
         public void SaveFile(byte[] binData, string fileName, string fileType)
         {
             FileStream fileStream = null;
-            MemoryStream m = new MemoryStream(binData);
+            var m = new MemoryStream(binData);
             try
             {
-                string savePath = HttpContext.Current.Server.MapPath("~/File/");
+                var savePath = HttpContext.Current.Server.MapPath("~/File/");
                 if (!Directory.Exists(savePath))
                 {
                     Directory.CreateDirectory(savePath);
                 }
-                string File = savePath + fileName + fileType;
+                var File = savePath + fileName + fileType;
                 fileStream = new FileStream(File, FileMode.Create);
                 m.WriteTo(fileStream);
             }
