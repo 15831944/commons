@@ -1,5 +1,6 @@
 ﻿using Chloe.Infrastructure;
 using Chloe.Oracle;
+
 using Oracle.ManagedDataAccess.Client;
 
 namespace System.Data.Chloe
@@ -28,65 +29,65 @@ namespace System.Data.Chloe
 
         public OracleConnectionDecorator(OracleConnection oracleConnection)
         {
-            _oracleConnection = oracleConnection ?? throw new Exception("Please call 911.");
+            this._oracleConnection = oracleConnection ?? throw new Exception("Please call 911.");
         }
 
         public string ConnectionString
         {
-            get { return _oracleConnection.ConnectionString; }
-            set { _oracleConnection.ConnectionString = value; }
+            get { return this._oracleConnection.ConnectionString; }
+            set { this._oracleConnection.ConnectionString = value; }
         }
 
         public int ConnectionTimeout
         {
-            get { return _oracleConnection.ConnectionTimeout; }
+            get { return this._oracleConnection.ConnectionTimeout; }
         }
 
         public string Database
         {
-            get { return _oracleConnection.Database; }
+            get { return this._oracleConnection.Database; }
         }
 
         public ConnectionState State
         {
-            get { return _oracleConnection.State; }
+            get { return this._oracleConnection.State; }
         }
 
         public IDbTransaction BeginTransaction()
         {
-            return _oracleConnection.BeginTransaction();
+            return this._oracleConnection.BeginTransaction();
         }
 
         public IDbTransaction BeginTransaction(IsolationLevel il)
         {
-            return _oracleConnection.BeginTransaction(il);
+            return this._oracleConnection.BeginTransaction(il);
         }
 
         public void ChangeDatabase(string databaseName)
         {
-            _oracleConnection.ChangeDatabase(databaseName);
+            this._oracleConnection.ChangeDatabase(databaseName);
         }
 
         public void Close()
         {
-            _oracleConnection.Close();
+            this._oracleConnection.Close();
         }
 
         public IDbCommand CreateCommand()
         {
-            var cmd = _oracleConnection.CreateCommand();
+            var cmd = this._oracleConnection.CreateCommand();
             cmd.BindByName = true;
             return cmd;
         }
 
         public void Open()
         {
-            _oracleConnection.Open();
+            this._oracleConnection.Open();
         }
 
         public void Dispose()
         {
-            _oracleConnection.Dispose();
+            this._oracleConnection.Dispose();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Chloe.Infrastructure;
 using Chloe.MySql;
+
 using MySql.Data.MySqlClient;
 
 namespace System.Data.Chloe

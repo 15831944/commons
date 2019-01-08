@@ -1,6 +1,7 @@
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,9 +11,13 @@ namespace System.Cloud
     public class S3Storage : IStorage
     {
         private const string accessKeyId = " ";
+
         private const string accessKeySecret = " ";
+
         public static RegionEndpoint endpoint = RegionEndpoint.CNNorth1;
+
         public static string bucketName = "school";
+
         private IAmazonS3 client;
 
         public string UploadFile(string key, Stream file)

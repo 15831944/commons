@@ -2,6 +2,7 @@ using Aliyun.OSS;
 using Aliyun.OSS.Common;
 using Aliyun.OSS.Common.Authentication;
 using Aliyun.OSS.Util;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -12,33 +13,37 @@ namespace System.Cloud
     public class OssStorage : IStorage
     {
         private const string accessKeyId = " ";
+
         private const string accessKeySecret = " ";
+
         public static string endpoint = "oss-cn-qingdao.aliyuncs.com";
+
         public static string endpointInternal = "oss-cn-qingdao-internal.aliyuncs.com";
+
         public static string bucketName = "think-cultural";
 
         #region 构造函数
 
-        private Aliyun.OSS.OssClient client;
+        private OssClient client;
 
         public OssStorage()
         {
-            this.client = new Aliyun.OSS.OssClient(endpoint, accessKeyId, accessKeySecret);
+            this.client = new OssClient(endpoint, accessKeyId, accessKeySecret);
         }
 
         public OssStorage(ClientConfiguration configuration)
         {
-            this.client = new Aliyun.OSS.OssClient(endpoint, accessKeyId, accessKeySecret, configuration);
+            this.client = new OssClient(endpoint, accessKeyId, accessKeySecret, configuration);
         }
 
         public OssStorage(ICredentialsProvider credsProvider)
         {
-            this.client = new Aliyun.OSS.OssClient(endpoint, credsProvider);
+            this.client = new OssClient(endpoint, credsProvider);
         }
 
         public OssStorage(ICredentialsProvider credsProvider, ClientConfiguration configuration)
         {
-            this.client = new Aliyun.OSS.OssClient(endpoint, credsProvider, configuration);
+            this.client = new OssClient(endpoint, credsProvider, configuration);
         }
 
         #endregion 构造函数

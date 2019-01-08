@@ -1,6 +1,8 @@
 ﻿using Chloe;
+
 using System.Collections.Generic;
 using System.Linq.Expressions;
+
 using static System.String;
 
 namespace System.Data.Chloe
@@ -17,14 +19,7 @@ namespace System.Data.Chloe
         /// <returns>插入数据的主键</returns>
         public object Insert(Expression<Func<T>> content, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Insert(content);
-            }
-            else
-            {
-                return this.DbContext.Insert(content, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Insert(content) : this.DbContext.Insert(content, table);
         }
 
         /// <summary>
@@ -35,14 +30,7 @@ namespace System.Data.Chloe
         /// <returns>插入的数据</returns>
         public T Insert(T entity, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Insert(entity);
-            }
-            else
-            {
-                return this.DbContext.Insert(entity, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Insert(entity) : this.DbContext.Insert(entity, table);
         }
 
         /// <summary>
@@ -68,14 +56,7 @@ namespace System.Data.Chloe
         /// <returns>删除的行数</returns>
         public int Delete(Expression<Func<T, bool>> condition, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Delete(condition);
-            }
-            else
-            {
-                return this.DbContext.Delete(condition, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Delete(condition) : this.DbContext.Delete(condition, table);
         }
 
         /// <summary>
@@ -86,14 +67,7 @@ namespace System.Data.Chloe
         /// <returns>删除的行数</returns>
         public int Delete(T entity, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Delete(entity);
-            }
-            else
-            {
-                return this.DbContext.Delete(entity, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Delete(entity) : this.DbContext.Delete(entity, table);
         }
 
         /// <summary>
@@ -104,14 +78,7 @@ namespace System.Data.Chloe
         /// <returns>删除的行数</returns>
         public int Delete(object key, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.DeleteByKey<T>(key);
-            }
-            else
-            {
-                return this.DbContext.DeleteByKey<T>(key, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.DeleteByKey<T>(key) : this.DbContext.DeleteByKey<T>(key, table);
         }
 
         #endregion 删
@@ -127,14 +94,7 @@ namespace System.Data.Chloe
         /// <returns>更新的行数</returns>
         public int Update(Expression<Func<T, bool>> condition, Expression<Func<T, T>> content, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Update(condition, content);
-            }
-            else
-            {
-                return this.DbContext.Update(condition, content, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Update(condition, content) : this.DbContext.Update(condition, content, table);
         }
 
         /// <summary>
@@ -145,14 +105,7 @@ namespace System.Data.Chloe
         /// <returns>更改的行数</returns>
         public int Update(T entity, string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Update(entity);
-            }
-            else
-            {
-                return this.DbContext.Update(entity, table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Update(entity) : this.DbContext.Update(entity, table);
         }
 
         /// <summary>
@@ -178,14 +131,7 @@ namespace System.Data.Chloe
         /// <returns>POCO实体</returns>
         public T Query(object key, string table = null, bool tracking = false)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.QueryByKey<T>(key, tracking);
-            }
-            else
-            {
-                return this.DbContext.QueryByKey<T>(key, table, tracking);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.QueryByKey<T>(key, tracking) : this.DbContext.QueryByKey<T>(key, table, tracking);
         }
 
         #endregion 查
@@ -199,14 +145,7 @@ namespace System.Data.Chloe
         /// <returns>基本查询的强类型对象化查询接口</returns>
         public IQuery<T> GetQuery(string table = null)
         {
-            if (IsNullOrWhiteSpace(table))
-            {
-                return this.DbContext.Query<T>();
-            }
-            else
-            {
-                return this.DbContext.Query<T>(table);
-            }
+            return IsNullOrWhiteSpace(table) ? this.DbContext.Query<T>() : this.DbContext.Query<T>(table);
         }
 
         /// <summary>

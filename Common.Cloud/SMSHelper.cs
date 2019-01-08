@@ -10,8 +10,8 @@ namespace System.Cloud
         {
             var product = "Dysmsapi";//短信API产品名称
             var domain = "dysmsapi.aliyuncs.com";//短信API产品域名
-            var accessKeyId = "LTAI87YNqxLGBWC1";//你的accessKeyId
-            var accessKeySecret = "6P10EuHxZucbaVTqO7raYdJFM6gu5n";//你的accessKeySecret
+            var accessKeyId = " ";//你的accessKeyId
+            var accessKeySecret = " ";//你的accessKeySecret
             var profile = DefaultProfile.GetProfile("cn-hangzhou", accessKeyId, accessKeySecret);
             DefaultProfile.AddEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
             var acsClient = new DefaultAcsClient(profile);

@@ -11,6 +11,7 @@ namespace System.Data.Chloe
     public class DbContextFactory
     {
         public static string ConnectionString { get; private set; }
+
         public static string DbType { get; private set; }
 
         static DbContextFactory()
