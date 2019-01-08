@@ -2,8 +2,7 @@
 {
     public abstract class ClaimControllerBase<TClaim> : Controller where TClaim : class, IClaimInfo
     {
-        protected ClaimControllerBase()
-    : this(null)
+        protected ClaimControllerBase() : this(null)
         {
         }
 

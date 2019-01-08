@@ -282,7 +282,7 @@ namespace System.Web
                 for (var j = 0; j < destBmp.Height; j++)
                 {
                     double dx = 0;
-                    dx = bXDir ? (PI * j) / dBaseAxisLen : PI * i / dBaseAxisLen;
+                    dx = bXDir ? PI * j / dBaseAxisLen : PI * i / dBaseAxisLen;
                     dx += dPhase;
                     var dy = Math.Sin(dx);
                     int nOldX = 0, nOldY = 0;

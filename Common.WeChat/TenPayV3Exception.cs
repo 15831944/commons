@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-
-namespace System.WeChat
+﻿namespace System.WeChat
 {
     public class TenPayV3Exception : Exception
     {

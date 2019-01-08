@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace System.Web.Mvc
 {
@@ -17,6 +11,7 @@ namespace System.Web.Mvc
         public string Message { get; set; }
 
         public bool Success { get; set; }
+
         public JObject Data { get; set; }
 
         #endregion Properties
@@ -33,7 +28,7 @@ namespace System.Web.Mvc
             var response = context.HttpContext.Response;
             response.ContentType = ResponseContentType;
 
-            response.Write(BuildResponse());
+            response.Write(this.BuildResponse());
         }
 
         private string BuildResponse()

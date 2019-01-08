@@ -12,20 +12,11 @@ namespace System.WeChat
         public static Tuple<string, TenPayV3UnifiedorderRequestData, UnifiedorderResult> Pay(Uri uri, string openid, string outTradeNo, int totalFee, string body, string spbillCreateIp)
         {
             var nonceStr = TenPayV3Util.GetNoncestr();
-            var url = "";
-            if (uri.Scheme == "http" && uri.Port == 80)
-            {
-                url = uri.Scheme + @"://" + uri.Host + WeChatInfo.TenPayV3NotifyUrl;
-            }
-            else if (uri.Scheme == "https" && uri.Port == 443)
-            {
-                url = uri.Scheme + @"://" + uri.Host + WeChatInfo.TenPayV3NotifyUrl;
-            }
-            else
-            {
-                url = uri.Scheme + @"://" + uri.Host + @":" + uri.Port + WeChatInfo.TenPayV3NotifyUrl;
-            }
-
+            var url = uri.Scheme == "http" && uri.Port == 80
+                ? uri.Scheme + @"://" + uri.Host + WeChatInfo.TenPayV3NotifyUrl
+                : uri.Scheme == "https" && uri.Port == 443
+                    ? uri.Scheme + @"://" + uri.Host + WeChatInfo.TenPayV3NotifyUrl
+                    : uri.Scheme + @"://" + uri.Host + @":" + uri.Port + WeChatInfo.TenPayV3NotifyUrl;
             var dataInfo = new TenPayV3UnifiedorderRequestData(WeChatInfo.AppID, WeChatInfo.MchID, body, outTradeNo, totalFee, spbillCreateIp, url, Senparc.Weixin.TenPay.TenPayV3Type.JSAPI, openid, WeChatInfo.Key, nonceStr, "WEB", DateTime.Now, DateTime.Now.AddMinutes(5));
             var uresult = TenPayV3.Unifiedorder(dataInfo);
             switch (uresult.return_code)
