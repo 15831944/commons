@@ -13,7 +13,7 @@ namespace Utils.Tests
             var s = "asdad";
             var ss = s.Split(new char[] { ',' });
             var list = new List<string>();
-            list.JoinToString(",");
+            
         }
     }
 }

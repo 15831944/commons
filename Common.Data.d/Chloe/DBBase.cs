@@ -16,6 +16,10 @@ namespace System.Data.Chloe
         {
             get
             {
+                //var foo = new Lazy<IDbContext>(() => DbContextFactory.CreateContext());
+
+                //var bar = new WeakReference<IDbContext>(foo.Value);
+                
                 if (this._dbContext == null)
                 {
                     this._dbContext = DbContextFactory.CreateContext();
