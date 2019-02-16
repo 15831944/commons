@@ -5,7 +5,7 @@ using System.Data.Common;
 using System.Reflection;
 using System.Text;
 
-namespace System.JSON
+namespace System.Json
 {
     //JSON转换类
     public class ConvertJson

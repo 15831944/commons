@@ -3,7 +3,7 @@ using System.Runtime.Serialization.Json;
 
 using System.Text;
 
-namespace System.JSON
+namespace System.Json
 {
     public class SerializerJsonHelper
     {

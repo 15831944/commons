@@ -1,6 +1,6 @@
 ﻿using System.Web.Script.Serialization;
 
-namespace System.JSON
+namespace System.Json
 {
     public class JsonHelper
     {
