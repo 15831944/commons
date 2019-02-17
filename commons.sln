@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils.Tests", "Utils.Tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{6A1930CB-EEDF-4D79-9B63-4882299EF8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.WeChat.d", "Common.WeChat.d\Common.WeChat.d.csproj", "{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Cloud", "Common.Cloud\Common.Cloud.csproj", "{92EA453B-4458-4375-A116-6727EF89247F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Data", "Common.Data\Common.Data.csproj", "{C3798179-1E13-4339-A593-E33FEBC7AC04}"
@@ -21,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Web.Mvc", "Common.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.WeChat", "Common.WeChat\Common.WeChat.csproj", "{771B635C-8ED4-478F-ABBE-90EB76E80941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Nancy", "Common.Nancy\Common.Nancy.csproj", "{77E70B0B-C4C4-4BF2-8B3C-91A66B3FFC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Nancy", "Common.Nancy\Common.Nancy.csproj", "{77E70B0B-C4C4-4BF2-8B3C-91A66B3FFC3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Castle", "Common.Castle\Common.Castle.csproj", "{F6AB6A62-7F7B-41F5-8E23-11111D461E9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Castle", "Common.Castle\Common.Castle.csproj", "{F6AB6A62-7F7B-41F5-8E23-11111D461E9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,12 +42,6 @@ Global
 		{6A1930CB-EEDF-4D79-9B63-4882299EF8F6}.Publish|Any CPU.Build.0 = Debug|Any CPU
 		{6A1930CB-EEDF-4D79-9B63-4882299EF8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A1930CB-EEDF-4D79-9B63-4882299EF8F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Publish|Any CPU.ActiveCfg = Release|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Publish|Any CPU.Build.0 = Release|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C03D9F6D-21DA-4D1B-B3E5-CED7E669FFCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92EA453B-4458-4375-A116-6727EF89247F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{92EA453B-4458-4375-A116-6727EF89247F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92EA453B-4458-4375-A116-6727EF89247F}.Publish|Any CPU.ActiveCfg = Debug|Any CPU
