@@ -89,4 +89,19 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UI\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Update="UI\CacheEnabledPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Update="UI\Utility.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Update="UI\ValidateImg.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>
