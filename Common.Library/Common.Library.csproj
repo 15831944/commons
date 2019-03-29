@@ -15,299 +15,167 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard1.6' OR '$(TargetFramework)' == 'netstandard1.5' OR '$(TargetFramework)' == 'netstandard1.4' OR '$(TargetFramework)' == 'netstandard1.3' OR '$(TargetFramework)' == 'netstandard1.2' OR '$(TargetFramework)' == 'netstandard1.1' OR '$(TargetFramework)' == 'netstandard1.0' OR '$(TargetFramework)' == 'netcoreapp1.1' OR '$(TargetFramework)' == 'netcoreapp1.0'">
     <DefineConstants>NS1</DefineConstants>
   </PropertyGroup>
-  
-  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
-    <PackageReference Include="Bundle.Microsoft.Office.Interop">
-      <Version>15.0.4569</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Report.Signed">
-      <Version>0.1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Signed">
-      <Version>0.94.2</Version>
-    </PackageReference>
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
-    </PackageReference>
-    <PackageReference Include="DocX">
-      <Version>1.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.2</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Common">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Logging">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EPPlus">
-      <Version>4.5.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader.DataSet">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="FastMember.Signed">
-      <Version>1.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.OneNote">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.Publisher">
-      <Version>2.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <Version>2.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel">
-      <Version>15.0.4795.1000</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Graph">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Outlook">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
-    </PackageReference>
-    <PackageReference Include="NPOI">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="QRCoder">
-      <Version>1.3.5</Version>
-    </PackageReference>
-    <PackageReference Include="RestSharp">
-      <Version>106.6.7</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.ClosedXml">
-      <Version>0.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.NPOI">
-      <Version>0.8.0</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <PackageReference Include="Bundle.Microsoft.Office.Interop">
-      <Version>15.0.4569</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Report.Signed">
-      <Version>0.1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Signed">
-      <Version>0.94.2</Version>
-    </PackageReference>
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
-    </PackageReference>
-    <PackageReference Include="DocX">
-      <Version>1.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.2</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Common">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Logging">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EPPlus">
-      <Version>4.5.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader.DataSet">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.OneNote">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.Publisher">
-      <Version>2.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <Version>2.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel">
-      <Version>15.0.4795.1000</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Graph">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Outlook">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
-    </PackageReference>
-    <PackageReference Include="NPOI">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="QRCoder">
-      <Version>1.3.5</Version>
-    </PackageReference>
-    <PackageReference Include="RestSharp">
-      <Version>106.6.7</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
-    <PackageReference Include="Bundle.Microsoft.Office.Interop">
-      <Version>15.0.4569</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Report.Signed">
-      <Version>0.1.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="ClosedXML.Signed">
-      <Version>0.94.2</Version>
-    </PackageReference>
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
-    </PackageReference>
-    <PackageReference Include="DocX">
-      <Version>1.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.2</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Common">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Logging">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EPPlus">
-      <Version>4.5.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader.DataSet">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.OneNote">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.Publisher">
-      <Version>2.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <Version>2.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel">
-      <Version>15.0.4795.1000</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Graph">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Outlook">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
-    </PackageReference>
-    <PackageReference Include="NPOI">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="QRCoder">
-      <Version>1.3.5</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.1.0</Version>
-    </PackageReference>
-  </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="ClosedXML.Report.Signed">
+      <Version>0.1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="ClosedXML.Signed">
+      <Version>0.94.2</Version>
+    </PackageReference>
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.2</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember.Signed">
+      <Version>1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="NPOI">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="QRCoder">
+      <Version>1.3.5</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.ClosedXml">
+      <Version>0.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.NPOI">
+      <Version>0.8.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -415,7 +283,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -449,6 +317,9 @@
     <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
     </PackageReference>
+    <PackageReference Include="FastMember.Signed">
+      <Version>1.4.1</Version>
+    </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
     </PackageReference>
@@ -463,6 +334,9 @@
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <Version>2.0.1</Version>
@@ -503,96 +377,21 @@
     <PackageReference Include="SharpZipLib">
       <Version>1.1.0</Version>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
-    <PackageReference Include="Bundle.Microsoft.Office.Interop">
-      <Version>15.0.4569</Version>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
     </PackageReference>
-    <PackageReference Include="ClosedXML.Report.Signed">
-      <Version>0.1.1.1</Version>
+    <PackageReference Include="TableIO">
+      <Version>2.0.0</Version>
     </PackageReference>
-    <PackageReference Include="ClosedXML.Signed">
-      <Version>0.94.2</Version>
+    <PackageReference Include="TableIO.ClosedXml">
+      <Version>0.8.0</Version>
     </PackageReference>
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
-    </PackageReference>
-    <PackageReference Include="DocX">
-      <Version>1.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="DotNetZip">
-      <Version>1.13.2</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Common">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EnterpriseLibrary.Logging">
-      <Version>6.0.1304</Version>
-    </PackageReference>
-    <PackageReference Include="EPPlus">
-      <Version>4.5.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader.DataSet">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.OneNote">
-      <Version>1.1.0</Version>
-    </PackageReference>
-    <PackageReference Include="Interop.Microsoft.Office.Interop.Publisher">
-      <Version>2.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <Version>2.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel">
-      <Version>15.0.4795.1000</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Graph">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Outlook">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
-    </PackageReference>
-    <PackageReference Include="NPOI">
-      <Version>2.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="QRCoder">
-      <Version>1.3.5</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.1.0</Version>
+    <PackageReference Include="TableIO.NPOI">
+      <Version>0.8.0</Version>
     </PackageReference>
   </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -808,7 +607,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net471'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -916,7 +715,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -949,9 +748,6 @@
     </PackageReference>
     <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="FastMember.Signed">
-      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
@@ -1013,18 +809,9 @@
     <PackageReference Include="System.IO.Packaging">
       <Version>4.5.0</Version>
     </PackageReference>
-    <PackageReference Include="TableIO">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.ClosedXml">
-      <Version>0.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.NPOI">
-      <Version>0.8.0</Version>
-    </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -1058,9 +845,6 @@
     <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
     </PackageReference>
-    <PackageReference Include="FastMember.Signed">
-      <Version>1.4.1</Version>
-    </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
     </PackageReference>
@@ -1075,9 +859,6 @@
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <Version>2.0.1</Version>
@@ -1118,21 +899,9 @@
     <PackageReference Include="SharpZipLib">
       <Version>1.1.0</Version>
     </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.ClosedXml">
-      <Version>0.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.NPOI">
-      <Version>0.8.0</Version>
-    </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -1166,9 +935,6 @@
     <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
     </PackageReference>
-    <PackageReference Include="FastMember.Signed">
-      <Version>1.4.1</Version>
-    </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
     </PackageReference>
@@ -1183,9 +949,6 @@
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <Version>2.0.1</Version>
@@ -1220,27 +983,12 @@
     <PackageReference Include="QRCoder">
       <Version>1.3.5</Version>
     </PackageReference>
-    <PackageReference Include="RestSharp">
-      <Version>106.6.7</Version>
-    </PackageReference>
     <PackageReference Include="SharpZipLib">
       <Version>1.1.0</Version>
     </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.ClosedXml">
-      <Version>0.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.NPOI">
-      <Version>0.8.0</Version>
-    </PackageReference>
   </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
     </PackageReference>
@@ -1274,9 +1022,6 @@
     <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
     </PackageReference>
-    <PackageReference Include="FastMember.Signed">
-      <Version>1.4.1</Version>
-    </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
     </PackageReference>
@@ -1291,9 +1036,6 @@
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <Version>2.0.1</Version>
@@ -1328,86 +1070,11 @@
     <PackageReference Include="QRCoder">
       <Version>1.3.5</Version>
     </PackageReference>
-    <PackageReference Include="RestSharp">
-      <Version>106.6.7</Version>
-    </PackageReference>
     <PackageReference Include="SharpZipLib">
       <Version>1.1.0</Version>
     </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO">
-      <Version>2.0.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.ClosedXml">
-      <Version>0.8.0</Version>
-    </PackageReference>
-    <PackageReference Include="TableIO.NPOI">
-      <Version>0.8.0</Version>
-    </PackageReference>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Win32\Sample.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Win32\Sample.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Net.Compilers" Version="2.10.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net20'">
-    <PackageReference Include="Bundle.Microsoft.Office.Interop">
-      <Version>15.0.4569</Version>
-    </PackageReference>
-    <PackageReference Include="DocX">
-      <Version>1.2.1</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="ExcelDataReader.DataSet">
-      <Version>3.4.2</Version>
-    </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="iTextSharp">
-      <Version>5.5.13</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Excel">
-      <Version>15.0.4795.1000</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Graph">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Outlook">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
-      <Version>15.0.4420.1017</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Office.Interop.Word">
-      <Version>15.0.4797.1003</Version>
-    </PackageReference>
-  </ItemGroup>
-
+  
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <PackageReference Include="Bundle.Microsoft.Office.Interop">
       <Version>15.0.4569</Version>
@@ -1540,36 +1207,75 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net20'">
+    <PackageReference Include="Bundle.Microsoft.Office.Interop">
+      <Version>15.0.4569</Version>
+    </PackageReference>
+    <PackageReference Include="DocX">
+      <Version>1.2.1</Version>
     </PackageReference>
     <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
       <Version>3.4.2</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
     </PackageReference>
+    <PackageReference Include="iTextSharp">
+      <Version>5.5.13</Version>
+    </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
+    <PackageReference Include="Microsoft.Office.Interop.Access">
+      <Version>15.0.4420.1017</Version>
     </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
+    <PackageReference Include="Microsoft.Office.Interop.Access.Dao">
+      <Version>15.0.4420.1017</Version>
     </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
+    <PackageReference Include="Microsoft.Office.Interop.Excel">
+      <Version>15.0.4795.1000</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.Graph">
+      <Version>15.0.4420.1017</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.Outlook">
+      <Version>15.0.4797.1003</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.PowerPoint">
+      <Version>15.0.4420.1017</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Office.Interop.Word">
+      <Version>15.0.4797.1003</Version>
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.5'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.2'">
+    <PackageReference Include="ClosedXML.Report.Signed">
+      <Version>0.1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="ClosedXML.Signed">
+      <Version>0.94.2</Version>
+    </PackageReference>
     <PackageReference Include="DocumentFormat.OpenXml">
       <Version>2.9.0</Version>
     </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.2</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.3.1</Version>
+    </PackageReference>
     <PackageReference Include="ExcelDataReader">
       <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember.Signed">
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
@@ -1583,17 +1289,119 @@
     <PackageReference Include="NLog">
       <Version>4.5.11</Version>
     </PackageReference>
+    <PackageReference Include="NPOI">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="QRCoder">
+      <Version>1.3.5</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.1.0</Version>
+    </PackageReference>
     <PackageReference Include="System.IO.Packaging">
       <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.ClosedXml">
+      <Version>0.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.NPOI">
+      <Version>0.8.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <PackageReference Include="ClosedXML.Report.Signed">
+      <Version>0.1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="ClosedXML.Signed">
+      <Version>0.94.2</Version>
+    </PackageReference>
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.2</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember.Signed">
+      <Version>1.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="NPOI">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="QRCoder">
+      <Version>1.3.5</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.6.7</Version>
+    </PackageReference>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.ClosedXml">
+      <Version>0.8.0</Version>
+    </PackageReference>
+    <PackageReference Include="TableIO.NPOI">
+      <Version>0.8.0</Version>
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
+    <PackageReference Include="ClosedXML.Report.Signed">
+      <Version>0.1.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="ClosedXML.Signed">
+      <Version>0.94.2</Version>
+    </PackageReference>
     <PackageReference Include="DocumentFormat.OpenXml">
       <Version>2.9.0</Version>
     </PackageReference>
+    <PackageReference Include="DotNetZip">
+      <Version>1.13.2</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>4.5.3.1</Version>
+    </PackageReference>
     <PackageReference Include="ExcelDataReader">
       <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader.DataSet">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="FastMember.Signed">
+      <Version>1.4.1</Version>
     </PackageReference>
     <PackageReference Include="HtmlAgilityPack">
       <Version>1.8.14</Version>
@@ -1607,56 +1415,29 @@
     <PackageReference Include="NLog">
       <Version>4.5.11</Version>
     </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
+    <PackageReference Include="NPOI">
+      <Version>2.4.1</Version>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.3'">
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
+    <PackageReference Include="QRCoder">
+      <Version>1.3.5</Version>
     </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
+    <PackageReference Include="RestSharp">
+      <Version>106.6.7</Version>
     </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
+    <PackageReference Include="SharpZipLib">
+      <Version>1.1.0</Version>
     </PackageReference>
     <PackageReference Include="System.IO.Packaging">
       <Version>4.5.0</Version>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">
-    <PackageReference Include="DocumentFormat.OpenXml">
-      <Version>2.9.0</Version>
+    <PackageReference Include="TableIO">
+      <Version>2.0.0</Version>
     </PackageReference>
-    <PackageReference Include="ExcelDataReader">
-      <Version>3.4.2</Version>
+    <PackageReference Include="TableIO.ClosedXml">
+      <Version>0.8.0</Version>
     </PackageReference>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.8.14</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>2.0.8</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis">
-      <Version>2.10.0</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.5.11</Version>
-    </PackageReference>
-    <PackageReference Include="System.IO.Packaging">
-      <Version>4.5.0</Version>
+    <PackageReference Include="TableIO.NPOI">
+      <Version>0.8.0</Version>
     </PackageReference>
   </ItemGroup>
 
@@ -1683,7 +1464,46 @@
       <Version>4.5.0</Version>
     </PackageReference>
   </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">
+    <PackageReference Include="DocumentFormat.OpenXml">
+      <Version>2.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="ExcelDataReader">
+      <Version>3.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="HtmlAgilityPack">
+      <Version>1.8.14</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.5.11</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Packaging">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Net.Compilers" Version="2.10.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Win32\Sample.xml" />
+  </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Win32\Sample.xml" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Update="UpLoadFiles.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -1692,5 +1512,5 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
   </ItemGroup>
-
+  
 </Project>
